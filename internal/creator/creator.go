@@ -1,8 +1,6 @@
 package creator
 
 import (
-	"os"
-
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
@@ -26,8 +24,7 @@ func (c Mode) String() string {
 // Creator implements the "init" and "new" commands
 type Creator struct {
 	common.CommandRunner
-	common.FileWriter
-	common.FileSystemChecks
+	common.FileSystem
 	Mode Mode
 }
 
@@ -39,6 +36,7 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 	var steps = []creationStep{
 		creator.createTasks,
 		creator.createLicense,
+		creator.createReadme,
 	}
 
 	for _, step := range steps {
@@ -51,43 +49,47 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 
 }
 
+func (creator Creator) createReadme(project common.Project, cfg config.Config) error {
+
+	readme := newReadme(cfg)
+
+	path := project.RelPath(readmeFileName)
+	return creator.WriteTextFileIfNotExists(path, readme.markdownString())
+
+}
+
 func (creator Creator) createTasks(project common.Project, cfg config.Config) error {
 
-	tasksPath := project.RelPath(visualStudioFolderName, visualStudioCodeTasksFileName)
-	if creator.FileExists(tasksPath) {
-		return nil
-	}
+	tasksPath := project.RelPath(visualStudioDirName, visualStudioCodeTasksFileName)
 
-	tasks := newVisualStudioCodeTaskList()
+	tasks := newVisualStudioCodeTaskList(
+		visualStudioCodeTask{
+			Label:          "build",
+			Command:        "./build/go-james build",
+			ProblemMatcher: []string{"$go"},
+		},
+		visualStudioCodeTask{
+			Label:          "build (verbose)",
+			Command:        "./build/go-james build -v",
+			ProblemMatcher: []string{"$go"},
+		},
+		visualStudioCodeTask{
+			Label:          "tests",
+			Command:        "./build/go-james test",
+			ProblemMatcher: []string{"$go"},
+		},
+		visualStudioCodeTask{
+			Label:          "run",
+			Command:        "./build/go-james run",
+			ProblemMatcher: []string{"$go"},
+		},
+	)
 
-	tasks.Add(visualStudioCodeTask{
-		Label:          "build",
-		Command:        "./build/go-james build",
-		ProblemMatcher: []string{"$go"},
-	})
-
-	tasks.Add(visualStudioCodeTask{
-		Label:          "tests",
-		Command:        "./build/go-james test",
-		ProblemMatcher: []string{"$go"},
-	})
-
-	tasks.Add(visualStudioCodeTask{
-		Label:          "run",
-		Command:        "./build/go-james run",
-		ProblemMatcher: []string{"$go"},
-	})
-
-	os.MkdirAll(project.RelPath(visualStudioFolderName), 0755)
-
-	return creator.WriteJSONFile(tasksPath, tasks)
+	return creator.WriteJSONFileIfNotExists(tasksPath, tasks)
 
 }
 
 func (creator Creator) createLicense(project common.Project, cfg config.Config) error {
 	path := project.RelPath(licenseFileName)
-	if creator.FileExists(path) {
-		return nil
-	}
-	return creator.WriteTextFile(path, apacheLicense)
+	return creator.WriteTextFileIfNotExists(path, apacheLicense)
 }

@@ -1,6 +1,6 @@
 package creator
 
-const visualStudioFolderName = ".vscode"
+const visualStudioDirName = ".vscode"
 const visualStudioCodeTasksFileName = "tasks.json"
 
 type visualStudioCodeTasks struct {
@@ -16,11 +16,15 @@ type visualStudioCodeTask struct {
 	ProblemMatcher []string `json:"problemMatcher"`
 }
 
-func newVisualStudioCodeTaskList() *visualStudioCodeTasks {
-	return &visualStudioCodeTasks{
+func newVisualStudioCodeTaskList(tasks ...visualStudioCodeTask) *visualStudioCodeTasks {
+	result := &visualStudioCodeTasks{
 		Version: "2.0.0",
 		Tasks:   []visualStudioCodeTask{},
 	}
+	for _, task := range tasks {
+		result.Add(task)
+	}
+	return result
 }
 
 func (tasks *visualStudioCodeTasks) Add(task visualStudioCodeTask) {
