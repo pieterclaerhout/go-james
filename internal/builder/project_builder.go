@@ -1,4 +1,4 @@
-package internal
+package builder
 
 import (
 	"strings"
@@ -9,13 +9,14 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
 
-type projectBuilder struct {
+// Builder implements the "build" command
+type Builder struct {
 	common.CommandRunner
-	config  config.Config
-	verbose bool
+	Verbose bool
 }
 
-func (builder projectBuilder) Execute(project Project, cfg config.Config) error {
+// Execute executes the command
+func (builder Builder) Execute(project common.Project, cfg config.Config) error {
 
 	versionInfo := map[string]string{
 		"AppName":  cfg.Project.Name,
@@ -25,7 +26,7 @@ func (builder projectBuilder) Execute(project Project, cfg config.Config) error 
 
 	buildCmd := []string{"go", "build"}
 
-	if builder.verbose {
+	if builder.Verbose {
 		buildCmd = append(buildCmd, "-v")
 	}
 
@@ -36,7 +37,7 @@ func (builder projectBuilder) Execute(project Project, cfg config.Config) error 
 	ldFlags := cfg.Build.LDFlags
 
 	for key, val := range versionInfo {
-		ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(key, val)...)
+		ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, key, val)...)
 	}
 
 	if len(ldFlags) > 0 {
@@ -52,7 +53,7 @@ func (builder projectBuilder) Execute(project Project, cfg config.Config) error 
 
 }
 
-func (builder projectBuilder) determineRevision(project Project) string {
+func (builder Builder) determineRevision(project common.Project) string {
 
 	cmdLine := []string{"git", "rev-parse", "--short", "HEAD"}
 
@@ -61,7 +62,7 @@ func (builder projectBuilder) determineRevision(project Project) string {
 
 }
 
-func (builder projectBuilder) determineBranch(project Project) string {
+func (builder Builder) determineBranch(project common.Project) string {
 
 	cmdLine := []string{"git", "rev-parse", "--abbrev-ref", "HEAD"}
 
@@ -70,16 +71,14 @@ func (builder projectBuilder) determineBranch(project Project) string {
 
 }
 
-func (builder projectBuilder) ldFlagForVersionInfo(name string, value string) []string {
-
-	config := builder.config
+func (builder Builder) ldFlagForVersionInfo(cfg config.Config, name string, value string) []string {
 
 	result := []string{}
 
 	if name != "" && value != "" {
 		result = append(
 			result,
-			"-X", config.Project.Package+"/version."+name+"="+value,
+			"-X", cfg.Project.Package+"/version."+name+"="+value,
 		)
 	}
 

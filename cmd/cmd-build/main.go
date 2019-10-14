@@ -4,7 +4,6 @@ import (
 	"github.com/tucnak/climax"
 
 	"github.com/pieterclaerhout/go-james/internal"
-	"github.com/pieterclaerhout/go-log"
 )
 
 var Cmd = climax.Command{
@@ -24,15 +23,8 @@ var Cmd = climax.Command{
 
 		verbose := ctx.Is("verbose")
 
-		project := internal.NewProject("")
-		if err := project.DoBuild(verbose); err != nil {
-			if log.DebugMode {
-				log.Error(err)
-			}
-			return 1
-		}
-
-		return 0
+		executor := internal.NewExecutor("")
+		return executor.DoBuild(verbose)
 
 	},
 }

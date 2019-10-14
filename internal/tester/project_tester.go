@@ -1,16 +1,17 @@
-package internal
+package tester
 
 import (
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
 
-type projectTester struct {
+// Tester implements the "test" command
+type Tester struct {
 	common.CommandRunner
-	config config.Config
 }
 
-func (tester projectTester) Execute(project Project, cfg config.Config) error {
+// Execute executes the command
+func (tester Tester) Execute(project common.Project, cfg config.Config) error {
 
 	testCmd := []string{"go", "test", "-cover", "./..."}
 

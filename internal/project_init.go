@@ -1,14 +1,14 @@
 package internal
 
-import (
-	"github.com/pieterclaerhout/go-log"
-)
+// import (
+// 	"github.com/pieterclaerhout/go-log"
+// )
 
-func (project Project) DoInit() error {
+// func (project Project) DoInit() error {
 
-	log.Debug("Running: init")
-	log.Debug("Project path:", project.Path)
+// 	log.Debug("Running: init")
+// 	log.Debug("Project path:", project.Path)
 
-	return nil
+// 	return nil
 
-}
+// }

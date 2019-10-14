@@ -38,11 +38,8 @@ func main() {
 			args = os.Args[2:]
 		}
 
-		project := internal.NewProject("")
-		if err := project.DoRun(args); err != nil {
-			log.Error(err)
-			result = 1
-		}
+		executor := internal.NewExecutor("")
+		result = executor.DoRun(args)
 
 	} else {
 

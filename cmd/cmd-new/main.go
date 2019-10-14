@@ -2,9 +2,6 @@ package cmdnew
 
 import (
 	"github.com/tucnak/climax"
-
-	"github.com/pieterclaerhout/go-james/internal"
-	"github.com/pieterclaerhout/go-log"
 )
 
 var Cmd = climax.Command{
@@ -13,13 +10,13 @@ var Cmd = climax.Command{
 	Help:  "Create a new Go app or library",
 	Handle: func(ctx climax.Context) int {
 
-		project := internal.NewProject("")
-		if err := project.DoNew(); err != nil {
-			if log.DebugMode {
-				log.Error(err)
-			}
-			return 1
-		}
+		// project := internal.NetExecutor("")
+		// if err := project.DoNew(); err != nil {
+		// 	if log.DebugMode {
+		// 		log.Error(err)
+		// 	}
+		// 	return 1
+		// }
 
 		return 0
 

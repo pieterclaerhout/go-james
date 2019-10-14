@@ -4,7 +4,6 @@ import (
 	"github.com/tucnak/climax"
 
 	"github.com/pieterclaerhout/go-james/internal"
-	"github.com/pieterclaerhout/go-log"
 )
 
 var Cmd = climax.Command{
@@ -12,16 +11,7 @@ var Cmd = climax.Command{
 	Brief: "Run the tests",
 	Help:  "Run the tests",
 	Handle: func(ctx climax.Context) (exitcode int) {
-
-		project := internal.NewProject("")
-		if err := project.DoTest(); err != nil {
-			if log.DebugMode {
-				log.Error(err)
-			}
-			return 1
-		}
-
-		return 0
-
+		executor := internal.NewExecutor("")
+		return executor.DoTest()
 	},
 }
