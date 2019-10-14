@@ -12,9 +12,14 @@ import (
 	"github.com/pieterclaerhout/go-james/cmd/cmd-run"
 	"github.com/pieterclaerhout/go-james/cmd/cmd-test"
 	"github.com/pieterclaerhout/go-james/version"
+	"github.com/pieterclaerhout/go-log"
 )
 
 func main() {
+
+	if log.DebugMode {
+		log.PrintTimestamp = true
+	}
 
 	exePath, _ := os.Executable()
 	exeName := filepath.Base(exePath)
