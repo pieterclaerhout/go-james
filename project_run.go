@@ -22,10 +22,6 @@ func (project Project) DoRun(args []string) error {
 
 	runCmd := []string{filepath.Join(project.Path, config.Build.OuputName)}
 
-	if err := project.runCommandToStdout(runCmd); err != nil {
-		return err
-	}
-
-	return nil
+	return project.runCommandToStdout(runCmd)
 
 }
