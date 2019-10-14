@@ -25,6 +25,11 @@ func (r readme) markdownString() string {
 	b.WriteString("# " + r.Config.Project.Name + "\n")
 	b.WriteString("\n")
 
+	if r.Config.Project.Description != "" {
+		b.WriteString(r.Config.Project.Description + "\n")
+		b.WriteString("\n")
+	}
+
 	for _, badge := range r.Config.Badges() {
 		b.WriteString(badge.MarkdownString())
 		b.WriteString(" ")

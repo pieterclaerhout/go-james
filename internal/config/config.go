@@ -22,6 +22,7 @@ type Config struct {
 // ProjectConfig contains the general project variables
 type ProjectConfig struct {
 	Name        string `json:"name"`         // The name of the project
+	Description string `json:"description"`  // The description of the project
 	Package     string `json:"package"`      // The top-level package for the project
 	MainPackage string `json:"main_package"` // The package path to the main entry point (the package containing main)
 	Repository  string `json:"repository"`   // The path to the the Git repository of the project
