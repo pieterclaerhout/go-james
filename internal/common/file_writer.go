@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
-	"path/filepath"
 
 	"github.com/pieterclaerhout/go-log"
 )
@@ -13,14 +12,13 @@ import (
 type FileWriter struct{}
 
 // WriteTextFile creates a text with with data as its contents
-func (fileWriter FileWriter) WriteTextFile(project Project, path string, data string) error {
-	path = filepath.Join(project.Path, path)
-	fileWriter.logPathCreation(project, path)
+func (fileWriter FileWriter) WriteTextFile(path string, data string) error {
+	fileWriter.logPathCreation(path)
 	return ioutil.WriteFile(path, []byte(data), 0666)
 }
 
 // WriteJSONFile marshals the data into a JSON file
-func (fileWriter FileWriter) WriteJSONFile(project Project, path string, data interface{}) error {
+func (fileWriter FileWriter) WriteJSONFile(path string, data interface{}) error {
 
 	b, err := json.Marshal(data)
 	if err != nil {
@@ -29,19 +27,14 @@ func (fileWriter FileWriter) WriteJSONFile(project Project, path string, data in
 
 	b = fileWriter.formatBytes(b)
 
-	path = filepath.Join(project.Path, path)
-	fileWriter.logPathCreation(project, path)
+	fileWriter.logPathCreation(path)
 	return ioutil.WriteFile(path, b, 0777)
 
 }
 
 // logPathCreation logs the creation of a file path
-func (fileWriter FileWriter) logPathCreation(project Project, path string) {
-	relPath, err := filepath.Rel(project.Path, path)
-	if err != nil {
-		relPath = path
-	}
-	log.Info("Creating:", relPath)
+func (fileWriter FileWriter) logPathCreation(path string) {
+	log.Info("Creating:", path)
 }
 
 // formatBytes is a helper used to format JSON byte slices

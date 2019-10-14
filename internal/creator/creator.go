@@ -2,7 +2,6 @@ package creator
 
 import (
 	"os"
-	"path/filepath"
 
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
@@ -54,8 +53,8 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 
 func (creator Creator) createTasks(project common.Project, cfg config.Config) error {
 
-	tasksPath := filepath.Join(visualStudioFolderName, visualStudioCodeTasksFileName)
-	if creator.FileExists(project, tasksPath) {
+	tasksPath := project.RelPath(visualStudioFolderName, visualStudioCodeTasksFileName)
+	if creator.FileExists(tasksPath) {
 		return nil
 	}
 
@@ -79,18 +78,16 @@ func (creator Creator) createTasks(project common.Project, cfg config.Config) er
 		ProblemMatcher: []string{"$go"},
 	})
 
-	os.MkdirAll(filepath.Join(project.Path, visualStudioFolderName), 0755)
+	os.MkdirAll(project.RelPath(visualStudioFolderName), 0755)
 
-	return creator.WriteJSONFile(project, tasksPath, tasks)
+	return creator.WriteJSONFile(tasksPath, tasks)
 
 }
 
 func (creator Creator) createLicense(project common.Project, cfg config.Config) error {
-
-	if creator.FileExists(project, licenseFileName) {
+	path := project.RelPath(licenseFileName)
+	if creator.FileExists(path) {
 		return nil
 	}
-
-	return creator.WriteTextFile(project, licenseFileName, apacheLicense)
-
+	return creator.WriteTextFile(path, apacheLicense)
 }

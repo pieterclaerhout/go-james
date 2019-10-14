@@ -21,3 +21,11 @@ func NewProject(path string) Project {
 	}
 
 }
+
+// RelPath returns a relative path inside the project
+func (project Project) RelPath(subpath ...string) string {
+	fullpath := []string{}
+	fullpath = append(fullpath, project.Path)
+	fullpath = append(fullpath, subpath...)
+	return filepath.Join(fullpath...)
+}
