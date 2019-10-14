@@ -5,11 +5,12 @@ import (
 
 	"github.com/kballard/go-shellquote"
 
+	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
-	"github.com/pieterclaerhout/go-log"
 )
 
 type projectBuilder struct {
+	common.CommandRunner
 	Path    string
 	project Project
 	config  config.Config
@@ -19,7 +20,6 @@ type projectBuilder struct {
 func (builder projectBuilder) execute() error {
 
 	config := builder.config
-	project := builder.project
 
 	versionInfo := map[string]string{
 		"AppName":  config.Project.Name,
@@ -52,59 +52,25 @@ func (builder projectBuilder) execute() error {
 	}
 
 	buildCmd = append(buildCmd, config.Project.MainPackage)
-	return project.runCommandToStdout(buildCmd)
+	return builder.RunToStdout(buildCmd, builder.Path)
 
 }
 
 func (builder projectBuilder) determineRevision() string {
 
-	project := builder.project
-
 	cmdLine := []string{"git", "rev-parse", "--short", "HEAD"}
 
-	command, err := project.createCommand(cmdLine)
-	if err != nil {
-		if log.DebugMode {
-			log.Error(err)
-		}
-		return ""
-	}
-
-	log.Debug("Executing:", shellquote.Join(cmdLine...))
-	output, err := command.CombinedOutput()
-	if err != nil {
-		if log.DebugMode {
-			log.Error(err)
-		}
-	}
-
-	return strings.TrimSpace(string(output))
+	result, _ := builder.RunReturnOutput(cmdLine, builder.Path)
+	return strings.TrimSpace(result)
 
 }
 
 func (builder projectBuilder) determineBranch() string {
 
-	project := builder.project
-
 	cmdLine := []string{"git", "rev-parse", "--abbrev-ref", "HEAD"}
 
-	command, err := project.createCommand(cmdLine)
-	if err != nil {
-		if log.DebugMode {
-			log.Error(err)
-		}
-		return ""
-	}
-
-	log.Debug("Executing:", shellquote.Join(cmdLine...))
-	output, err := command.CombinedOutput()
-	if err != nil {
-		if log.DebugMode {
-			log.Error(err)
-		}
-	}
-
-	return strings.TrimSpace(string(output))
+	result, _ := builder.RunReturnOutput(cmdLine, builder.Path)
+	return strings.TrimSpace(result)
 
 }
 

@@ -3,10 +3,12 @@ package internal
 import (
 	"path/filepath"
 
+	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
 
 type projectRunner struct {
+	common.CommandRunner
 	Path    string
 	project Project
 	config  config.Config
@@ -23,6 +25,6 @@ func (runner projectRunner) execute(args []string) error {
 
 	runCmd := []string{filepath.Join(project.Path, config.Build.OuputName)}
 
-	return project.runCommandToStdout(runCmd)
+	return runner.RunToStdout(runCmd, project.Path)
 
 }
