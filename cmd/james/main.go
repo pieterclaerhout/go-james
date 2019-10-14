@@ -13,6 +13,7 @@ import (
 	cmdnew "github.com/pieterclaerhout/go-james/cmd/cmd-new"
 	cmdrun "github.com/pieterclaerhout/go-james/cmd/cmd-run"
 	cmdtest "github.com/pieterclaerhout/go-james/cmd/cmd-test"
+	cmdversion "github.com/pieterclaerhout/go-james/cmd/cmd-version"
 	"github.com/pieterclaerhout/go-james/version"
 	"github.com/pieterclaerhout/go-log"
 )
@@ -49,6 +50,7 @@ func main() {
 		exeName := filepath.Base(exePath)
 
 		app := climax.New(exeName)
+		app.Name = version.AppName
 		app.Brief = "James is your butler and helps you to create, build, test and run your Go projects"
 		app.Version = version.Revision
 
@@ -57,6 +59,7 @@ func main() {
 		app.AddCommand(cmdnew.Cmd)
 		app.AddCommand(cmdrun.Cmd)
 		app.AddCommand(cmdtest.Cmd)
+		app.AddCommand(cmdversion.Cmd)
 
 		result = app.Run()
 

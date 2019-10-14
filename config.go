@@ -60,3 +60,14 @@ func NewConfigFromDir(path string) (Config, error) {
 	configPath := filepath.Join(path, configFileName)
 	return NewConfigFromPath(configPath)
 }
+
+func (config Config) ldFlagForVersionInfo(name string, value string) []string {
+	result := []string{}
+	if name != "" && value != "" {
+		result = append(
+			result,
+			"-X", config.Project.Package+"/version."+name+"="+value,
+		)
+	}
+	return result
+}

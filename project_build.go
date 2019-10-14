@@ -1,8 +1,7 @@
 package james
 
 import (
-	"strings"
-
+	"github.com/kballard/go-shellquote"
 	"github.com/pieterclaerhout/go-log"
 )
 
@@ -17,11 +16,12 @@ func (project Project) DoBuild() error {
 	}
 
 	ldFlags := config.Build.LDFlags
+	ldFlags = append(ldFlags, config.ldFlagForVersionInfo("AppName", config.Project.Name)...)
 	if revision := project.determineRevision(); revision != "" {
-		ldFlags = append(ldFlags, "-X", config.Project.Package+".version.Revision="+revision)
+		ldFlags = append(ldFlags, config.ldFlagForVersionInfo("Revision", revision)...)
 	}
 	if branch := project.determineBranch(); branch != "" {
-		ldFlags = append(ldFlags, "-X", config.Project.Package+".version.Branch="+branch)
+		ldFlags = append(ldFlags, config.ldFlagForVersionInfo("Branch", branch)...)
 	}
 
 	buildCmd := []string{"go", "build"}
@@ -31,7 +31,7 @@ func (project Project) DoBuild() error {
 	}
 
 	if len(ldFlags) > 0 {
-		buildCmd = append(buildCmd, "-ldflags", strings.Join(ldFlags, " "))
+		buildCmd = append(buildCmd, "-ldflags", shellquote.Join(ldFlags...))
 	}
 
 	buildCmd = append(buildCmd, config.Project.Entrypoint)
