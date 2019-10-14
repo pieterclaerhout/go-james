@@ -1,4 +1,4 @@
-package version
+package versioninfo
 
 // AppName contains the name of the app
 var AppName string

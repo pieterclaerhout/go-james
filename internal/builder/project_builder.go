@@ -78,7 +78,7 @@ func (builder Builder) ldFlagForVersionInfo(cfg config.Config, name string, valu
 	if name != "" && value != "" {
 		result = append(
 			result,
-			"-X", cfg.Project.Package+"/version."+name+"="+value,
+			"-X", cfg.Project.Package+"/versioninfo."+name+"="+value,
 		)
 	}
 

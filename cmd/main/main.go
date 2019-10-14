@@ -7,14 +7,13 @@ import (
 
 	"github.com/tucnak/climax"
 
-	cmdbuild "github.com/pieterclaerhout/go-james/cmd/cmd-build"
-	cmdinit "github.com/pieterclaerhout/go-james/cmd/cmd-init"
-	cmdnew "github.com/pieterclaerhout/go-james/cmd/cmd-new"
-	cmdrun "github.com/pieterclaerhout/go-james/cmd/cmd-run"
-	cmdtest "github.com/pieterclaerhout/go-james/cmd/cmd-test"
-	cmdversion "github.com/pieterclaerhout/go-james/cmd/cmd-version"
+	"github.com/pieterclaerhout/go-james/cmd/builder"
+	"github.com/pieterclaerhout/go-james/cmd/creator"
+	"github.com/pieterclaerhout/go-james/cmd/runner"
+	"github.com/pieterclaerhout/go-james/cmd/tester"
+	"github.com/pieterclaerhout/go-james/cmd/version"
 	"github.com/pieterclaerhout/go-james/internal"
-	"github.com/pieterclaerhout/go-james/version"
+	"github.com/pieterclaerhout/go-james/versioninfo"
 	"github.com/pieterclaerhout/go-log"
 )
 
@@ -47,16 +46,16 @@ func main() {
 		exeName := filepath.Base(exePath)
 
 		app := climax.New(exeName)
-		app.Name = version.AppName
+		app.Name = versioninfo.AppName
 		app.Brief = "James is your butler and helps you to create, build, test and run your Go projects"
-		app.Version = version.Revision
+		app.Version = versioninfo.Revision
 
-		app.AddCommand(cmdbuild.Cmd)
-		app.AddCommand(cmdinit.Cmd)
-		app.AddCommand(cmdnew.Cmd)
-		app.AddCommand(cmdrun.Cmd)
-		app.AddCommand(cmdtest.Cmd)
-		app.AddCommand(cmdversion.Cmd)
+		app.AddCommand(builder.BuildCmd)
+		app.AddCommand(creator.InitCmd)
+		app.AddCommand(creator.NewCmd)
+		app.AddCommand(runner.RunCmd)
+		app.AddCommand(tester.TestCmd)
+		app.AddCommand(version.VersionCmd)
 
 		result = app.Run()
 

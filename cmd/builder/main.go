@@ -1,4 +1,4 @@
-package cmdbuild
+package builder
 
 import (
 	"github.com/tucnak/climax"
@@ -6,7 +6,8 @@ import (
 	"github.com/pieterclaerhout/go-james/internal"
 )
 
-var Cmd = climax.Command{
+// BuildCmd defines the build command
+var BuildCmd = climax.Command{
 	Name:  "build",
 	Brief: "Compile the current package",
 	Help:  "Compile the current package",

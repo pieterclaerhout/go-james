@@ -1,4 +1,4 @@
-package cmdtest
+package tester
 
 import (
 	"github.com/tucnak/climax"
@@ -6,7 +6,8 @@ import (
 	"github.com/pieterclaerhout/go-james/internal"
 )
 
-var Cmd = climax.Command{
+// TestCmd implements the test command
+var TestCmd = climax.Command{
 	Name:  "test",
 	Brief: "Run the tests",
 	Help:  "Run the tests",
