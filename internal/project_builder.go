@@ -47,6 +47,10 @@ func (builder projectBuilder) execute() error {
 		buildCmd = append(buildCmd, "-ldflags", shellquote.Join(ldFlags...))
 	}
 
+	if len(config.Build.ExtraArgs) > 0 {
+		buildCmd = append(buildCmd, config.Build.ExtraArgs...)
+	}
+
 	buildCmd = append(buildCmd, config.Project.MainPackage)
 	return project.runCommandToStdout(buildCmd)
 
