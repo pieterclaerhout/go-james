@@ -4,6 +4,7 @@ import (
 	"path/filepath"
 
 	"github.com/pieterclaerhout/go-james/internal/builder"
+	"github.com/pieterclaerhout/go-james/internal/cleaner"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 	"github.com/pieterclaerhout/go-james/internal/creator"
@@ -37,6 +38,11 @@ func (executor Executor) DoBuild(verbose bool) int {
 	return executor.runSubcommand(builder.Builder{
 		Verbose: verbose,
 	}, true)
+}
+
+// DoClean performs a clean of the project
+func (executor Executor) DoClean() int {
+	return executor.runSubcommand(cleaner.Cleaner{}, true)
 }
 
 // DoTest performs the tests defined in the project

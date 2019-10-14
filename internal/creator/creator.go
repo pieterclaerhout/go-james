@@ -121,6 +121,11 @@ func (creator Creator) createTasks(project common.Project, cfg config.Config) er
 			ProblemMatcher: []string{"$go"},
 		},
 		visualStudioCodeTask{
+			Label:          "clean",
+			Command:        "go-james clean",
+			ProblemMatcher: []string{"$go"},
+		},
+		visualStudioCodeTask{
 			Label:          "tests",
 			Command:        "go-james test",
 			ProblemMatcher: []string{"$go"},

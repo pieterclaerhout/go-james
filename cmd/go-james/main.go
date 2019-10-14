@@ -8,6 +8,7 @@ import (
 	"github.com/tucnak/climax"
 
 	"github.com/pieterclaerhout/go-james/cmd/builder"
+	"github.com/pieterclaerhout/go-james/cmd/cleaner"
 	"github.com/pieterclaerhout/go-james/cmd/creator"
 	"github.com/pieterclaerhout/go-james/cmd/runner"
 	"github.com/pieterclaerhout/go-james/cmd/tester"
@@ -51,6 +52,7 @@ func main() {
 		app.Version = versioninfo.Revision
 
 		app.AddCommand(builder.BuildCmd)
+		app.AddCommand(cleaner.CleanCmd)
 		app.AddCommand(creator.InitCmd)
 		app.AddCommand(creator.NewCmd)
 		app.AddCommand(runner.RunCmd)

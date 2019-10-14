@@ -82,24 +82,25 @@ Already covered:
 * Visual Studio Code Tasks file
 * Git Revision and Branch name injection in `versioninfo` package.
 * `.gitignore`
+* `clean`
+* Tests extra flags
+* go.json file
 
 Not covered yet:
 
-* go.json file
 * `go mod init`
-* Tests extra flags
 * Creation of the main entrypoint package
 * Creation of the library
-* Running benchmarks
 * Creation of the git repo (optional)
-* `clean`
 * `install`
 * `uninstall`
-* `publish` (to github)
 
 Eventually:
 
+* Running benchmarks
+* `publish` (to github)
 * `.dockerignore`
 * `Dockerfile`
 * Listing out-of-date dependencies
 * Update of out-of-date dependencies
+* Homebrew recipe
