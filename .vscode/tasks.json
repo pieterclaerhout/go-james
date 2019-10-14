@@ -11,6 +11,15 @@
             ]
         },
         {
+            "label": "build (verbose)",
+            "command": "./build/go-james build -v",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
             "label": "tests",
             "command": "./build/go-james test",
             "type": "shell",
