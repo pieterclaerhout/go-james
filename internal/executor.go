@@ -51,14 +51,14 @@ func (executor Executor) DoRun(args []string) int {
 	})
 }
 
-// DoInit initializes a project in an existing folder
+// DoInit initializes a project in an existing directory
 func (executor Executor) DoInit() int {
 	return executor.runSubcommand(creator.Creator{
 		Mode: creator.InitProject,
 	})
 }
 
-// DoNew initializes a project in an existing folder
+// DoNew initializes a project in an existing directory
 func (executor Executor) DoNew() int {
 	return executor.runSubcommand(creator.Creator{
 		Mode: creator.NewProject,
