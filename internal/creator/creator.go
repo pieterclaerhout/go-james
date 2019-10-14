@@ -36,6 +36,7 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 	var steps = []creationStep{
 		creator.createTasks,
 		creator.createLicense,
+		creator.createGitIgnore,
 		creator.createReadme,
 	}
 
@@ -46,15 +47,6 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 	}
 
 	return nil
-
-}
-
-func (creator Creator) createReadme(project common.Project, cfg config.Config) error {
-
-	readme := newReadme(cfg)
-
-	path := project.RelPath(readmeFileName)
-	return creator.WriteTextFileIfNotExists(path, readme.markdownString())
 
 }
 
@@ -92,4 +84,22 @@ func (creator Creator) createTasks(project common.Project, cfg config.Config) er
 func (creator Creator) createLicense(project common.Project, cfg config.Config) error {
 	path := project.RelPath(licenseFileName)
 	return creator.WriteTextFileIfNotExists(path, apacheLicense)
+}
+
+func (creator Creator) createGitIgnore(project common.Project, cfg config.Config) error {
+
+	gitIgnore := newGitIgnore(cfg)
+
+	path := project.RelPath(gitIgnoreFileName)
+	return creator.WriteTextFileIfNotExists(path, gitIgnore.string())
+
+}
+
+func (creator Creator) createReadme(project common.Project, cfg config.Config) error {
+
+	readme := newReadme(cfg)
+
+	path := project.RelPath(readmeFileName)
+	return creator.WriteTextFileIfNotExists(path, readme.markdownString())
+
 }

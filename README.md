@@ -88,11 +88,12 @@ Already covered:
 * README.md
 * LICENSE (defaults to the Apache license)
 * Visual Studio Code Tasks file
+* Git Revision and Branch name injection in `versioninfo` package.
+* `.gitignore`
 
 Not covered yet:
 
 * `go mod init`
-* `.gitignore`
 * Tests extra flags
 * Creation of the main entrypoint package
 * Creation of the library
