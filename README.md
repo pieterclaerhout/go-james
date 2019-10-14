@@ -6,16 +6,8 @@ James is your butler and helps you to create, build, test and run your Go projec
 
 ## Installation
 
-Via `go install`:
-
 ```
 go install github.com/pieterclaerhout/go-james/cmd/go-james
-```
-
-Via [Homebrew](http://brew.sh):
-
-```
-brew install go-james
 ```
 
 ## Creating a new project
