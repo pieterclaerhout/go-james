@@ -92,4 +92,4 @@ Already covered:
 Not covered yet:
 
 * `go mod init`
-* `.giti
+* `.gitignore`
