@@ -6,6 +6,7 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/builder"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
+	"github.com/pieterclaerhout/go-james/internal/creator"
 	"github.com/pieterclaerhout/go-james/internal/runner"
 	"github.com/pieterclaerhout/go-james/internal/tester"
 	"github.com/pieterclaerhout/go-log"
@@ -47,6 +48,20 @@ func (executor Executor) DoTest() int {
 func (executor Executor) DoRun(args []string) int {
 	return executor.runSubcommand(runner.Runner{
 		Args: args,
+	})
+}
+
+// DoInit initializes a project in an existing folder
+func (executor Executor) DoInit() int {
+	return executor.runSubcommand(creator.Creator{
+		Mode: creator.InitProject,
+	})
+}
+
+// DoNew initializes a project in an existing folder
+func (executor Executor) DoNew() int {
+	return executor.runSubcommand(creator.Creator{
+		Mode: creator.NewProject,
 	})
 }
 
