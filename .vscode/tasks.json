@@ -36,6 +36,15 @@
             "problemMatcher": [
                 "$go"
             ]
+        },
+        {
+            "label": "run (debug)",
+            "command": "DEBUG=1 ./build/go-james run",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ]
         }
     ]
 }
