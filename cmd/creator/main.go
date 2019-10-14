@@ -10,9 +10,46 @@ var NewCmd = climax.Command{
 	Name:  "new",
 	Brief: "Create a new Go app or library",
 	Help:  "Create a new Go app or library",
+	Flags: []climax.Flag{
+		{
+			Name:     "path",
+			Short:    "",
+			Usage:    `--path=<target-path>`,
+			Help:     `The path where the command should be created`,
+			Variable: true,
+		},
+		{
+			Name:     "package",
+			Short:    "",
+			Usage:    `--package=<package>`,
+			Help:     `The package for the project`,
+			Variable: true,
+		},
+		{
+			Name:     "name",
+			Short:    "",
+			Usage:    `--name=<name-of-the-project>`,
+			Help:     `The name of the project`,
+			Variable: true,
+		},
+		{
+			Name:     "description",
+			Short:    "",
+			Usage:    `--description=<description-of-the-project>`,
+			Help:     `The description of the project`,
+			Variable: true,
+		},
+	},
 	Handle: func(ctx climax.Context) int {
+
+		path, _ := ctx.Get("path")
+		packageName, _ := ctx.Get("package")
+		name, _ := ctx.Get("name")
+		description, _ := ctx.Get("description")
+
 		executor := internal.NewExecutor("")
-		return executor.DoNew()
+		return executor.DoNew(path, packageName, name, description)
+
 	},
 }
 

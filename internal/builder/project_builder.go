@@ -30,8 +30,8 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		buildCmd = append(buildCmd, "-v")
 	}
 
-	if cfg.Build.OuputName != "" {
-		buildCmd = append(buildCmd, "-o", cfg.Build.OuputName)
+	if cfg.Build.OutputName != "" {
+		buildCmd = append(buildCmd, "-o", cfg.Build.OutputName)
 	}
 
 	ldFlags := cfg.Build.LDFlags

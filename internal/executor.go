@@ -36,43 +36,52 @@ func NewExecutor(path string) Executor {
 func (executor Executor) DoBuild(verbose bool) int {
 	return executor.runSubcommand(builder.Builder{
 		Verbose: verbose,
-	})
+	}, true)
 }
 
 // DoTest performs the tests defined in the project
 func (executor Executor) DoTest() int {
-	return executor.runSubcommand(tester.Tester{})
+	return executor.runSubcommand(tester.Tester{}, true)
 }
 
 // DoRun runs the project and passes the arguments to the command
 func (executor Executor) DoRun(args []string) int {
 	return executor.runSubcommand(runner.Runner{
 		Args: args,
-	})
+	}, true)
 }
 
 // DoInit initializes a project in an existing directory
 func (executor Executor) DoInit() int {
 	return executor.runSubcommand(creator.Creator{
 		Mode: creator.InitProject,
-	})
+	}, true)
 }
 
 // DoNew initializes a project in an existing directory
-func (executor Executor) DoNew() int {
+func (executor Executor) DoNew(path string, packageName string, name string, description string) int {
 	return executor.runSubcommand(creator.Creator{
-		Mode: creator.NewProject,
-	})
+		Mode:        creator.NewProject,
+		Path:        path,
+		Package:     packageName,
+		Name:        name,
+		Description: description,
+	}, false)
 }
 
-func (executor Executor) runSubcommand(subcommand Subcommand) int {
+func (executor Executor) runSubcommand(subcommand Subcommand, parseConfig bool) int {
 
-	cfg, err := config.NewConfigFromDir(executor.Path)
-	if err != nil {
-		if log.DebugMode {
-			log.Error(err)
+	var cfg config.Config
+	var err error
+
+	if parseConfig {
+		cfg, err = config.NewConfigFromDir(executor.Path)
+		if err != nil {
+			if log.DebugMode {
+				log.Error(err)
+			}
+			return 1
 		}
-		return 1
 	}
 
 	project := common.NewProject(executor.Path)
