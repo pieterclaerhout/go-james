@@ -14,8 +14,10 @@ var Cmd = climax.Command{
 	Handle: func(ctx climax.Context) int {
 
 		project := james.NewProject("")
-		if err := project.DoRun(); err != nil {
-			log.Error(err)
+		if err := project.DoRun(ctx.Args); err != nil {
+			if log.DebugMode {
+				log.Error(err)
+			}
 			return 1
 		}
 

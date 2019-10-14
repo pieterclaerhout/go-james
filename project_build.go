@@ -36,8 +36,6 @@ func (project Project) DoBuild() error {
 
 	buildCmd = append(buildCmd, config.Project.Entrypoint)
 
-	log.Info("Building:", config.Build.OuputName)
-
 	if err := project.runCommandToStdout(buildCmd); err != nil {
 		return err
 	}

@@ -15,7 +15,9 @@ var Cmd = climax.Command{
 
 		project := james.NewProject("")
 		if err := project.DoBuild(); err != nil {
-			log.Error(err)
+			if log.DebugMode {
+				log.Error(err)
+			}
 			return 1
 		}
 
