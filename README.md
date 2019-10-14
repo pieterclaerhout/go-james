@@ -93,8 +93,19 @@ Not covered yet:
 
 * `go mod init`
 * `.gitignore`
+* Tests extra flags
+* Creation of the main entrypoint package
+* Creation of the library
+* Running benchmarks
+* Creation of the git repo (optional)
+* `clean`
+* `install`
+* `uninstall`
+* `publish` (to github)
 
 Eventually:
 
 * `.dockerignore`
 * `Dockerfile`
+* Listing out-of-date dependencies
+* Update of out-of-date dependencies
