@@ -93,3 +93,8 @@ Not covered yet:
 
 * `go mod init`
 * `.gitignore`
+
+Eventually:
+
+* `.dockerignore`
+* `Dockerfile`
