@@ -19,6 +19,7 @@ type Config struct {
 type ProjectConfig struct {
 	Name       string `json:"name"`
 	Package    string `json:"package"`
+	Entrypoint string `json:"entrypoint"`
 	Repository string `json:"repository"`
 }
 

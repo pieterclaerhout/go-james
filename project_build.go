@@ -26,9 +26,13 @@ func (project Project) DoBuild() error {
 		buildCmd = append(buildCmd, "-ldflags", strings.Join(config.Build.LDFlags, " "))
 	}
 
-	buildCmd = append(buildCmd, config.Project.Package)
+	buildCmd = append(buildCmd, config.Project.Entrypoint)
 
-	log.DebugDump(buildCmd, "Running:")
+	log.Info("Building:", config.Build.OuputName)
+
+	if err := project.runCommand(buildCmd); err != nil {
+		return err
+	}
 
 	return nil
 
