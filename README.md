@@ -9,7 +9,7 @@ James is your butler and helps you to create, build, test and run your Go projec
 Via `go install`:
 
 ```
-go install github.com/pieterclaerhout/go-james/cmd/main
+go install github.com/pieterclaerhout/go-james/cmd/go-james
 ```
 
 Via [Homebrew](http://brew.sh):
@@ -92,4 +92,4 @@ Already covered:
 Not covered yet:
 
 * `go mod init`
-* 
+* `.giti
