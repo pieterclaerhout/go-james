@@ -17,6 +17,7 @@ const configFileName = "go.json"
 type Config struct {
 	Project ProjectConfig `json:"project"` // Project contains the general project variables
 	Build   BuildConfig   `json:"build"`   // Build contains the build specific project variables
+	Test    TestConfig    `json:"test"`    // Build contains the test specific project variables
 }
 
 // ProjectConfig contains the general project variables
@@ -33,6 +34,11 @@ type BuildConfig struct {
 	OuputName string   `json:"ouput_name"` // The name of the executable to generate
 	LDFlags   []string `json:"ld_flags"`   // The ldflags to pass to the build command
 	ExtraArgs []string `json:"extra_args"` // The extra arguments to pass to the build command
+}
+
+// TestConfig contains the test specific configuration settings
+type TestConfig struct {
+	ExtraArgs []string `json:"extra_args"` // The extra arguments to pass to the test command
 }
 
 // NewConfigFromPath reads the configuration file from the specified path and returns the configuration settings

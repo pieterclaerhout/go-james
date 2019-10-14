@@ -10,5 +10,8 @@
         "ouput_name": "build/go-james",
         "ld_flags": ["-s", "-w"],
         "extra_args": ["-trimpath"]
+    },
+    "test": {
+        "extra_args": []
     }
 }

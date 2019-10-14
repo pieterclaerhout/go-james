@@ -13,7 +13,13 @@ type Tester struct {
 // Execute executes the command
 func (tester Tester) Execute(project common.Project, cfg config.Config) error {
 
-	testCmd := []string{"go", "test", "-cover", "./..."}
+	testCmd := []string{"go", "test", "-cover"}
+
+	if len(cfg.Build.ExtraArgs) > 0 {
+		testCmd = append(testCmd, cfg.Build.ExtraArgs...)
+	}
+
+	testCmd = append(testCmd, "./...")
 
 	return tester.RunToStdout(testCmd, project.Path)
 

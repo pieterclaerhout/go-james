@@ -93,6 +93,7 @@ Already covered:
 
 Not covered yet:
 
+* go.json file
 * `go mod init`
 * Tests extra flags
 * Creation of the main entrypoint package
