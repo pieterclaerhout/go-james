@@ -11,20 +11,16 @@ import (
 
 type projectBuilder struct {
 	common.CommandRunner
-	Path    string
-	project Project
 	config  config.Config
 	verbose bool
 }
 
-func (builder projectBuilder) execute() error {
-
-	config := builder.config
+func (builder projectBuilder) Execute(project Project, cfg config.Config) error {
 
 	versionInfo := map[string]string{
-		"AppName":  config.Project.Name,
-		"Revision": builder.determineRevision(),
-		"Branch":   builder.determineBranch(),
+		"AppName":  cfg.Project.Name,
+		"Revision": builder.determineRevision(project),
+		"Branch":   builder.determineBranch(project),
 	}
 
 	buildCmd := []string{"go", "build"}
@@ -33,11 +29,11 @@ func (builder projectBuilder) execute() error {
 		buildCmd = append(buildCmd, "-v")
 	}
 
-	if config.Build.OuputName != "" {
-		buildCmd = append(buildCmd, "-o", config.Build.OuputName)
+	if cfg.Build.OuputName != "" {
+		buildCmd = append(buildCmd, "-o", cfg.Build.OuputName)
 	}
 
-	ldFlags := config.Build.LDFlags
+	ldFlags := cfg.Build.LDFlags
 
 	for key, val := range versionInfo {
 		ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(key, val)...)
@@ -47,29 +43,29 @@ func (builder projectBuilder) execute() error {
 		buildCmd = append(buildCmd, "-ldflags", shellquote.Join(ldFlags...))
 	}
 
-	if len(config.Build.ExtraArgs) > 0 {
-		buildCmd = append(buildCmd, config.Build.ExtraArgs...)
+	if len(cfg.Build.ExtraArgs) > 0 {
+		buildCmd = append(buildCmd, cfg.Build.ExtraArgs...)
 	}
 
-	buildCmd = append(buildCmd, config.Project.MainPackage)
-	return builder.RunToStdout(buildCmd, builder.Path)
+	buildCmd = append(buildCmd, cfg.Project.MainPackage)
+	return builder.RunToStdout(buildCmd, project.Path)
 
 }
 
-func (builder projectBuilder) determineRevision() string {
+func (builder projectBuilder) determineRevision(project Project) string {
 
 	cmdLine := []string{"git", "rev-parse", "--short", "HEAD"}
 
-	result, _ := builder.RunReturnOutput(cmdLine, builder.Path)
+	result, _ := builder.RunReturnOutput(cmdLine, project.Path)
 	return strings.TrimSpace(result)
 
 }
 
-func (builder projectBuilder) determineBranch() string {
+func (builder projectBuilder) determineBranch(project Project) string {
 
 	cmdLine := []string{"git", "rev-parse", "--abbrev-ref", "HEAD"}
 
-	result, _ := builder.RunReturnOutput(cmdLine, builder.Path)
+	result, _ := builder.RunReturnOutput(cmdLine, project.Path)
 	return strings.TrimSpace(result)
 
 }

@@ -4,6 +4,7 @@ import (
 	"path/filepath"
 
 	"github.com/pieterclaerhout/go-james/internal/config"
+	"github.com/pieterclaerhout/go-log"
 )
 
 // Project defines a Go project based on Go modules
@@ -28,55 +29,31 @@ func NewProject(path string) Project {
 
 // DoBuild performs a build of the project
 func (project Project) DoBuild(verbose bool) error {
-
-	config, err := config.NewConfigFromDir(project.Path)
-	if err != nil {
-		return err
-	}
-
-	builder := projectBuilder{
-		Path:    project.Path,
-		config:  config,
-		project: project,
+	return project.runSubcommand(projectBuilder{
 		verbose: verbose,
-	}
-
-	return builder.execute()
-
+	})
 }
 
 // DoTest performs the tests defined in the project
 func (project Project) DoTest() error {
-
-	config, err := config.NewConfigFromDir(project.Path)
-	if err != nil {
-		return err
-	}
-
-	tester := projectTester{
-		Path:    project.Path,
-		config:  config,
-		project: project,
-	}
-
-	return tester.execute()
-
+	return project.runSubcommand(projectTester{})
 }
 
 // DoRun runs the project and passes the arguments to the command
 func (project Project) DoRun(args []string) error {
+	return project.runSubcommand(projectRunner{
+		args: args,
+	})
+}
 
-	config, err := config.NewConfigFromDir(project.Path)
+func (project Project) runSubcommand(subcommand Subcommand) error {
+
+	cfg, err := config.NewConfigFromDir(project.Path)
 	if err != nil {
 		return err
 	}
 
-	runner := projectRunner{
-		Path:    project.Path,
-		config:  config,
-		project: project,
-	}
-
-	return runner.execute(args)
+	log.DebugDump(subcommand, "subcommand")
+	return subcommand.Execute(project, cfg)
 
 }

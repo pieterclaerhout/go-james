@@ -1,25 +1,16 @@
 package internal
 
 import (
-	"github.com/pieterclaerhout/go-log"
-
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
 
 type projectTester struct {
 	common.CommandRunner
-	Path    string
-	project Project
-	config  config.Config
+	config config.Config
 }
 
-func (tester projectTester) execute() error {
-
-	project := tester.project
-
-	log.Debug("Running: test")
-	log.Debug("Project path:", project.Path)
+func (tester projectTester) Execute(project Project, cfg config.Config) error {
 
 	testCmd := []string{"go", "test", "-cover", "./..."}
 
