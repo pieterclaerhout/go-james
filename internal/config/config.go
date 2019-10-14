@@ -11,7 +11,8 @@ import (
 	"github.com/pieterclaerhout/go-log"
 )
 
-const configFileName = "go.json"
+// ConfigFileName is the name of the config file
+const ConfigFileName = "go.json"
 
 // Config defines the project configuration
 type Config struct {
@@ -26,14 +27,13 @@ type ProjectConfig struct {
 	Description string `json:"description"`  // The description of the project
 	Package     string `json:"package"`      // The top-level package for the project
 	MainPackage string `json:"main_package"` // The package path to the main entry point (the package containing main)
-	Repository  string `json:"repository"`   // The path to the the Git repository of the project
 }
 
 // BuildConfig contains the build specific configuration settings
 type BuildConfig struct {
-	OuputName string   `json:"ouput_name"` // The name of the executable to generate
-	LDFlags   []string `json:"ld_flags"`   // The ldflags to pass to the build command
-	ExtraArgs []string `json:"extra_args"` // The extra arguments to pass to the build command
+	OutputName string   `json:"ouput_name"` // The name of the executable to generate
+	LDFlags    []string `json:"ld_flags"`   // The ldflags to pass to the build command
+	ExtraArgs  []string `json:"extra_args"` // The extra arguments to pass to the build command
 }
 
 // TestConfig contains the test specific configuration settings
@@ -71,7 +71,7 @@ func NewConfigFromPath(path string) (Config, error) {
 
 // NewConfigFromDir parses the config from a file called "go.json" which should be present in the specified path
 func NewConfigFromDir(path string) (Config, error) {
-	configPath := filepath.Join(path, configFileName)
+	configPath := filepath.Join(path, ConfigFileName)
 	return NewConfigFromPath(configPath)
 }
 
