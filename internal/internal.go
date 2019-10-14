@@ -3,7 +3,6 @@ package internal
 import (
 	"os"
 	"os/exec"
-	"strings"
 
 	"github.com/pkg/errors"
 
@@ -56,53 +55,5 @@ func (project Project) runCommandToStdout(cmdLine []string) error {
 	}
 
 	return command.Wait()
-
-}
-
-func (project Project) determineRevision() string {
-
-	cmdLine := []string{"git", "rev-parse", "--short", "HEAD"}
-
-	command, err := project.createCommand(cmdLine)
-	if err != nil {
-		if log.DebugMode {
-			log.Error(err)
-		}
-		return ""
-	}
-
-	log.Debug("Executing:", shellquote.Join(cmdLine...))
-	output, err := command.CombinedOutput()
-	if err != nil {
-		if log.DebugMode {
-			log.Error(err)
-		}
-	}
-
-	return strings.TrimSpace(string(output))
-
-}
-
-func (project Project) determineBranch() string {
-
-	cmdLine := []string{"git", "rev-parse", "--abbrev-ref", "HEAD"}
-
-	command, err := project.createCommand(cmdLine)
-	if err != nil {
-		if log.DebugMode {
-			log.Error(err)
-		}
-		return ""
-	}
-
-	log.Debug("Executing:", shellquote.Join(cmdLine...))
-	output, err := command.CombinedOutput()
-	if err != nil {
-		if log.DebugMode {
-			log.Error(err)
-		}
-	}
-
-	return strings.TrimSpace(string(output))
 
 }

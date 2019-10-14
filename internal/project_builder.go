@@ -1,9 +1,12 @@
 package internal
 
 import (
+	"strings"
+
 	"github.com/kballard/go-shellquote"
 
 	"github.com/pieterclaerhout/go-james/internal/config"
+	"github.com/pieterclaerhout/go-log"
 )
 
 type projectBuilder struct {
@@ -18,13 +21,10 @@ func (builder projectBuilder) execute() error {
 	config := builder.config
 	project := builder.project
 
-	ldFlags := config.Build.LDFlags
-	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo("AppName", config.Project.Name)...)
-	if revision := project.determineRevision(); revision != "" {
-		ldFlags = append(ldFlags, builder.ldFlagForVersionInfo("Revision", revision)...)
-	}
-	if branch := project.determineBranch(); branch != "" {
-		ldFlags = append(ldFlags, builder.ldFlagForVersionInfo("Branch", branch)...)
+	versionInfo := map[string]string{
+		"AppName":  config.Project.Name,
+		"Revision": builder.determineRevision(),
+		"Branch":   builder.determineBranch(),
 	}
 
 	buildCmd := []string{"go", "build"}
@@ -37,12 +37,70 @@ func (builder projectBuilder) execute() error {
 		buildCmd = append(buildCmd, "-o", config.Build.OuputName)
 	}
 
+	ldFlags := config.Build.LDFlags
+
+	for key, val := range versionInfo {
+		ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(key, val)...)
+	}
+
 	if len(ldFlags) > 0 {
 		buildCmd = append(buildCmd, "-ldflags", shellquote.Join(ldFlags...))
 	}
 
 	buildCmd = append(buildCmd, config.Project.MainPackage)
 	return project.runCommandToStdout(buildCmd)
+
+}
+
+func (builder projectBuilder) determineRevision() string {
+
+	project := builder.project
+
+	cmdLine := []string{"git", "rev-parse", "--short", "HEAD"}
+
+	command, err := project.createCommand(cmdLine)
+	if err != nil {
+		if log.DebugMode {
+			log.Error(err)
+		}
+		return ""
+	}
+
+	log.Debug("Executing:", shellquote.Join(cmdLine...))
+	output, err := command.CombinedOutput()
+	if err != nil {
+		if log.DebugMode {
+			log.Error(err)
+		}
+	}
+
+	return strings.TrimSpace(string(output))
+
+}
+
+func (builder projectBuilder) determineBranch() string {
+
+	project := builder.project
+
+	cmdLine := []string{"git", "rev-parse", "--abbrev-ref", "HEAD"}
+
+	command, err := project.createCommand(cmdLine)
+	if err != nil {
+		if log.DebugMode {
+			log.Error(err)
+		}
+		return ""
+	}
+
+	log.Debug("Executing:", shellquote.Join(cmdLine...))
+	output, err := command.CombinedOutput()
+	if err != nil {
+		if log.DebugMode {
+			log.Error(err)
+		}
+	}
+
+	return strings.TrimSpace(string(output))
 
 }
 
