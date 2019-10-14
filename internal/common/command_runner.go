@@ -18,6 +18,7 @@ var (
 // CommandRunner is what can be injected into a subcommand when you need to run system commands
 type CommandRunner struct{}
 
+// createCommand creates the command instance
 func (commandRunner CommandRunner) createCommand(cmdLine []string, workdir string) (*exec.Cmd, error) {
 
 	var cmdPath string

@@ -1,0 +1,32 @@
+{
+    "Version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "./build/go-james build",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
+            "label": "tests",
+            "command": "./build/go-james test",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
+            "label": "run",
+            "command": "./build/go-james run",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ]
+        }
+    ]
+}

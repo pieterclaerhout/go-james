@@ -1,6 +1,7 @@
 package creator
 
 import (
+	"github.com/pieterclaerhout/go-james/internal"
 	"github.com/tucnak/climax"
 )
 
@@ -10,7 +11,8 @@ var NewCmd = climax.Command{
 	Brief: "Create a new Go app or library",
 	Help:  "Create a new Go app or library",
 	Handle: func(ctx climax.Context) int {
-		return 0
+		executor := internal.NewExecutor("")
+		return executor.DoNew()
 	},
 }
 
@@ -20,6 +22,7 @@ var InitCmd = climax.Command{
 	Brief: "Create a new Go app or library in an existing directory",
 	Help:  "Create a new Go app or library in an existing directory",
 	Handle: func(ctx climax.Context) int {
-		return 0
+		executor := internal.NewExecutor("")
+		return executor.DoInit()
 	},
 }
