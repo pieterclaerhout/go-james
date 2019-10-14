@@ -28,6 +28,7 @@ func (c Mode) String() string {
 type Creator struct {
 	common.CommandRunner
 	common.FileWriter
+	common.FileSystemChecks
 	Mode Mode
 }
 
@@ -53,6 +54,11 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 
 func (creator Creator) createTasks(project common.Project, cfg config.Config) error {
 
+	tasksPath := filepath.Join(visualStudioFolderName, visualStudioCodeTasksFileName)
+	if creator.FileExists(project, tasksPath) {
+		return nil
+	}
+
 	tasks := newVisualStudioCodeTaskList()
 
 	tasks.Add(visualStudioCodeTask{
@@ -73,15 +79,18 @@ func (creator Creator) createTasks(project common.Project, cfg config.Config) er
 		ProblemMatcher: []string{"$go"},
 	})
 
-	// TODO: only if not there yet
-
 	os.MkdirAll(filepath.Join(project.Path, visualStudioFolderName), 0755)
 
-	tasksPath := filepath.Join(visualStudioFolderName, visualStudioCodeTasksFileName)
 	return creator.WriteJSONFile(project, tasksPath, tasks)
 
 }
 
 func (creator Creator) createLicense(project common.Project, cfg config.Config) error {
+
+	if creator.FileExists(project, licenseFileName) {
+		return nil
+	}
+
 	return creator.WriteTextFile(project, licenseFileName, apacheLicense)
+
 }
