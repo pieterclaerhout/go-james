@@ -1,4 +1,4 @@
-package james
+package internal
 
 import (
 	"github.com/pieterclaerhout/go-log"

@@ -3,7 +3,7 @@ package cmdrun
 import (
 	"github.com/tucnak/climax"
 
-	"github.com/pieterclaerhout/go-james"
+	"github.com/pieterclaerhout/go-james/internal"
 	"github.com/pieterclaerhout/go-log"
 )
 
@@ -13,7 +13,7 @@ var Cmd = climax.Command{
 	Help:  "Run a binary or example of the local package",
 	Handle: func(ctx climax.Context) int {
 
-		project := james.NewProject("")
+		project := internal.NewProject("")
 		if err := project.DoRun(ctx.Args); err != nil {
 			if log.DebugMode {
 				log.Error(err)

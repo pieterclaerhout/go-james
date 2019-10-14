@@ -7,13 +7,13 @@ import (
 
 	"github.com/tucnak/climax"
 
-	"github.com/pieterclaerhout/go-james"
 	cmdbuild "github.com/pieterclaerhout/go-james/cmd/cmd-build"
 	cmdinit "github.com/pieterclaerhout/go-james/cmd/cmd-init"
 	cmdnew "github.com/pieterclaerhout/go-james/cmd/cmd-new"
 	cmdrun "github.com/pieterclaerhout/go-james/cmd/cmd-run"
 	cmdtest "github.com/pieterclaerhout/go-james/cmd/cmd-test"
 	cmdversion "github.com/pieterclaerhout/go-james/cmd/cmd-version"
+	"github.com/pieterclaerhout/go-james/internal"
 	"github.com/pieterclaerhout/go-james/version"
 	"github.com/pieterclaerhout/go-log"
 )
@@ -38,7 +38,7 @@ func main() {
 			args = os.Args[2:]
 		}
 
-		project := james.NewProject("")
+		project := internal.NewProject("")
 		if err := project.DoRun(args); err != nil {
 			log.Error(err)
 			result = 1

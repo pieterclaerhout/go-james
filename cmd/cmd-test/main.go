@@ -3,7 +3,7 @@ package cmdtest
 import (
 	"github.com/tucnak/climax"
 
-	"github.com/pieterclaerhout/go-james"
+	"github.com/pieterclaerhout/go-james/internal"
 	"github.com/pieterclaerhout/go-log"
 )
 
@@ -13,7 +13,7 @@ var Cmd = climax.Command{
 	Help:  "Run the tests",
 	Handle: func(ctx climax.Context) (exitcode int) {
 
-		project := james.NewProject("")
+		project := internal.NewProject("")
 		if err := project.DoTest(); err != nil {
 			if log.DebugMode {
 				log.Error(err)

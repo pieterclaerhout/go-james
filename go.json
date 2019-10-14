@@ -2,7 +2,7 @@
     "project": {
         "name": "go-james",
         "package": "github.com/pieterclaerhout/go-james",
-        "entrypoint": "github.com/pieterclaerhout/go-james/cmd/main",
+        "main_package": "github.com/pieterclaerhout/go-james/cmd/main",
         "repository": "github.com/pieterclaerhout/go-james"
     },
     "build": {
