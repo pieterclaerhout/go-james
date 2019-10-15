@@ -89,7 +89,7 @@ func (creator Creator) RequiresBuild() bool {
 
 func (creator Creator) createConfig(project common.Project, cfg config.Config) error {
 
-	configPath := project.RelPath(config.ConfigFileName)
+	configPath := project.RelPath(config.FileName)
 
 	if creator.Name == "" {
 		creator.Name = filepath.Base(creator.Path)

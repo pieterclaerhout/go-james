@@ -11,8 +11,8 @@ import (
 	"github.com/pieterclaerhout/go-log"
 )
 
-// ConfigFileName is the name of the config file
-const ConfigFileName = "go.json"
+// FileName is the name of the config file
+const FileName = "go.json"
 
 // Config defines the project configuration
 type Config struct {
@@ -71,7 +71,7 @@ func NewConfigFromPath(path string) (Config, error) {
 
 // NewConfigFromDir parses the config from a file called "go.json" which should be present in the specified path
 func NewConfigFromDir(path string) (Config, error) {
-	configPath := filepath.Join(path, ConfigFileName)
+	configPath := filepath.Join(path, FileName)
 	return NewConfigFromPath(configPath)
 }
 
