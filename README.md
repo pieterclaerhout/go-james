@@ -61,13 +61,17 @@ It will automatically create the following project structure:
 
 ## Initializing an existing project
 
+When you already have an existing folder structure, you can run the `init` command to add the missing pieces.
+
 ```
 go-james init
 ```
 
+This command is supposed to run from the project's directory and doesn't take any arguments.
+
 ## Building a project
 
-From within the project root, run:
+From within the project root, run the `build` command to build the executable:
 
 ```
 go-james build [-v] [--output=<path>] [--goos=<os>] [--goarch=<arch>]
