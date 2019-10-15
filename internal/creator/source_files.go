@@ -7,10 +7,14 @@ const mainCmdTemplate = `package main
 
 import(
 	"fmt"
+
+	"{{.Project.Package}}/versioninfo"
 )
 
 func main() {
-	fmt.Println("{{.Project.Name}}")
+	fmt.Println("Project: "+ versioninfo.AppName)
+	fmt.Println("Revision: " + versioninfo.Revision)
+	fmt.Println("Branch: " + versioninfo.Branch)
 }
 `
 
