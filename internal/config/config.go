@@ -125,3 +125,13 @@ func (config Config) Badges() []Badge {
 	return badges
 
 }
+
+// ShortPackageName returns the package name for the main package
+func (config Config) ShortPackageName() string {
+	name := filepath.Base(config.Project.Package)
+	name = strings.TrimPrefix(name, "go-")
+	name = strings.TrimSuffix(name, "go-")
+	name = strings.ReplaceAll(name, "-", "")
+	name = strings.ToLower(name)
+	return name
+}

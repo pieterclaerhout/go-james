@@ -29,6 +29,7 @@ func (c Mode) String() string {
 type Creator struct {
 	common.CommandRunner
 	common.FileSystem
+	common.Template
 	Mode        Mode
 	Path        string
 	Package     string
@@ -59,6 +60,7 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		creator.createLicense,
 		creator.createGitIgnore,
 		creator.createReadme,
+		creator.createSourceFiles,
 		creator.createGoMod,
 	}
 
@@ -156,5 +158,21 @@ func (creator Creator) createGoMod(project common.Project, cfg config.Config) er
 	return creator.RunToStdout(cmd, project.Path, map[string]string{
 		"GO111MODULE": "on",
 	})
+
+}
+
+func (creator Creator) createSourceFiles(project common.Project, cfg config.Config) error {
+
+	mainLibPath := project.RelPath("library.go")
+	if err := creator.WriteTextTemplateIfNotExists(mainLibPath, mainLibTemplate, cfg); err != nil {
+		return err
+	}
+
+	mainCmdPath := project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main.go")
+	if err := creator.WriteTextTemplateIfNotExists(mainCmdPath, mainCmdTemplate, cfg); err != nil {
+		return err
+	}
+
+	return nil
 
 }
