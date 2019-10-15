@@ -27,12 +27,20 @@ go-james init
 From within the project root, run:
 
 ```
-go-james build [-v]
+go-james build [-v] [--output=<path>] [--goos=<os>] [--goarch=<arch>]
 ```
 
 By default, the output is put in the `build` subdirectory.
 
 By adding the `-v` flag, the packages which are built will be listed.
+
+By adding the `--output` flag, you can override the default output path as specified in the config file.
+
+By adding the `--goos` flag, you can override the `GOOS` env variable which indicates for which OS you are compiling.
+
+By adding the `--goarch` flag, you can override the `GOARCH` env variable which indicates for which architecture you are compiling.
+
+You can read more about these flags [here](https://golang.org/doc/install/source#environment).
 
 ## Running a project
 
