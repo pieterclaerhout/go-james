@@ -21,6 +21,6 @@ func (tester Tester) Execute(project common.Project, cfg config.Config) error {
 
 	testCmd = append(testCmd, "./...")
 
-	return tester.RunToStdout(testCmd, project.Path)
+	return tester.RunToStdout(testCmd, project.Path, map[string]string{})
 
 }

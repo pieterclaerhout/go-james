@@ -1,6 +1,7 @@
 package common
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 
@@ -19,7 +20,7 @@ var (
 type CommandRunner struct{}
 
 // createCommand creates the command instance
-func (commandRunner CommandRunner) createCommand(cmdLine []string, workdir string) (*exec.Cmd, error) {
+func (commandRunner CommandRunner) createCommand(cmdLine []string, workdir string, env map[string]string) (*exec.Cmd, error) {
 
 	var cmdPath string
 	var cmdArgs []string
@@ -39,14 +40,18 @@ func (commandRunner CommandRunner) createCommand(cmdLine []string, workdir strin
 	command.Env = os.Environ()
 	command.Dir = workdir
 
+	for key, val := range env {
+		command.Env = append(command.Env, fmt.Sprintf("%s=%s", key, val))
+	}
+
 	return command, nil
 
 }
 
 // RunToStdout runs the command and outputs the result to stdout/stderr
-func (commandRunner CommandRunner) RunToStdout(cmdLine []string, workdir string) error {
+func (commandRunner CommandRunner) RunToStdout(cmdLine []string, workdir string, env map[string]string) error {
 
-	command, err := commandRunner.createCommand(cmdLine, workdir)
+	command, err := commandRunner.createCommand(cmdLine, workdir, env)
 	if err != nil {
 		return err
 	}
@@ -55,6 +60,7 @@ func (commandRunner CommandRunner) RunToStdout(cmdLine []string, workdir string)
 	command.Stderr = os.Stderr
 
 	log.Debug("Executing:", shellquote.Join(cmdLine...))
+	log.DebugDump(command.Env, "Environment:")
 	if err := command.Start(); err != nil {
 		return err
 	}
@@ -64,14 +70,15 @@ func (commandRunner CommandRunner) RunToStdout(cmdLine []string, workdir string)
 }
 
 // RunReturnOutput runs the command and returns the result as a string
-func (commandRunner CommandRunner) RunReturnOutput(cmdLine []string, workdir string) (string, error) {
+func (commandRunner CommandRunner) RunReturnOutput(cmdLine []string, workdir string, env map[string]string) (string, error) {
 
-	command, err := commandRunner.createCommand(cmdLine, workdir)
+	command, err := commandRunner.createCommand(cmdLine, workdir, env)
 	if err != nil {
 		return "", err
 	}
 
 	log.Debug("Executing:", shellquote.Join(cmdLine...))
+	log.DebugDump(command.Env, "Environment:")
 	output, err := command.CombinedOutput()
 	if err != nil {
 		if log.DebugMode {

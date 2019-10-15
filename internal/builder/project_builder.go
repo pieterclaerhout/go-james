@@ -15,6 +15,8 @@ import (
 type Builder struct {
 	common.CommandRunner
 	OutputPath string
+	GOOS       string
+	GOARCH     string
 	Verbose    bool
 }
 
@@ -53,7 +55,10 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 	}
 
 	buildCmd = append(buildCmd, cfg.Project.MainPackage)
-	return builder.RunToStdout(buildCmd, project.Path)
+	return builder.RunToStdout(buildCmd, project.Path, map[string]string{
+		"GOOS":   builder.GOOS,
+		"GOARCH": builder.GOARCH,
+	})
 
 }
 
@@ -61,7 +66,7 @@ func (builder Builder) determineRevision(project common.Project) string {
 
 	cmdLine := []string{"git", "rev-parse", "--short", "HEAD"}
 
-	result, _ := builder.RunReturnOutput(cmdLine, project.Path)
+	result, _ := builder.RunReturnOutput(cmdLine, project.Path, map[string]string{})
 	return strings.TrimSpace(result)
 
 }
@@ -70,7 +75,7 @@ func (builder Builder) determineBranch(project common.Project) string {
 
 	cmdLine := []string{"git", "rev-parse", "--abbrev-ref", "HEAD"}
 
-	result, _ := builder.RunReturnOutput(cmdLine, project.Path)
+	result, _ := builder.RunReturnOutput(cmdLine, project.Path, map[string]string{})
 	return strings.TrimSpace(result)
 
 }

@@ -34,9 +34,11 @@ func NewExecutor(path string) Executor {
 }
 
 // DoBuild performs a build of the project
-func (executor Executor) DoBuild(outputPath string, verbose bool) int {
+func (executor Executor) DoBuild(outputPath string, goos string, goarch string, verbose bool) int {
 	return executor.runSubcommand(builder.Builder{
 		OutputPath: outputPath,
+		GOOS:       goos,
+		GOARCH:     goarch,
 		Verbose:    verbose,
 	}, true)
 }
