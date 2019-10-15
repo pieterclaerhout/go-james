@@ -19,8 +19,13 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 - [Building a project](#building-a-project)
 - [Running a project](#running-a-project)
 - [Testing a project](#testing-a-project)
+- [Installing the executable](#installing-the-executable)
+- [Uninstalling the executable](#uninstalling-the-executable)
 - [The config file `go-james.json`](#the-config-file-go-jamesjson)
-- [What is covered during `new` and `init`?](#what-is-covered-during-new-and-init)
+    - [Project Config](#project-config)
+    - [Build Config](#build-config)
+    - [Test Config](#test-config)
+- [Bootstrapping `go-james`](#bootstrapping-go-james)
 
 <!-- /TOC -->
 
@@ -154,53 +159,76 @@ go-james test
 
 This will run all the tests defined in the package.
 
+## Installing the executable
+
+To install the main executable of your project in `$GOPATH/bin`, simply run the `install` command.
+
+This will build the project and install it in the `$GOPATH/bin` folder. The name of the executable is the basename of build output path (as specified in [the configuration file]((#the-config-file-go-jamesjson)).
+
+```
+go-james uninstall
+```
+
+## Uninstalling the executable
+
+Similar to the `install` command, there is also an `uninstall` command which removes the executable from `$GOPATH/bin`.
+
+```
+go-james uninstall
+```
+
 ## The config file `go-james.json`
+
+When you create a new project or init an existing one, a `go-james.json` file will be created in the root of your project. This file can be used to configure the project. The full config file is as follows:
 
 ```json
 {
     "project": {
-        "name": "go-james",
-        "description": "James is your butler and helps you to create, build, test and run your Go projects",
-        "package": "github.com/pieterclaerhout/go-james",
-        "main_package": "github.com/pieterclaerhout/go-james/cmd/main",
-        "repository": "github.com/pieterclaerhout/go-james"
+        "name": "go-example",
+        "description": "",
+        "package": "github.com/pieterclaerhout/go-example",
+        "main_package": "github.com/pieterclaerhout/go-example/cmd/go-example"
     },
     "build": {
-        "ouput_name": "build/go-james",
-        "ld_flags": ["-s", "-w"],
-        "extra_args": ["-trimpath"]
+        "ouput_path": "build/go-example",
+        "ld_flags": [
+            "-s",
+            "-w"
+        ],
+        "extra_args": [
+            "-trimpath"
+        ]
+    },
+    "test": {
+        "extra_args": []
     }
 }
 ```
 
-## What is covered during `new` and `init`?
+### Project Config
 
-Already covered:
+* `name`: the name of your project
+* `description`: the description of your project
+* `package`: the root package of your project
+* `main_package`: the full path to the main package of your app, defaults to `<package>/cmd/<project-name>`
 
-* README.md
-* LICENSE (defaults to the Apache license)
-* Visual Studio Code Tasks file
-* Git Revision and Branch name injection in `versioninfo` package.
-* `.gitignore`
-* `clean`
-* Tests extra flags
-* go-james.json file
-* `go mod init`
-* Creation of the main entrypoint package
-* Creation of the library
-* `install`
-* `uninstall`
+### Build Config
 
-Not covered yet:
+* `output_path`: the path where the built executable should be placed. Defaults to `build/<project-name>`
+* `ld_flags`: the linker flags you want to use for building. You can find more info about these flags [here](https://golang.org/cmd/link/).
+* `extra_args`: contains any extra command-line parameters you want to add to the `go build` command when you run `go-james build`.
 
-* Creation of the git repo (optional)
+### Test Config
+
+* `extra_args`: contains any extra command-line parameters you want to add to the `go test` command when you run `go-james test`.
+
+## Bootstrapping `go-james`
+
+If you want to build `go-james` from scratch, you can use the `bootstrap.sh` shell script.
+
+If you have a version of `go-james` installed, you can use it to build itself.
 
 Eventually:
-
-* Running benchmarks
-* `publish` (to github)
-* `.dockerignore`
-* `Dockerfile`
 * Listing out-of-date dependencies
 * Update of out-of-date dependencies
 * Homebrew recipe

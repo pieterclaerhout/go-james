@@ -113,6 +113,9 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 			LDFlags:    []string{"-s", "-w"},
 			ExtraArgs:  []string{"-trimpath"},
 		},
+		Test: config.TestConfig{
+			ExtraArgs: []string{},
+		},
 	}
 
 	return creator.WriteJSONFileIfNotExists(configPath, cfg)
