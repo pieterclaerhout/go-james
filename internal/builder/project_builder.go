@@ -1,6 +1,8 @@
 package builder
 
 import (
+	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/kballard/go-shellquote"
@@ -12,7 +14,8 @@ import (
 // Builder implements the "build" command
 type Builder struct {
 	common.CommandRunner
-	Verbose bool
+	OutputPath string
+	Verbose    bool
 }
 
 // Execute executes the command
@@ -30,8 +33,9 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		buildCmd = append(buildCmd, "-v")
 	}
 
-	if cfg.Build.OutputName != "" {
-		buildCmd = append(buildCmd, "-o", cfg.Build.OutputName)
+	outputPath := builder.outputPath(cfg)
+	if outputPath != "" {
+		buildCmd = append(buildCmd, "-o", outputPath)
 	}
 
 	ldFlags := cfg.Build.LDFlags
@@ -83,5 +87,24 @@ func (builder Builder) ldFlagForVersionInfo(cfg config.Config, name string, valu
 	}
 
 	return result
+
+}
+
+func (builder Builder) outputPath(cfg config.Config) string {
+
+	outputPath := cfg.Build.OutputPath
+	if outputPath == "" {
+		outputPath = builder.OutputPath
+	}
+
+	if outputPath != "" {
+		if runtime.GOOS == "win" {
+			if filepath.Ext(outputPath) != ".exe" {
+				outputPath = outputPath + ".exe"
+			}
+		}
+	}
+
+	return outputPath
 
 }

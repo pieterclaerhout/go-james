@@ -31,7 +31,7 @@ type ProjectConfig struct {
 
 // BuildConfig contains the build specific configuration settings
 type BuildConfig struct {
-	OutputName string   `json:"ouput_name"` // The name of the executable to generate
+	OutputPath string   `json:"ouput_path"` // The path of the executable to generate
 	LDFlags    []string `json:"ld_flags"`   // The ldflags to pass to the build command
 	ExtraArgs  []string `json:"extra_args"` // The extra arguments to pass to the build command
 }

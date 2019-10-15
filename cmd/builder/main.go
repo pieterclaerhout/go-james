@@ -19,13 +19,21 @@ var BuildCmd = climax.Command{
 			Help:     `print the names of packages as they are compiled.`,
 			Variable: false,
 		},
+		{
+			Name:     "output",
+			Short:    "o",
+			Usage:    `--ouput=<output-path>`,
+			Help:     `The path where the executable should be stored`,
+			Variable: true,
+		},
 	},
 	Handle: func(ctx climax.Context) int {
 
+		output, _ := ctx.Get("output")
 		verbose := ctx.Is("verbose")
 
 		executor := internal.NewExecutor("")
-		return executor.DoBuild(verbose)
+		return executor.DoBuild(output, verbose)
 
 	},
 }

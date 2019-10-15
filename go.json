@@ -6,7 +6,7 @@
         "main_package": "github.com/pieterclaerhout/go-james/cmd/go-james"
     },
     "build": {
-        "ouput_name": "build/go-james",
+        "ouput_path": "build/go-james",
         "ld_flags": ["-s", "-w"],
         "extra_args": ["-trimpath"]
     },

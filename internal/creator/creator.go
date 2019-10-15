@@ -95,7 +95,7 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 			MainPackage: creator.Package + "/cmd/" + creator.Name,
 		},
 		Build: config.BuildConfig{
-			OutputName: filepath.Join("build", creator.Name),
+			OutputPath: filepath.Join("build", creator.Name),
 			LDFlags:    []string{"-s", "-w"},
 			ExtraArgs:  []string{"-trimpath"},
 		},

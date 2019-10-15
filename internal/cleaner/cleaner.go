@@ -17,7 +17,7 @@ type Cleaner struct {
 // Execute executes the command
 func (cleaner Cleaner) Execute(project common.Project, cfg config.Config) error {
 
-	buildPath := project.RelPath(filepath.Dir(cfg.Build.OutputName))
+	buildPath := project.RelPath(filepath.Dir(cfg.Build.OutputPath))
 
 	if cleaner.DirExists(buildPath) {
 		log.Info("Removing:", buildPath)

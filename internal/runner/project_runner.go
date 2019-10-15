@@ -25,7 +25,7 @@ func (runner Runner) Execute(project common.Project, cfg config.Config) error {
 		return err
 	}
 
-	runCmd := []string{filepath.Join(project.Path, cfg.Build.OutputName)}
+	runCmd := []string{filepath.Join(project.Path, cfg.Build.OutputPath)}
 	runCmd = append(runCmd, runner.Args...)
 
 	return runner.RunToStdout(runCmd, project.Path)
