@@ -103,9 +103,9 @@ func (builder Builder) ldFlagForVersionInfo(cfg config.Config, name string, valu
 
 func (builder Builder) outputPath(cfg config.Config) string {
 
-	outputPath := cfg.Build.OutputPath
+	outputPath := builder.OutputPath
 	if outputPath == "" {
-		outputPath = builder.OutputPath
+		outputPath = cfg.Build.OutputPath
 	}
 
 	if outputPath != "" {

@@ -1,8 +1,6 @@
 package runner
 
 import (
-	"path/filepath"
-
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
@@ -16,7 +14,7 @@ type Runner struct {
 // Execute executes the command
 func (runner Runner) Execute(project common.Project, cfg config.Config) error {
 
-	runCmd := []string{filepath.Join(project.Path, cfg.Build.OutputPath)}
+	runCmd := []string{project.RelPath(cfg.Build.OutputPath)}
 	runCmd = append(runCmd, runner.Args...)
 
 	return runner.RunToStdout(runCmd, project.Path, map[string]string{})

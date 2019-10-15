@@ -8,6 +8,7 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 	"github.com/pieterclaerhout/go-james/internal/creator"
+	"github.com/pieterclaerhout/go-james/internal/installer"
 	"github.com/pieterclaerhout/go-james/internal/runner"
 	"github.com/pieterclaerhout/go-james/internal/tester"
 	"github.com/pieterclaerhout/go-log"
@@ -51,6 +52,13 @@ func (executor Executor) DoClean() int {
 // DoTest performs the tests defined in the project
 func (executor Executor) DoTest() int {
 	return executor.runSubcommand(tester.Tester{}, true)
+}
+
+// DoInstall builds the project and installs it in $GOPATH/bin
+func (executor Executor) DoInstall(verbose bool) int {
+	return executor.runSubcommand(installer.Installer{
+		Verbose: verbose,
+	}, true)
 }
 
 // DoRun runs the project and passes the arguments to the command
