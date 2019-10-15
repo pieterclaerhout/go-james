@@ -227,8 +227,3 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 If you want to build `go-james` from scratch, you can use the `bootstrap.sh` shell script.
 
 If you have a version of `go-james` installed, you can use it to build itself.
-
-Eventually:
-* Listing out-of-date dependencies
-* Update of out-of-date dependencies
-* Homebrew recipe
