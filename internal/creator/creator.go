@@ -1,6 +1,7 @@
 package creator
 
 import (
+	"os"
 	"path/filepath"
 
 	"github.com/pkg/errors"
@@ -39,6 +40,11 @@ type Creator struct {
 
 // Execute executes the command
 func (creator Creator) Execute(project common.Project, cfg config.Config) error {
+
+	if creator.Mode == InitProject {
+		creator.Path, _ = os.Getwd()
+		creator.Package = filepath.Base(creator.Path)
+	}
 
 	if creator.Path == "" {
 		return errors.New("Path not specified")

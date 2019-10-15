@@ -78,7 +78,7 @@ func (executor Executor) DoRun(args []string) int {
 func (executor Executor) DoInit() int {
 	return executor.runSubcommand(creator.Creator{
 		Mode: creator.InitProject,
-	}, true)
+	}, false)
 }
 
 // DoNew initializes a project in an existing directory
