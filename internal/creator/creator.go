@@ -179,6 +179,11 @@ func (creator Creator) createSourceFiles(project common.Project, cfg config.Conf
 		return err
 	}
 
+	versionInfoPath := project.RelPath("versioninfo", "versioninfo.go")
+	if err := creator.WriteTextTemplateIfNotExists(versionInfoPath, versionInfoTemplate, cfg); err != nil {
+		return err
+	}
+
 	return nil
 
 }
