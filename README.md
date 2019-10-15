@@ -12,8 +12,9 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 
 <!-- TOC depthFrom:2 -->
 
+- [Requirements](#requirements)
 - [Installation](#installation)
-- [Creating a new project](#creating-a-new-project)
+- [Starting a new project](#starting-a-new-project)
 - [Initializing an existing project](#initializing-an-existing-project)
 - [Building a project](#building-a-project)
 - [Running a project](#running-a-project)
@@ -24,36 +25,52 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 <!-- /TOC -->
 
 ---
+ 
+## Requirements
+
+* [Go](https://golang.org) 1.13 or newer
+* [Go Modules](https://github.com/golang/go/wiki/Modules) (the de-facto standard)
 
 ## Installation
 
-As [Go 1.13](https://golang.org) is required for this tool, the best way to install this tool is to run `go install` as follows:
+The best way to install this tool is to run `go install` as follows:
 
 ```
 go install github.com/pieterclaerhout/go-james/cmd/go-james
 ```
 
-This will create the `go-james` command in your `$GOPATH/bin` folder.
+This will create the `go-james` command in your `$GOPATH/bin` folder. The tool is self-contained and doesn't have any external dependencies.
 
-## Creating a new project
+## Starting a new project
 
-To create a new project, you can use the `new` subcommand as follows:
-
-```
-go-james new --path=<target-path> --package=<package> --name=<name> --description=<description>
-```
-
-You can specify the following options:
-
-* `--path` (required): the path where the new project should be created, e.g. `/home/username/go-example`
-* `--package` (required): the main package for the new project, e.g. `github.com/pieterclaerhout/go-example`
-* `--name` (optional): the name of the project, if not specified, the last part of the path is used
-* `--description` (optional): the description of the project, used for the readme
-
-It will automatically create the following project structure:
+To start a new project, you can use the `new` subcommand as follows:
 
 ```
-/home/username/go-example
+go-james new --path=<target path> \
+             --package=<package> \
+             --name=<name of your project> \
+             --description=<description of your project>
+```
+
+When you run it, you'll get the following output:
+
+```
+➜ go-james new --path go-example --package github.com/pieterclaerhout/go-example
+Creating: go-example/go-james.json
+Creating: go-example/.vscode/tasks.json
+Creating: go-example/LICENSE
+Creating: go-example/.gitignore
+Creating: go-example/README.md
+Creating: go-example/library.go
+Creating: go-example/cmd/go-example/main.go
+Creating: go-example/versioninfo/versioninfo.go
+go: creating new go.mod: module github.com/pieterclaerhout/go-example
+```
+
+It will automatically create the following folder and file structure:
+
+```
+go-example
 ├── .gitignore
 ├── .vscode
 │   └── tasks.json
@@ -70,6 +87,15 @@ It will automatically create the following project structure:
 └── versioninfo
     └── versioninfo.go
 ```
+
+An important file which is generated and can be used to further customize the project and it's settings is the [`go-james.json`](#the-config-file-go-jamesjson) file which sits next to the `go.mod` file.
+
+You can specify the following options:
+
+* `--path` (required): the path where the new project should be created, e.g. `/home/username/go-example`
+* `--package` (required): the main package for the new project, e.g. `github.com/pieterclaerhout/go-example`
+* `--name` (optional): the name of the project, if not specified, the last part of the path is used
+* `--description` (optional): the description of the project, used for the readme
 
 ## Initializing an existing project
 
@@ -89,17 +115,24 @@ From within the project root, run the `build` command to build the executable:
 go-james build [-v] [--output=<path>] [--goos=<os>] [--goarch=<arch>]
 ```
 
-By default, the output is put in the `build` subdirectory.
+By default, the output is put in the `build` subdirectory but can be customized in [the configuration file]((#the-config-file-go-jamesjson)).
 
-By adding the `-v` flag, the packages which are built will be listed.
+You can specify the following options:
 
-By adding the `--output` flag, you can override the default output path as specified in the config file.
+* `-v`: the packages which are built will be listed.
+* `--output`: you can override the default output path as specified in [the configuration file]((#the-config-file-go-jamesjson)).
+* `--goos`: you can override the `GOOS` environment variable which indicates for which OS you are compiling.
+* `--goarch`: you can override the `GOARCH` environment variable which indicates for which architecture you are compiling.
 
-By adding the `--goos` flag, you can override the `GOOS` env variable which indicates for which OS you are compiling.
+You can read more about the `GOOS` and `GOARCH` environment variables [here](https://golang.org/doc/install/source#environment).
 
-By adding the `--goarch` flag, you can override the `GOARCH` env variable which indicates for which architecture you are compiling.
+As part of the build process, the `versioninfo` package will be filled with the following details:
 
-You can read more about these flags [here](https://golang.org/doc/install/source#environment).
+* `versioninfo.AppName`: the name of the project from [the configuration file]((#the-config-file-go-jamesjson))
+* `versioninfo.Revision`: the current Git commit hash
+* `versioninfo.Branch`: the current Git branch name
+
+With every build, these variables are automatically updated.
 
 ## Running a project
 
