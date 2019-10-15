@@ -59,6 +59,7 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		creator.createLicense,
 		creator.createGitIgnore,
 		creator.createReadme,
+		creator.createGoMod,
 	}
 
 	for _, step := range steps {
@@ -120,8 +121,10 @@ func (creator Creator) createTasks(project common.Project, cfg config.Config) er
 }
 
 func (creator Creator) createLicense(project common.Project, cfg config.Config) error {
+
 	path := project.RelPath(licenseFileName)
 	return creator.WriteTextFileIfNotExists(path, apacheLicense)
+
 }
 
 func (creator Creator) createGitIgnore(project common.Project, cfg config.Config) error {
@@ -139,5 +142,19 @@ func (creator Creator) createReadme(project common.Project, cfg config.Config) e
 
 	path := project.RelPath(readmeFileName)
 	return creator.WriteTextFileIfNotExists(path, readme.markdownString())
+
+}
+
+func (creator Creator) createGoMod(project common.Project, cfg config.Config) error {
+
+	goModPath := project.RelPath(goModFileName)
+	if creator.FileExists(goModPath) {
+		return nil
+	}
+
+	cmd := []string{"go", "mod", "init", cfg.Project.Package}
+	return creator.RunToStdout(cmd, project.Path, map[string]string{
+		"GO111MODULE": "on",
+	})
 
 }
