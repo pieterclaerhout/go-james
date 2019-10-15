@@ -4,16 +4,59 @@ James is your butler and helps you to create, build, test and run your Go projec
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/pieterclaerhout/go-james)](https://goreportcard.com/report/github.com/pieterclaerhout/go-james) [![Documentation](https://godoc.org/github.com/pieterclaerhout/go-james?status.svg)](http://godoc.org/github.com/pieterclaerhout/go-james) [![License](https://img.shields.io/badge/license-Apache%20v2-orange.svg)](https://github.com/pieterclaerhout/go-james/raw/master/LICENSE) [![GitHub Version](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james.svg)](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james) [![GitHub issues](https://img.shields.io/github/issues/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/issues)
 
+<!-- TOC depthFrom:2 -->
+
+- [Installation](#installation)
+- [Creating a new project](#creating-a-new-project)
+- [Initializing an existing project](#initializing-an-existing-project)
+- [Building a project](#building-a-project)
+- [Running a project](#running-a-project)
+- [Testing a project](#testing-a-project)
+- [The config file `go.json`](#the-config-file-gojson)
+- [What is covered during `new` and `init`?](#what-is-covered-during-new-and-init)
+
+<!-- /TOC -->
+
 ## Installation
+
+As [Go 1.13](https://golang.org) is required for this tool, the best way to install this tool is to run `go install` as follows:
 
 ```
 go install github.com/pieterclaerhout/go-james/cmd/go-james
 ```
 
+This will create the `go-james` command in your `$GOPATH/bin` folder.
+
 ## Creating a new project
 
+To create a new project, you can use the `new` subcommand as follows:
+
 ```
-go-james new
+go-james new --path=<target-path> --package=<package> --name=<name> --description=<description>
+```
+
+You can specify the following options:
+
+* `--path` (required): the path where the new project should be created, e.g. `/home/username/go-example`
+* `--package` (required): the main package for the new project, e.g. `github.com/pieterclaerhout/go-example`
+* `--name` (optional): the name of the project, if not specified, the last part of the path is used
+* `--description` (optional): the description of the project, used for the readme
+
+It will automatically create the following project structure:
+
+```
+/home/username/go-example
+├── .gitignore
+├── .vscode
+│   └── tasks.json
+├── LICENSE
+├── README.md
+├── cmd
+│   └── go-example
+│       └── main.go
+├── go.json
+├── go.mod
+└── library.go
 ```
 
 ## Initializing an existing project
@@ -93,15 +136,15 @@ Already covered:
 * `clean`
 * Tests extra flags
 * go.json file
-
-Not covered yet:
-
 * `go mod init`
 * Creation of the main entrypoint package
 * Creation of the library
-* Creation of the git repo (optional)
 * `install`
 * `uninstall`
+
+Not covered yet:
+
+* Creation of the git repo (optional)
 
 Eventually:
 
