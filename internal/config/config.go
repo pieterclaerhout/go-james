@@ -12,7 +12,7 @@ import (
 )
 
 // FileName is the name of the config file
-const FileName = "go.json"
+const FileName = "go-james.json"
 
 // Config defines the project configuration
 type Config struct {
@@ -69,7 +69,7 @@ func NewConfigFromPath(path string) (Config, error) {
 
 }
 
-// NewConfigFromDir parses the config from a file called "go.json" which should be present in the specified path
+// NewConfigFromDir parses the config from a file called "go-james.json" which should be present in the specified path
 func NewConfigFromDir(path string) (Config, error) {
 	configPath := filepath.Join(path, FileName)
 	return NewConfigFromPath(configPath)

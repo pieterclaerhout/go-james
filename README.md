@@ -8,6 +8,8 @@ When you often create new apps using [Go](https://golang.org), it quickly become
 
 Using the `go-james` tool, you can automate and streamline this process. The tool will take care of initializing your project, running your project, building it and running the tests.
 
+---
+
 <!-- TOC depthFrom:2 -->
 
 - [Installation](#installation)
@@ -16,10 +18,12 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 - [Building a project](#building-a-project)
 - [Running a project](#running-a-project)
 - [Testing a project](#testing-a-project)
-- [The config file `go.json`](#the-config-file-gojson)
+- [The config file `go-james.json`](#the-config-file-go-jamesjson)
 - [What is covered during `new` and `init`?](#what-is-covered-during-new-and-init)
 
 <!-- /TOC -->
+
+---
 
 ## Installation
 
@@ -60,7 +64,7 @@ It will automatically create the following project structure:
 ├── cmd
 │   └── go-example
 │       └── main.go
-├── go.json
+├── go-james.json
 ├── go.mod
 ├── library.go
 └── versioninfo
@@ -117,7 +121,7 @@ go-james test
 
 This will run all the tests defined in the package.
 
-## The config file `go.json`
+## The config file `go-james.json`
 
 ```json
 {
@@ -147,7 +151,7 @@ Already covered:
 * `.gitignore`
 * `clean`
 * Tests extra flags
-* go.json file
+* go-james.json file
 * `go mod init`
 * Creation of the main entrypoint package
 * Creation of the library
