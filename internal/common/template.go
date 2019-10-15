@@ -5,9 +5,6 @@ import (
 	"text/template"
 )
 
-// const templateVarPrefix = "{{."
-// const templateVarSuffix = "{{"
-
 // Template is what can be injected into a subcommand when you need text templates
 type Template struct {
 	FileSystem
