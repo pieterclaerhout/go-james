@@ -38,6 +38,15 @@
             ]
         },
         {
+            "label": "build (debug & verbose)",
+            "command": "DEBUG=1 ./build/go-james build -v",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
             "label": "tests",
             "command": "./build/go-james test",
             "type": "shell",
