@@ -9,6 +9,7 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/config"
 	"github.com/pieterclaerhout/go-james/internal/creator"
 	"github.com/pieterclaerhout/go-james/internal/installer"
+	"github.com/pieterclaerhout/go-james/internal/uninstaller"
 	"github.com/pieterclaerhout/go-james/internal/runner"
 	"github.com/pieterclaerhout/go-james/internal/tester"
 	"github.com/pieterclaerhout/go-log"
@@ -54,11 +55,16 @@ func (executor Executor) DoTest() int {
 	return executor.runSubcommand(tester.Tester{}, true)
 }
 
-// DoInstall builds the project and installs it in $GOPATH/bin
+// DoInstall builds the executable and installs it in $GOPATH/bin
 func (executor Executor) DoInstall(verbose bool) int {
 	return executor.runSubcommand(installer.Installer{
 		Verbose: verbose,
 	}, true)
+}
+
+// DoUninstall removes the executable from $GOPATH/bin
+func (executor Executor) DoUninstall() int {
+	return executor.runSubcommand(uninstaller.Uninstaller{}, true)
 }
 
 // DoRun runs the project and passes the arguments to the command

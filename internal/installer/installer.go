@@ -12,8 +12,6 @@ import (
 
 // Installer implements the "install" command
 type Installer struct {
-	common.CommandRunner
-	common.FileSystem
 	Verbose bool
 }
 
@@ -26,7 +24,7 @@ func (installer Installer) Execute(project common.Project, cfg config.Config) er
 
 	b := builder.Builder{
 		OutputPath: dstPath,
-		Verbose:    true,
+		Verbose:    installer.Verbose,
 	}
 	return b.Execute(project, cfg)
 

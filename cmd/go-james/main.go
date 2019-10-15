@@ -13,6 +13,7 @@ import (
 	"github.com/pieterclaerhout/go-james/cmd/installer"
 	"github.com/pieterclaerhout/go-james/cmd/runner"
 	"github.com/pieterclaerhout/go-james/cmd/tester"
+	"github.com/pieterclaerhout/go-james/cmd/uninstaller"
 	"github.com/pieterclaerhout/go-james/cmd/version"
 	"github.com/pieterclaerhout/go-james/internal"
 	"github.com/pieterclaerhout/go-james/versioninfo"
@@ -60,6 +61,7 @@ func main() {
 		app.AddCommand(runner.RunCmd)
 		app.AddCommand(tester.TestCmd)
 		app.AddCommand(version.VersionCmd)
+		app.AddCommand(uninstaller.UninstallCmd)
 
 		result = app.Run()
 
