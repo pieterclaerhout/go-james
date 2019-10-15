@@ -56,8 +56,9 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 
 	buildCmd = append(buildCmd, cfg.Project.MainPackage)
 	return builder.RunToStdout(buildCmd, project.Path, map[string]string{
-		"GOOS":   builder.GOOS,
-		"GOARCH": builder.GOARCH,
+		"GO111MODULE": "on",
+		"GOOS":        builder.GOOS,
+		"GOARCH":      builder.GOARCH,
 	})
 
 }
