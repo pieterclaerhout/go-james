@@ -112,41 +112,9 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 
 func (creator Creator) createTasks(project common.Project, cfg config.Config) error {
 
+	tasks := newVisualStudioCodeTaskList()
+
 	tasksPath := project.RelPath(visualStudioDirName, visualStudioCodeTasksFileName)
-
-	tasks := newVisualStudioCodeTaskList(
-		visualStudioCodeTask{
-			Label:          "build",
-			Command:        "go-james build",
-			ProblemMatcher: []string{"$go"},
-		},
-		visualStudioCodeTask{
-			Label:          "build (verbose)",
-			Command:        "go-james build -v",
-			ProblemMatcher: []string{"$go"},
-		},
-		visualStudioCodeTask{
-			Label:          "clean",
-			Command:        "go-james clean",
-			ProblemMatcher: []string{"$go"},
-		},
-		visualStudioCodeTask{
-			Label:          "tests",
-			Command:        "go-james test",
-			ProblemMatcher: []string{"$go"},
-		},
-		visualStudioCodeTask{
-			Label:          "run",
-			Command:        "go-james run",
-			ProblemMatcher: []string{"$go"},
-		},
-		visualStudioCodeTask{
-			Label:          "run (debug)",
-			Command:        "DEBUG=1 go-james run",
-			ProblemMatcher: []string{"$go"},
-		},
-	)
-
 	return creator.WriteJSONFileIfNotExists(tasksPath, tasks)
 
 }

@@ -3,11 +3,6 @@ package creator
 const visualStudioDirName = ".vscode"
 const visualStudioCodeTasksFileName = "tasks.json"
 
-type visualStudioCodeTasks struct {
-	Version string
-	Tasks   []visualStudioCodeTask `json:"tasks"`
-}
-
 type visualStudioCodeTask struct {
 	Label          string   `json:"label"`
 	Command        string   `json:"command"`
@@ -16,23 +11,32 @@ type visualStudioCodeTask struct {
 	ProblemMatcher []string `json:"problemMatcher"`
 }
 
-func newVisualStudioCodeTaskList(tasks ...visualStudioCodeTask) *visualStudioCodeTasks {
-	result := &visualStudioCodeTasks{
-		Version: "2.0.0",
-		Tasks:   []visualStudioCodeTask{},
+func newVisualStudioCodeTask(label string, command string) visualStudioCodeTask {
+	return visualStudioCodeTask{
+		Label:          label,
+		Command:        command,
+		Type:           "shell",
+		Group:          "build",
+		ProblemMatcher: []string{"$go"},
 	}
-	for _, task := range tasks {
-		result.Add(task)
-	}
-	return result
 }
 
-func (tasks *visualStudioCodeTasks) Add(task visualStudioCodeTask) {
-	if task.Type == "" {
-		task.Type = "shell"
+type visualStudioCodeTasks struct {
+	Version string
+	Tasks   []visualStudioCodeTask `json:"tasks"`
+}
+
+func newVisualStudioCodeTaskList() *visualStudioCodeTasks {
+	result := &visualStudioCodeTasks{
+		Version: "2.0.0",
+		Tasks: []visualStudioCodeTask{
+			newVisualStudioCodeTask("build", "go-james build"),
+			newVisualStudioCodeTask("build (verbose)", "go-james build -v"),
+			newVisualStudioCodeTask("clean", "go-james clean"),
+			newVisualStudioCodeTask("tests", "go-james test"),
+			newVisualStudioCodeTask("run", "go-james run"),
+			newVisualStudioCodeTask("run (debug)", "DEBUG=1 go-james run"),
+		},
 	}
-	if task.Group == "" {
-		task.Group = "build"
-	}
-	tasks.Tasks = append(tasks.Tasks, task)
+	return result
 }
