@@ -3,7 +3,7 @@ package creator
 const mainLibTemplate = `package {{.ShortPackageName}}
 `
 
-const mainCmdTemplate = `package {{.ShortPackageName}}
+const mainCmdTemplate = `package main
 
 import(
 	"fmt"
