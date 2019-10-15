@@ -28,6 +28,7 @@ Using the `go-james` tool, you can automate and streamline this process. The too
     - [Build Config](#build-config)
     - [Test Config](#test-config)
 - [Bootstrapping `go-james`](#bootstrapping-go-james)
+- [Roadmap](#roadmap)
 
 <!-- /TOC -->
 
@@ -229,3 +230,7 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 If you want to build `go-james` from scratch, you can use the `bootstrap.sh` shell script.
 
 If you have a version of `go-james` installed, you can use it to build itself.
+
+## Roadmap
+
+To get an idea on what's coming, you can check the [GitHub Milestones](https://github.com/pieterclaerhout/go-james/milestones).
