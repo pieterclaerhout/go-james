@@ -11,6 +11,15 @@
             ]
         },
         {
+            "label": "bootstrap",
+            "command": "./bootstrap.sh",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
             "label": "clean",
             "command": "./build/go-james clean",
             "type": "shell",
