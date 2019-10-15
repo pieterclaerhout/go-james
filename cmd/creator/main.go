@@ -28,14 +28,14 @@ var NewCmd = climax.Command{
 		{
 			Name:     "name",
 			Short:    "",
-			Usage:    `--name=<name-of-the-project>`,
+			Usage:    `--name=<name>`,
 			Help:     `The name of the project`,
 			Variable: true,
 		},
 		{
 			Name:     "description",
 			Short:    "",
-			Usage:    `--description=<description-of-the-project>`,
+			Usage:    `--description=<description>`,
 			Help:     `The description of the project`,
 			Variable: true,
 		},
