@@ -9,9 +9,9 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/config"
 	"github.com/pieterclaerhout/go-james/internal/creator"
 	"github.com/pieterclaerhout/go-james/internal/installer"
-	"github.com/pieterclaerhout/go-james/internal/uninstaller"
 	"github.com/pieterclaerhout/go-james/internal/runner"
 	"github.com/pieterclaerhout/go-james/internal/tester"
+	"github.com/pieterclaerhout/go-james/internal/uninstaller"
 	"github.com/pieterclaerhout/go-log"
 )
 
@@ -126,9 +126,7 @@ func (executor Executor) runSubcommand(subcommand Subcommand, parseConfig bool) 
 
 	log.DebugDump(subcommand, "subcommand")
 	if err := subcommand.Execute(project, cfg); err != nil {
-		if log.DebugMode {
-			log.Error(err)
-		}
+		log.Error(err)
 		return 1
 	}
 
