@@ -62,6 +62,11 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 
 }
 
+// RequiresBuild indicates if a build is required before running the command
+func (builder Builder) RequiresBuild() bool {
+	return false
+}
+
 func (builder Builder) determineRevision(project common.Project) string {
 
 	cmdLine := []string{"git", "rev-parse", "--short", "HEAD"}

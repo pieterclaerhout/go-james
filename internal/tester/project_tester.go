@@ -24,3 +24,8 @@ func (tester Tester) Execute(project common.Project, cfg config.Config) error {
 	return tester.RunToStdout(testCmd, project.Path, map[string]string{})
 
 }
+
+// RequiresBuild indicates if a build is required before running the command
+func (tester Tester) RequiresBuild() bool {
+	return false
+}

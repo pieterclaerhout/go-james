@@ -29,3 +29,8 @@ func (cleaner Cleaner) Execute(project common.Project, cfg config.Config) error 
 	return nil
 
 }
+
+// RequiresBuild indicates if a build is required before running the command
+func (cleaner Cleaner) RequiresBuild() bool {
+	return false
+}

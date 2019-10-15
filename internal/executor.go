@@ -95,6 +95,21 @@ func (executor Executor) runSubcommand(subcommand Subcommand, parseConfig bool) 
 
 	project := common.NewProject(executor.Path)
 
+	if subcommand.RequiresBuild() {
+
+		b := builder.Builder{
+			Verbose: false,
+		}
+
+		if err := b.Execute(project, cfg); err != nil {
+			if log.DebugMode {
+				log.Error(err)
+			}
+			return 1
+		}
+
+	}
+
 	log.DebugDump(subcommand, "subcommand")
 	if err := subcommand.Execute(project, cfg); err != nil {
 		if log.DebugMode {

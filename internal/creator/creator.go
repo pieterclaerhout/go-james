@@ -79,6 +79,11 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 
 }
 
+// RequiresBuild indicates if a build is required before running the command
+func (creator Creator) RequiresBuild() bool {
+	return false
+}
+
 func (creator Creator) createConfig(project common.Project, cfg config.Config) error {
 
 	configPath := project.RelPath(config.ConfigFileName)
