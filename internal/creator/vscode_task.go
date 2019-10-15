@@ -35,6 +35,8 @@ func newVisualStudioCodeTaskList() *visualStudioCodeTasks {
 			newVisualStudioCodeTask("clean", "go-james clean"),
 			newVisualStudioCodeTask("tests", "go-james test"),
 			newVisualStudioCodeTask("run", "go-james run"),
+			newVisualStudioCodeTask("install", "go-james install"),
+			newVisualStudioCodeTask("uninstall", "go-james uninstall"),
 			newVisualStudioCodeTask("run (debug)", "DEBUG=1 go-james run"),
 		},
 	}
