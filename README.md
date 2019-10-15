@@ -2,7 +2,11 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/pieterclaerhout/go-james)](https://goreportcard.com/report/github.com/pieterclaerhout/go-james) [![Documentation](https://godoc.org/github.com/pieterclaerhout/go-james?status.svg)](http://godoc.org/github.com/pieterclaerhout/go-james) [![License](https://img.shields.io/badge/license-Apache%20v2-orange.svg)](https://github.com/pieterclaerhout/go-james/raw/master/LICENSE) [![GitHub Version](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james.svg)](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james) [![GitHub issues](https://img.shields.io/github/issues/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/issues)
 
-James is your butler and helps you to create, build, test and run your Go projects
+James is your butler and helps you to create, build, test and run your [Go](https://golang.org) projects.
+
+When you often create new apps using [Go](https://golang.org), it quickly becomes annoying when you realize all the steps it takes to configure the basics. You need to manually create the source files, version info requires more steps to be injected into the executable, using [Visual Studio Code](https://code.visualstudio.com) requires you to manually setup the tasks you want to run…
+
+Using the `go-james` tool, you can automate and streamline this process. The tool will take care of initializing your project, running your project, building it and running the tests.
 
 <!-- TOC depthFrom:2 -->
 
@@ -51,12 +55,16 @@ It will automatically create the following project structure:
 │   └── tasks.json
 ├── LICENSE
 ├── README.md
+├── build
+│   └── go-example
 ├── cmd
 │   └── go-example
 │       └── main.go
 ├── go.json
 ├── go.mod
-└── library.go
+├── library.go
+└── versioninfo
+    └── versioninfo.go
 ```
 
 ## Initializing an existing project
