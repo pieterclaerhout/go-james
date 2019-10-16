@@ -24,16 +24,14 @@ func (debugger Debugger) Execute(project common.Project, cfg config.Config) erro
 	debugCmdPath := filepath.Join(os.Getenv("GOPATH"), "bin", "dlv")
 
 	if !debugger.FileExists(debugCmdPath) {
-
 		debugger.LogPathCreation(debugCmdPath)
+	}
 
-		env := map[string]string{}
-		installCmd := []string{"go", "install", delvePackagePath}
-		if output, err := debugger.RunReturnOutput(installCmd, project.Path, env); err != nil {
-			debugger.LogError(output)
-			return err
-		}
-
+	env := map[string]string{}
+	installCmd := []string{"go", "get", "-u", delvePackagePath}
+	if output, err := debugger.RunReturnOutput(installCmd, project.Path, env); err != nil {
+		debugger.LogError(output)
+		return err
 	}
 
 	debugCmd := []string{debugCmdPath, "debug", cfg.Project.MainPackage}

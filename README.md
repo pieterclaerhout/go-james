@@ -4,11 +4,11 @@
 
 **This project is stil in alpha, use at your own risk**
 
-James is your butler and helps you to create, build, test and run your [Go](https://golang.org) projects.
+James is your butler and helps you to create, build, debug, test and run your [Go](https://golang.org) projects.
 
 When you often create new apps using [Go](https://golang.org), it quickly becomes annoying when you realize all the steps it takes to configure the basics. You need to manually create the source files, version info requires more steps to be injected into the executable, using [Visual Studio Code](https://code.visualstudio.com) requires you to manually setup the tasks you want to run…
 
-Using the `go-james` tool, you can automate and streamline this process. The tool will take care of initializing your project, running your project, building it and running the tests.
+Using the `go-james` tool, you can automate and streamline this process. The tool will take care of initializing your project, running your project, debugging it, building it and running the tests.
 
 ---
 
@@ -19,6 +19,7 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 - [Starting a new project](#starting-a-new-project)
 - [Initializing an existing project](#initializing-an-existing-project)
 - [Building a project](#building-a-project)
+- [Debugging a project](#debugging-a-project)
 - [Running a project](#running-a-project)
 - [Testing a project](#testing-a-project)
 - [Installing the executable](#installing-the-executable)
@@ -65,6 +66,7 @@ When you run it, you'll get the following output:
 ```
 ➜ go-james new --path go-example --package github.com/pieterclaerhout/go-example
 Creating: go-example/go-james.json
+Creating: go-example/.vscode/launch.json
 Creating: go-example/.vscode/tasks.json
 Creating: go-example/LICENSE
 Creating: go-example/.gitignore
@@ -81,6 +83,7 @@ It will automatically create the following folder and file structure:
 go-example
 ├── .gitignore
 ├── .vscode
+│   └── launch.json
 │   └── tasks.json
 ├── LICENSE
 ├── README.md
@@ -143,6 +146,18 @@ As part of the build process, the `versioninfo` package will be filled with the 
 * `versioninfo.Branch`: the current Git branch name
 
 With every build, these variables are automatically updated.
+
+## Debugging a project
+
+From within the project root, run:
+
+```
+go-james debug
+```
+
+This will build the project and run it's main target through the [Delve debugger](https://github.com/go-delve). If the `dlv` command is not yet present in your `$GOPATH/bin` folder, it will automaticall be installed the first time you run it.
+
+When creating a new project or performing `init` on an existing project, it also configures debugging from within [Visual Studio Code](https://code.visualstudio.com). It's a simple as setting one or more breakpoints and choose "Start" > "Debug" from the menu. It creates a launch configuration called `Debug`.
 
 ## Running a project
 
