@@ -64,6 +64,7 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 	var steps = []creationStep{
 		creator.createConfig,
 		creator.createTasks,
+		creator.createLaunchConfig,
 		creator.createLicense,
 		creator.createGitIgnore,
 		creator.createReadme,
@@ -131,6 +132,15 @@ func (creator Creator) createTasks(project common.Project, cfg config.Config) er
 
 	tasksPath := project.RelPath(visualStudioDirName, visualStudioCodeTasksFileName)
 	return creator.WriteJSONFileIfNotExists(tasksPath, tasks)
+
+}
+
+func (creator Creator) createLaunchConfig(project common.Project, cfg config.Config) error {
+
+	config := newVisualStudioCodeLaunchConfigs(cfg)
+
+	launchConfigPath := project.RelPath(visualStudioDirName, visualStudioCodeLaunchFileName)
+	return creator.WriteJSONFileIfNotExists(launchConfigPath, config)
 
 }
 

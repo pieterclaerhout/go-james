@@ -48,6 +48,22 @@ func (commandRunner CommandRunner) createCommand(cmdLine []string, workdir strin
 
 }
 
+// RunInteractive and interactive command
+func (commandRunner CommandRunner) RunInteractive(cmdLine []string, workdir string, env map[string]string) error {
+
+	command, err := commandRunner.createCommand(cmdLine, workdir, env)
+	if err != nil {
+		return err
+	}
+
+	command.Stdout = os.Stdout
+	command.Stdin = os.Stdin
+	command.Stderr = os.Stderr
+
+	return command.Run()
+
+}
+
 // RunToStdout runs the command and outputs the result to stdout/stderr
 func (commandRunner CommandRunner) RunToStdout(cmdLine []string, workdir string, env map[string]string) error {
 
