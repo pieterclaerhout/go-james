@@ -10,6 +10,7 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/creator"
 	"github.com/pieterclaerhout/go-james/internal/installer"
 	"github.com/pieterclaerhout/go-james/internal/runner"
+	"github.com/pieterclaerhout/go-james/internal/debugger"
 	"github.com/pieterclaerhout/go-james/internal/tester"
 	"github.com/pieterclaerhout/go-james/internal/uninstaller"
 	"github.com/pieterclaerhout/go-log"
@@ -71,6 +72,13 @@ func (executor Executor) DoUninstall() int {
 // DoRun runs the project and passes the arguments to the command
 func (executor Executor) DoRun(args []string) int {
 	return executor.runSubcommand(runner.Runner{
+		Args: args,
+	}, true)
+}
+
+// DoDebug debugs the project and passes the arguments to the command
+func (executor Executor) DoDebug(args []string) int {
+	return executor.runSubcommand(debugger.Debugger{
 		Args: args,
 	}, true)
 }

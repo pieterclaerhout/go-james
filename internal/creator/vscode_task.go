@@ -1,6 +1,5 @@
 package creator
 
-const visualStudioDirName = ".vscode"
 const visualStudioCodeTasksFileName = "tasks.json"
 
 type visualStudioCodeTask struct {
