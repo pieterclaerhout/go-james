@@ -17,6 +17,7 @@ import (
 
 // Executor is used to execute the subcommands
 type Executor struct {
+	common.Logging
 	Path string
 }
 
@@ -100,9 +101,7 @@ func (executor Executor) runSubcommand(subcommand Subcommand, parseConfig bool) 
 	if parseConfig {
 		cfg, err = config.NewConfigFromDir(executor.Path)
 		if err != nil {
-			if log.DebugMode {
-				log.Error(err)
-			}
+			executor.LogErrorInDebugMode(err)
 			return 1
 		}
 	}
@@ -116,9 +115,7 @@ func (executor Executor) runSubcommand(subcommand Subcommand, parseConfig bool) 
 		}
 
 		if err := b.Execute(project, cfg); err != nil {
-			if log.DebugMode {
-				log.Error(err)
-			}
+			executor.LogErrorInDebugMode(err)
 			return 1
 		}
 

@@ -31,6 +31,7 @@ type Creator struct {
 	common.CommandRunner
 	common.FileSystem
 	common.Template
+	common.Logging
 	Mode        Mode
 	Path        string
 	Package     string
@@ -68,6 +69,7 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		creator.createReadme,
 		creator.createSourceFiles,
 		creator.createGoMod,
+		creator.createGitRepo,
 	}
 
 	for _, step := range steps {
@@ -156,20 +158,6 @@ func (creator Creator) createReadme(project common.Project, cfg config.Config) e
 
 }
 
-func (creator Creator) createGoMod(project common.Project, cfg config.Config) error {
-
-	goModPath := project.RelPath(goModFileName)
-	if creator.FileExists(goModPath) {
-		return nil
-	}
-
-	cmd := []string{"go", "mod", "init", cfg.Project.Package}
-	return creator.RunToStdout(cmd, project.Path, map[string]string{
-		"GO111MODULE": "on",
-	})
-
-}
-
 func (creator Creator) createSourceFiles(project common.Project, cfg config.Config) error {
 
 	mainLibPath := project.RelPath("library.go")
@@ -185,6 +173,51 @@ func (creator Creator) createSourceFiles(project common.Project, cfg config.Conf
 	versionInfoPath := project.RelPath("versioninfo", "versioninfo.go")
 	if err := creator.WriteTextTemplateIfNotExists(versionInfoPath, versionInfoTemplate, cfg); err != nil {
 		return err
+	}
+
+	return nil
+
+}
+
+func (creator Creator) createGoMod(project common.Project, cfg config.Config) error {
+
+	goModPath := project.RelPath(goModFileName)
+	if creator.FileExists(goModPath) {
+		return nil
+	}
+
+	env := map[string]string{"GO111MODULE": "on"}
+
+	creator.LogPathCreation(goModPath)
+	cmd := []string{"go", "mod", "init", cfg.Project.Package}
+	if output, err := creator.RunReturnOutput(cmd, project.Path, env); err != nil {
+		creator.LogError(output)
+		return err
+	}
+
+	return nil
+
+}
+
+func (creator Creator) createGitRepo(project common.Project, cfg config.Config) error {
+
+	gitRepoPath := project.RelPath(gitRepoFileName)
+	if creator.DirExists(gitRepoPath) {
+		return nil
+	}
+
+	commandsToRun := map[string][]string{
+		"Creating: Git repo":       []string{"git", "init"},
+		"Adding items to git repo": []string{"git", "add", "."},
+		"Committing git repo":      []string{"git", "commit", "-m", "Initial commit"},
+	}
+
+	for key, cmd := range commandsToRun {
+		creator.LogInfo(key)
+		if output, err := creator.RunReturnOutput(cmd, project.Path, map[string]string{}); err != nil {
+			creator.LogError(output)
+			return err
+		}
 	}
 
 	return nil

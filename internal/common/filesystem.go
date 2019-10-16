@@ -7,12 +7,13 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/pieterclaerhout/go-log"
 	"github.com/pkg/errors"
 )
 
 // FileSystem is what can be injected into a subcommand when you need file system access
-type FileSystem struct{}
+type FileSystem struct {
+	Logging
+}
 
 // WriteTextFileIfNotExists writes a text file if it doesn't exist yet
 func (fileSystem FileSystem) WriteTextFileIfNotExists(path string, data string) error {
@@ -27,7 +28,7 @@ func (fileSystem FileSystem) WriteTextFileIfNotExists(path string, data string) 
 
 // WriteTextFile creates a text with with data as its contents
 func (fileSystem FileSystem) WriteTextFile(path string, data string) error {
-	fileSystem.logPathCreation(path)
+	fileSystem.LogPathCreation(path)
 	return ioutil.WriteFile(path, []byte(data), 0666)
 }
 
@@ -52,14 +53,9 @@ func (fileSystem FileSystem) WriteJSONFile(path string, data interface{}) error 
 
 	b = fileSystem.formatBytes(b)
 
-	fileSystem.logPathCreation(path)
+	fileSystem.LogPathCreation(path)
 	return ioutil.WriteFile(path, b, 0777)
 
-}
-
-// logPathCreation logs the creation of a file path
-func (fileSystem FileSystem) logPathCreation(path string) {
-	log.Info("Creating:", path)
 }
 
 // formatBytes is a helper used to format JSON byte slices
@@ -98,6 +94,6 @@ func (fileSystem FileSystem) createDirForPathIfNeeded(path string) error {
 	if fileSystem.FileExists(path) {
 		return errors.New("Cannot create dir, file with that name exists already: " + path)
 	}
-	log.Debug("Creating:", path)
+	fileSystem.LogPathCreation(path)
 	return os.MkdirAll(path, 0755)
 }
