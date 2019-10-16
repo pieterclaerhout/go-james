@@ -119,7 +119,7 @@ func (builder Builder) outputPath(cfg config.Config) (string, error) {
 	}
 
 	if outputPath != "" {
-		if runtime.GOOS == "win" {
+		if runtime.GOOS == "windows" {
 			if filepath.Ext(outputPath) != ".exe" {
 				outputPath = outputPath + ".exe"
 			}
