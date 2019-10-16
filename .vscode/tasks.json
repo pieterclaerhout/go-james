@@ -11,6 +11,15 @@
             ]
         },
         {
+            "label": "package",
+            "command": "./build/go-james package",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
             "label": "create sample app",
             "command": "source bootstrap.sh &&  rm -rf go-example && ./build/go-james new --path go-example --package github.com/pieterclaerhout/go-example --description 'My Project Description'",
             "type": "shell",

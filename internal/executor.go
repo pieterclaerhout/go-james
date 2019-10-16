@@ -8,9 +8,10 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 	"github.com/pieterclaerhout/go-james/internal/creator"
-	"github.com/pieterclaerhout/go-james/internal/installer"
-	"github.com/pieterclaerhout/go-james/internal/runner"
 	"github.com/pieterclaerhout/go-james/internal/debugger"
+	"github.com/pieterclaerhout/go-james/internal/installer"
+	"github.com/pieterclaerhout/go-james/internal/packager"
+	"github.com/pieterclaerhout/go-james/internal/runner"
 	"github.com/pieterclaerhout/go-james/internal/tester"
 	"github.com/pieterclaerhout/go-james/internal/uninstaller"
 	"github.com/pieterclaerhout/go-log"
@@ -44,6 +45,13 @@ func (executor Executor) DoBuild(outputPath string, goos string, goarch string, 
 		GOOS:       goos,
 		GOARCH:     goarch,
 		Verbose:    verbose,
+	}, true)
+}
+
+// DoPackage performs a package of the project
+func (executor Executor) DoPackage(verbose bool) int {
+	return executor.runSubcommand(packager.Packager{
+		Verbose: verbose,
 	}, true)
 }
 

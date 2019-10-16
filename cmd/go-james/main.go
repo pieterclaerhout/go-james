@@ -12,6 +12,7 @@ import (
 	"github.com/pieterclaerhout/go-james/cmd/creator"
 	"github.com/pieterclaerhout/go-james/cmd/debugger"
 	"github.com/pieterclaerhout/go-james/cmd/installer"
+	"github.com/pieterclaerhout/go-james/cmd/packager"
 	"github.com/pieterclaerhout/go-james/cmd/runner"
 	"github.com/pieterclaerhout/go-james/cmd/tester"
 	"github.com/pieterclaerhout/go-james/cmd/uninstaller"
@@ -60,6 +61,7 @@ func main() {
 		app.AddCommand(creator.NewCmd)
 		app.AddCommand(debugger.DebugCmd)
 		app.AddCommand(installer.InstallCmd)
+		app.AddCommand(packager.PackageCmd)
 		app.AddCommand(runner.RunCmd)
 		app.AddCommand(tester.TestCmd)
 		app.AddCommand(uninstaller.UninstallCmd)

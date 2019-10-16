@@ -38,7 +38,9 @@ func (commandRunner CommandRunner) createCommand(cmdLine []string, workdir strin
 
 	command := exec.Command(cmdPath, cmdArgs...)
 	command.Env = os.Environ()
-	command.Dir = workdir
+	if workdir != "" {
+		command.Dir = workdir
+	}
 
 	for key, val := range env {
 		command.Env = append(command.Env, fmt.Sprintf("%s=%s", key, val))

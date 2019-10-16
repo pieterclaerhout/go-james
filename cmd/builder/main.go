@@ -9,8 +9,8 @@ import (
 // BuildCmd defines the build command
 var BuildCmd = climax.Command{
 	Name:  "build",
-	Brief: "Compile the current package",
-	Help:  "Compile the current package",
+	Brief: "Build the main executable of your project",
+	Help:  "Build the main executable of your project",
 	Flags: []climax.Flag{
 		{
 			Name:     "output",

@@ -19,6 +19,7 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 - [Starting a new project](#starting-a-new-project)
 - [Initializing an existing project](#initializing-an-existing-project)
 - [Building a project](#building-a-project)
+- [Packaging a project](#packaging-a-project)
 - [Debugging a project](#debugging-a-project)
 - [Running a project](#running-a-project)
 - [Testing a project](#testing-a-project)
@@ -136,6 +137,30 @@ You can specify the following options:
 * `--goarch`: you can override the `GOARCH` environment variable which indicates for which architecture you are compiling.
 
 You can read more about the `GOOS` and `GOARCH` environment variables [here](https://golang.org/doc/install/source#environment).
+
+As part of the build process, the `versioninfo` package will be filled with the following details:
+
+* `versioninfo.ProjectName`: the name of the project from [the configuration file]((#the-config-file-go-jamesjson))
+* `versioninfo.ProjectDescription`: the description of the project from [the configuration file]((#the-config-file-go-jamesjson))
+* `versioninfo.Version`: the version of the project from [the configuration file]((#the-config-file-go-jamesjson))
+* `versioninfo.Revision`: the current Git commit hash
+* `versioninfo.Branch`: the current Git branch name
+
+With every build, these variables are automatically updated.
+
+## Packaging a project
+
+From within the project root, run the `package` command to build the executable for windows / darwin / linux in the 386 and amd64 variants:
+
+```
+go-james package [-v]
+```
+
+By default, the output is put in the `build` subdirectory but can be customized in [the configuration file]((#the-config-file-go-jamesjson)).
+
+You can specify the following options:
+
+* `-v`: the packages which are built will be listed.
 
 As part of the build process, the `versioninfo` package will be filled with the following details:
 
