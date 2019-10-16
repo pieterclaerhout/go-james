@@ -121,6 +121,13 @@ func (config Config) Badges() []Badge {
 		}
 		badges = append(badges, issuesBadge)
 
+		lastCommitBadge := Badge{
+			Title: "GitHub last commit",
+			Link:  "https://" + packageName,
+			Image: "https://img.shields.io/github/last-commit/" + relativePackageName + ".svg",
+		}
+		badges = append(badges, lastCommitBadge)
+
 	}
 
 	return badges
