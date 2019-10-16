@@ -1,6 +1,7 @@
 package builder
 
 import (
+	"errors"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -14,6 +15,7 @@ import (
 // Builder implements the "build" command
 type Builder struct {
 	common.CommandRunner
+	common.FileSystem
 	OutputPath string
 	GOOS       string
 	GOARCH     string
@@ -37,7 +39,10 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		buildCmd = append(buildCmd, "-v")
 	}
 
-	outputPath := builder.outputPath(cfg)
+	outputPath, err := builder.outputPath(cfg)
+	if err != nil {
+		return err
+	}
 	if outputPath != "" {
 		buildCmd = append(buildCmd, "-o", outputPath)
 	}
@@ -103,11 +108,14 @@ func (builder Builder) ldFlagForVersionInfo(cfg config.Config, name string, valu
 
 }
 
-func (builder Builder) outputPath(cfg config.Config) string {
+func (builder Builder) outputPath(cfg config.Config) (string, error) {
 
 	outputPath := builder.OutputPath
 	if outputPath == "" {
-		outputPath = cfg.Build.OutputPath
+		if builder.FileExists(cfg.Build.OutputPath) {
+			return "", errors.New("build.output_path in config should point to a directory, not a file")
+		}
+		outputPath = filepath.Join(cfg.Build.OutputPath, cfg.Project.Name)
 	}
 
 	if outputPath != "" {
@@ -118,6 +126,6 @@ func (builder Builder) outputPath(cfg config.Config) string {
 		}
 	}
 
-	return outputPath
+	return outputPath, nil
 
 }

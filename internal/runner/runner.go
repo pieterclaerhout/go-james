@@ -14,7 +14,7 @@ type Runner struct {
 // Execute executes the command
 func (runner Runner) Execute(project common.Project, cfg config.Config) error {
 
-	runCmd := []string{project.RelPath(cfg.Build.OutputPath)}
+	runCmd := []string{project.RelPath(cfg.Build.OutputPath, cfg.Project.Name)}
 	runCmd = append(runCmd, runner.Args...)
 
 	return runner.RunToStdout(runCmd, project.Path, map[string]string{})
