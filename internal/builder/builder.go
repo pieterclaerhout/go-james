@@ -24,9 +24,11 @@ type Builder struct {
 func (builder Builder) Execute(project common.Project, cfg config.Config) error {
 
 	versionInfo := map[string]string{
-		"AppName":  cfg.Project.Name,
-		"Revision": builder.determineRevision(project),
-		"Branch":   builder.determineBranch(project),
+		"ProjectName":        cfg.Project.Name,
+		"ProjectDescription": cfg.Project.Description,
+		"Version":            cfg.Project.Version,
+		"Revision":           builder.determineRevision(project),
+		"Branch":             builder.determineBranch(project),
 	}
 
 	buildCmd := []string{"go", "build"}

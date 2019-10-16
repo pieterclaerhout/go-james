@@ -13,7 +13,7 @@ var VersionCmd = climax.Command{
 	Brief: "Print version info and exit",
 	Help:  "Print version info and exit",
 	Handle: func(ctx climax.Context) int {
-		fmt.Println(versioninfo.AppName + " " + versioninfo.Revision + " (" + versioninfo.Branch + ")")
+		fmt.Println(versioninfo.ProjectName + " " + versioninfo.Version + " (" + versioninfo.Revision + ", " + versioninfo.Branch + ")")
 		return 0
 	},
 }

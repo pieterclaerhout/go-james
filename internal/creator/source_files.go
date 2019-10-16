@@ -12,7 +12,9 @@ import(
 )
 
 func main() {
-	fmt.Println("Project: "+ versioninfo.AppName)
+	fmt.Println("Project: "+ versioninfo.ProjectName)
+	fmt.Println("Description: "+ versioninfo.ProjectDescription)
+	fmt.Println("Version: "+ versioninfo.Version)
 	fmt.Println("Revision: " + versioninfo.Revision)
 	fmt.Println("Branch: " + versioninfo.Branch)
 }
@@ -20,8 +22,14 @@ func main() {
 
 const versionInfoTemplate = `package versioninfo
 
-// AppName contains the name of the app
-var AppName string
+// ProjectName contains the name of the project
+var ProjectName string
+
+// ProjectDescription contains the description of the project
+var ProjectDescription string
+
+// Version contains the version of the app
+var Version string
 
 // Revision will be injected with the current commit hash
 var Revision string

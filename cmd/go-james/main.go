@@ -49,8 +49,8 @@ func main() {
 		exeName := filepath.Base(exePath)
 
 		app := climax.New(exeName)
-		app.Name = versioninfo.AppName
-		app.Brief = "James is your butler and helps you to create, build, test and run your Go projects"
+		app.Name = versioninfo.ProjectName
+		app.Brief = versioninfo.ProjectDescription
 		app.Version = versioninfo.Revision
 
 		app.AddCommand(builder.BuildCmd)

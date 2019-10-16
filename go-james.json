@@ -1,6 +1,7 @@
 {
     "project": {
         "name": "go-james",
+        "version": "0.1",
         "description": "James is your butler and helps you to create, build, test and run your Go projects",
         "package": "github.com/pieterclaerhout/go-james",
         "main_package": "github.com/pieterclaerhout/go-james/cmd/go-james"

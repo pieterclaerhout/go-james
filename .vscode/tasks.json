@@ -12,7 +12,7 @@
         },
         {
             "label": "create sample app",
-            "command": "source bootstrap.sh &&  rm -rf go-example && ./build/go-james new --path go-example --package github.com/pieterclaerhout/go-example",
+            "command": "source bootstrap.sh &&  rm -rf go-example && ./build/go-james new --path go-example --package github.com/pieterclaerhout/go-example --description 'My Project Description'",
             "type": "shell",
             "group": "build",
             "problemMatcher": [

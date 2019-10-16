@@ -136,7 +136,9 @@ You can read more about the `GOOS` and `GOARCH` environment variables [here](htt
 
 As part of the build process, the `versioninfo` package will be filled with the following details:
 
-* `versioninfo.AppName`: the name of the project from [the configuration file]((#the-config-file-go-jamesjson))
+* `versioninfo.ProjectName`: the name of the project from [the configuration file]((#the-config-file-go-jamesjson))
+* `versioninfo.ProjectDescription`: the description of the project from [the configuration file]((#the-config-file-go-jamesjson))
+* `versioninfo.Version`: the version of the project from [the configuration file]((#the-config-file-go-jamesjson))
 * `versioninfo.Revision`: the current Git commit hash
 * `versioninfo.Branch`: the current Git branch name
 
@@ -188,6 +190,7 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 {
     "project": {
         "name": "go-example",
+        "version": "1.0",
         "description": "",
         "package": "github.com/pieterclaerhout/go-example",
         "main_package": "github.com/pieterclaerhout/go-example/cmd/go-example"
@@ -210,8 +213,9 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 
 ### Project Config
 
-* `name`: the name of your project
-* `description`: the description of your project
+* `name`: the name of your project (will be availabme under `<package>/versioninfo.ProjectName`)
+* `version`: the version of your project (will be availabme under `<package>/versioninfo.Version`)
+* `description`: the description of your project (will be availabme under `<package>/versioninfo.ProjectDescription`)
 * `package`: the root package of your project
 * `main_package`: the full path to the main package of your app, defaults to `<package>/cmd/<project-name>`
 
