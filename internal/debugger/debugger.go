@@ -1,9 +1,6 @@
 package debugger
 
 import (
-	"os"
-	"path/filepath"
-
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
@@ -15,13 +12,14 @@ type Debugger struct {
 	common.CommandRunner
 	common.Logging
 	common.FileSystem
+	common.Golang
 	Args []string
 }
 
 // Execute executes the command
 func (debugger Debugger) Execute(project common.Project, cfg config.Config) error {
 
-	debugCmdPath := filepath.Join(os.Getenv("GOPATH"), "bin", "dlv")
+	debugCmdPath := debugger.GoBin("dlv")
 
 	if !debugger.FileExists(debugCmdPath) {
 		debugger.LogPathCreation(debugCmdPath)

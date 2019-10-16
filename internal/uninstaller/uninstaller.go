@@ -2,7 +2,6 @@ package uninstaller
 
 import (
 	"os"
-	"path/filepath"
 
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
@@ -12,12 +11,13 @@ import (
 // Uninstaller implements the "uninstall" command
 type Uninstaller struct {
 	common.FileSystem
+	common.Golang
 }
 
 // Execute executes the command
 func (uninstaller Uninstaller) Execute(project common.Project, cfg config.Config) error {
 
-	dstPath := filepath.Join(os.Getenv("GOPATH"), "bin", filepath.Base(cfg.Build.OutputPath))
+	dstPath := uninstaller.GoBin(cfg.Project.Name)
 
 	if uninstaller.FileExists(dstPath) {
 		log.Info("Deleting:", dstPath)

@@ -1,9 +1,6 @@
 package installer
 
 import (
-	"os"
-	"path/filepath"
-
 	"github.com/pieterclaerhout/go-james/internal/builder"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
@@ -12,13 +9,14 @@ import (
 // Installer implements the "install" command
 type Installer struct {
 	common.FileSystem
+	common.Golang
 	Verbose bool
 }
 
 // Execute executes the command
 func (installer Installer) Execute(project common.Project, cfg config.Config) error {
 
-	dstPath := filepath.Join(os.Getenv("GOPATH"), "bin", filepath.Base(cfg.Build.OutputPath))
+	dstPath := installer.GoBin(cfg.Project.Name)
 
 	installer.LogPathCreation(dstPath)
 
