@@ -1,6 +1,6 @@
 # go-james
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/pieterclaerhout/go-james)](https://goreportcard.com/report/github.com/pieterclaerhout/go-james) [![Documentation](https://godoc.org/github.com/pieterclaerhout/go-james?status.svg)](http://godoc.org/github.com/pieterclaerhout/go-james) [![License](https://img.shields.io/badge/license-Apache%20v2-orange.svg)](https://github.com/pieterclaerhout/go-james/raw/master/LICENSE) [![GitHub Version](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james.svg)](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james) [![GitHub issues](https://img.shields.io/github/issues/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/issues)  [![GitHub issues](https://img.shields.io/github/last-commit/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/pieterclaerhout/go-james)](https://goreportcard.com/report/github.com/pieterclaerhout/go-james) [![Documentation](https://godoc.org/github.com/pieterclaerhout/go-james?status.svg)](http://godoc.org/github.com/pieterclaerhout/go-james) [![License](https://img.shields.io/badge/license-Apache%20v2-orange.svg)](https://github.com/pieterclaerhout/go-james/raw/master/LICENSE) [![GitHub Version](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james.svg)](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james) [![GitHub issues](https://img.shields.io/github/issues/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/issues)  [![GitHub Last Commit](https://img.shields.io/github/last-commit/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/) 
 
 **This project is stil in alpha, use at your own risk**
 
@@ -45,7 +45,7 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 The best way to install this tool is to run `go install` as follows:
 
 ```
-go install github.com/pieterclaerhout/go-james/cmd/go-james
+go get -u github.com/pieterclaerhout/go-james/cmd/go-james
 ```
 
 This will create the `go-james` command in your `$GOPATH/bin` folder. The tool is self-contained and doesn't have any external dependencies.
