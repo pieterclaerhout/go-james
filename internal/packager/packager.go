@@ -12,6 +12,7 @@ import (
 type Packager struct {
 	common.CommandRunner
 	common.Logging
+
 	Verbose bool
 }
 

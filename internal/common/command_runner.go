@@ -5,10 +5,9 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/pkg/errors"
-
 	"github.com/kballard/go-shellquote"
 	"github.com/pieterclaerhout/go-log"
+	"github.com/pkg/errors"
 )
 
 var (

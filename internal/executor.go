@@ -20,6 +20,7 @@ import (
 // Executor is used to execute the subcommands
 type Executor struct {
 	common.Logging
+
 	Path string
 }
 

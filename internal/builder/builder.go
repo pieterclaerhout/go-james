@@ -2,20 +2,22 @@ package builder
 
 import (
 	"errors"
+	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
 
 	"github.com/kballard/go-shellquote"
-
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
+	"github.com/pieterclaerhout/go-log"
 )
 
 // Builder implements the "build" command
 type Builder struct {
 	common.CommandRunner
 	common.FileSystem
+
 	OutputPath string
 	GOOS       string
 	GOARCH     string

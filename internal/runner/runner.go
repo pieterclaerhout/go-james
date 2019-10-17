@@ -8,6 +8,7 @@ import (
 // Runner implements the "run" command
 type Runner struct {
 	common.CommandRunner
+
 	Args []string
 }
 

@@ -1,9 +1,8 @@
 package debugger
 
 import (
-	"github.com/tucnak/climax"
-
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/tucnak/climax"
 )
 
 // DebugCmd implements the debug command

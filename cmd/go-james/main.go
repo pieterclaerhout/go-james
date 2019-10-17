@@ -5,8 +5,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/tucnak/climax"
-
 	"github.com/pieterclaerhout/go-james/cmd/builder"
 	"github.com/pieterclaerhout/go-james/cmd/cleaner"
 	"github.com/pieterclaerhout/go-james/cmd/creator"
@@ -20,6 +18,7 @@ import (
 	"github.com/pieterclaerhout/go-james/internal"
 	"github.com/pieterclaerhout/go-james/versioninfo"
 	"github.com/pieterclaerhout/go-log"
+	"github.com/tucnak/climax"
 )
 
 func main() {

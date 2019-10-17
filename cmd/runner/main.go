@@ -1,9 +1,8 @@
 package runner
 
 import (
-	"github.com/tucnak/climax"
-
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/tucnak/climax"
 )
 
 // RunCmd implements the run command

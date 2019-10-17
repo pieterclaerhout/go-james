@@ -4,10 +4,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/pkg/errors"
-
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
+	"github.com/pkg/errors"
 )
 
 // Mode is used to define the mode in which we run (init or new)
@@ -15,7 +14,7 @@ type Mode int
 
 const (
 	// InitProject initializes a project in an existing directory
-	InitProject Mode = iota
+	InitProject Mode = iota + 1
 
 	// NewProject creates a new project in the given path
 	NewProject
@@ -32,6 +31,7 @@ type Creator struct {
 	common.FileSystem
 	common.Template
 	common.Logging
+
 	Mode        Mode
 	Path        string
 	Package     string

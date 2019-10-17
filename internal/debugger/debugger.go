@@ -13,6 +13,7 @@ type Debugger struct {
 	common.Logging
 	common.FileSystem
 	common.Golang
+
 	Args []string
 }
 

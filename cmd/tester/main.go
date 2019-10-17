@@ -1,9 +1,8 @@
 package tester
 
 import (
-	"github.com/tucnak/climax"
-
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/tucnak/climax"
 )
 
 // TestCmd implements the test command

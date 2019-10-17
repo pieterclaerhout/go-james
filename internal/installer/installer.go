@@ -10,6 +10,7 @@ import (
 type Installer struct {
 	common.FileSystem
 	common.Golang
+
 	Verbose bool
 }
 
