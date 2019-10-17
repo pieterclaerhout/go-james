@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"strings"
 
 	"github.com/kballard/go-shellquote"
@@ -119,7 +120,7 @@ func (builder Builder) ldFlagForVersionInfo(cfg config.Config, name string, valu
 
 	if name != "" && value != "" {
 		if builder.Verbose {
-			builder.LogInfo("> Setting", cfg.Project.Package+"/versioninfo."+name, "to:", value)
+			builder.LogInfo("> Setting", name, "=", strconv.Quote(value))
 		}
 		result = append(
 			result,
