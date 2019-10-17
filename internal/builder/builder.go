@@ -34,6 +34,18 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		"Branch":             builder.determineBranch(project),
 	}
 
+	if builder.GOOS == "" {
+		builder.GOOS = runtime.GOOS
+	}
+
+	if builder.GOARCH == "" {
+		builder.GOARCH = runtime.GOARCH
+	}
+
+	if builder.Verbose {
+		builder.LogInfo("> Compiling for", builder.GOOS+"/"+builder.GOARCH, "using", runtime.Version())
+	}
+
 	buildCmd := []string{"go", "build"}
 
 	if builder.Verbose {
@@ -106,6 +118,9 @@ func (builder Builder) ldFlagForVersionInfo(cfg config.Config, name string, valu
 	result := []string{}
 
 	if name != "" && value != "" {
+		if builder.Verbose {
+			builder.LogInfo("> Setting", cfg.Project.Package+"/versioninfo."+name, "to:", value)
+		}
 		result = append(
 			result,
 			"-X", cfg.Project.Package+"/versioninfo."+name+"="+value,
