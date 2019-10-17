@@ -47,6 +47,14 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		buildCmd = append(buildCmd, "-o", outputPath)
 	}
 
+	outputFolder := filepath.Dir(outputPath)
+	log.Warn(outputFolder)
+	if builder.DirExists(outputFolder) || builder.FileExists(outputFolder) {
+		if err := os.RemoveAll(outputFolder); err != nil {
+			return err
+		}
+	}
+
 	ldFlags := cfg.Build.LDFlags
 
 	for key, val := range versionInfo {
