@@ -1,8 +1,6 @@
 <p align="center"><img align="center" src="https://github.com/pieterclaerhout/go-james/raw/master/resources/gopher-james.png" width="120"/></p>
 
-<h1 align="center" style="border-bottom: 0px !important;">go-james</h1>
-
-<h2 align="center">James will help you with setting up and managing your Go projects</h2>
+<h1 align="center">go-james</h1>
 
 <p align="center"><b>This project is stil in alpha, use at your own risk</b></p>
 
