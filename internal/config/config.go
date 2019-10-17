@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/pieterclaerhout/go-log"
+	"github.com/pkg/errors"
 )
 
 // FileName is the name of the config file
@@ -68,6 +69,22 @@ func NewConfigFromPath(path string) (Config, error) {
 
 	if err := json.Unmarshal(jsonBytes, &config); err != nil {
 		return config, err
+	}
+
+	if config.Project.Name == "" {
+		return config, errors.New("Config setting Project.Name should not be empty")
+	}
+
+	if config.Project.Version == "" {
+		return config, errors.New("Config setting Project.Version should not be empty")
+	}
+
+	if config.Project.Package == "" {
+		return config, errors.New("Config setting Project.Package should not be empty")
+	}
+
+	if config.Project.MainPackage == "" {
+		return config, errors.New("Config setting Project.MainPackage should not be empty")
 	}
 
 	log.DebugDump(config, "Parsed:")
