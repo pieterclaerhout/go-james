@@ -155,13 +155,21 @@ With every build, these variables are automatically updated.
 
 ## Packaging a project
 
-From within the project root, run the `package` command to build the executable for windows / darwin / linux in the 386 and amd64 variants:
+From within the project root, run the `package` command to build the executable for windows / darwin / linux in the 386 and amd64 variants and compresses the result as a `.zip` (windows) or `.tgz` (linux / mac):
 
 ```
 go-james package [-v]
 ```
 
 By default, the output is put in the `build` subdirectory but can be customized in [the configuration file]((#the-config-file-go-jamesjson)).
+
+The filenames which are constructed use the following convention:
+
+```
+build/<project.name>_<goos>-<goarch>_v<project.version>.[zip,tgz]
+```
+
+The executable will be compressed and, if present in the project, the project's `README.md` file as well.
 
 You can specify the following options:
 
