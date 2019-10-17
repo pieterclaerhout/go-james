@@ -1,8 +1,12 @@
-# go-james
+<p style="text-align: center;"><img src="https://github.com/pieterclaerhout/go-james/raw/master/resources/gopher-james.png" width="120"/></p>
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/pieterclaerhout/go-james)](https://goreportcard.com/report/github.com/pieterclaerhout/go-james) [![Documentation](https://godoc.org/github.com/pieterclaerhout/go-james?status.svg)](http://godoc.org/github.com/pieterclaerhout/go-james) [![License](https://img.shields.io/badge/license-Apache%20v2-orange.svg)](https://github.com/pieterclaerhout/go-james/raw/master/LICENSE) [![GitHub Version](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james.svg)](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james) [![GitHub issues](https://img.shields.io/github/issues/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/issues)  [![GitHub Last Commit](https://img.shields.io/github/last-commit/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/) 
+<h1 style="text-align: center;">go-james</h1>
 
-**This project is stil in alpha, use at your own risk**
+<h2 style="text-align: center;">Ask James, your butler, to help with setting up and managing your Go projects</h2>
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/pieterclaerhout/go-james)](https://goreportcard.com/report/github.com/pieterclaerhout/go-james) [![Documentation](https://godoc.org/github.com/pieterclaerhout/go-james?status.svg)](http://godoc.org/github.com/pieterclaerhout/go-james) [![License](https://img.shields.io/badge/license-Apache%20v2-orange.svg)](https://github.com/pieterclaerhout/go-james/raw/master/LICENSE) [![GitHub Version](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james.svg)](https://badge.fury.io/gh/pieterclaerhout%2Fgo-james) [![GitHub issues](https://img.shields.io/github/issues/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/issues)  [![GitHub Last Commit](https://img.shields.io/github/last-commit/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/)</P>
+
+<p style="text-align: center;">**This project is stil in alpha, use at your own risk**</p>
 
 James is your butler and helps you to create, build, debug, test and run your [Go](https://golang.org) projects.
 
