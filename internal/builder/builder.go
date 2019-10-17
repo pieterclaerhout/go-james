@@ -1,7 +1,6 @@
 package builder
 
 import (
-	"errors"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -10,7 +9,7 @@ import (
 	"github.com/kballard/go-shellquote"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
-	"github.com/pieterclaerhout/go-log"
+	"github.com/pkg/errors"
 )
 
 // Builder implements the "build" command
@@ -50,7 +49,6 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 	}
 
 	outputFolder := filepath.Dir(outputPath)
-	log.Warn(outputFolder)
 	if builder.DirExists(outputFolder) || builder.FileExists(outputFolder) {
 		if err := os.RemoveAll(outputFolder); err != nil {
 			return err
@@ -128,12 +126,8 @@ func (builder Builder) outputPath(cfg config.Config) (string, error) {
 		outputPath = filepath.Join(cfg.Build.OutputPath, cfg.Project.Name)
 	}
 
-	if outputPath != "" {
-		if runtime.GOOS == "windows" {
-			if filepath.Ext(outputPath) != ".exe" {
-				outputPath = outputPath + ".exe"
-			}
-		}
+	if outputPath != "" && runtime.GOOS == "windows" && filepath.Ext(outputPath) != ".exe" {
+		outputPath = outputPath + ".exe"
 	}
 
 	return outputPath, nil
