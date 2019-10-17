@@ -11,6 +11,15 @@
             ]
         },
         {
+            "label": "purge github readme",
+            "command": "hub-purge pieterclaerhout/go-james",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
             "label": "package",
             "command": "./build/go-james package",
             "type": "shell",
