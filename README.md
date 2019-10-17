@@ -33,6 +33,7 @@ Using the `go-james` tool, you can automate and streamline this process. The too
     - [Test Config](#test-config)
 - [Bootstrapping `go-james`](#bootstrapping-go-james)
 - [Roadmap](#roadmap)
+- [Resources](#resources)
 
 <!-- /TOC -->
 
@@ -280,3 +281,7 @@ If you have a version of `go-james` installed, you can use it to build itself.
 ## Roadmap
 
 To get an idea on what's coming, you can check the [GitHub Milestones](https://github.com/pieterclaerhout/go-james/milestones).
+
+## Resources
+
+Follow my [weblog about Go & Kubernetes](https://www.yellowduck.be) :-)
