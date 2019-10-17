@@ -3,6 +3,9 @@ package creator
 const mainLibTemplate = `package {{.ShortPackageName}}
 `
 
+const mainLibTestingTemplate = `package {{.ShortPackageName}}_test
+`
+
 const mainCmdTemplate = `package main
 
 import(
@@ -18,6 +21,9 @@ func main() {
 	fmt.Println("Revision: " + versioninfo.Revision)
 	fmt.Println("Branch: " + versioninfo.Branch)
 }
+`
+
+const mainCmdTestingTemplate = `package main_test
 `
 
 const versionInfoTemplate = `package versioninfo

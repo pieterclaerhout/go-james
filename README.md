@@ -96,9 +96,11 @@ go-example
 ├── cmd
 │   └── go-example
 │       └── main.go
+│       └── main_test.go
 ├── go-james.json
 ├── go.mod
 ├── library.go
+├── library_test.go
 └── versioninfo
     └── versioninfo.go
 ```

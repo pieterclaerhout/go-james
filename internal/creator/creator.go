@@ -171,14 +171,18 @@ func (creator Creator) createReadme(project common.Project, cfg config.Config) e
 
 func (creator Creator) createSourceFiles(project common.Project, cfg config.Config) error {
 
-	mainLibPath := project.RelPath("library.go")
-	if err := creator.WriteTextTemplateIfNotExists(mainLibPath, mainLibTemplate, cfg); err != nil {
-		return err
+	filesToCreate := map[string]string{
+		project.RelPath("library.go"):                                              mainLibTemplate,
+		project.RelPath("library_test.go"):                                         mainLibTestingTemplate,
+		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main.go"):      mainCmdTemplate,
+		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main_test.go"): mainCmdTestingTemplate,
+		project.RelPath("versioninfo", "versioninfo.go"):                           versionInfoTemplate,
 	}
 
-	mainCmdPath := project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main.go")
-	if err := creator.WriteTextTemplateIfNotExists(mainCmdPath, mainCmdTemplate, cfg); err != nil {
-		return err
+	for path, template := range filesToCreate {
+		if err := creator.WriteTextTemplateIfNotExists(path, template, cfg); err != nil {
+			return err
+		}
 	}
 
 	versionInfoPath := project.RelPath("versioninfo", "versioninfo.go")
