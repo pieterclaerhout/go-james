@@ -30,7 +30,7 @@
         },
         {
             "label": "bootstrap",
-            "command": "./bootstrap.sh",
+            "command": "go build -v -o build/go-james github.com/pieterclaerhout/go-james/cmd/go-james",
             "type": "shell",
             "group": "build",
             "problemMatcher": [

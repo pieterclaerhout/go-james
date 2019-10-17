@@ -276,7 +276,11 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 
 ## Bootstrapping `go-james`
 
-If you want to build `go-james` from scratch, you can use the `bootstrap.sh` shell script.
+If you want to build `go-james` from scratch, you can use the following command (or use the "bootstrap" build task in Visual Studio Code):
+
+```
+go build -v -o build/go-james github.com/pieterclaerhout/go-james/cmd/go-james
+```
 
 If you have a version of `go-james` installed, you can use it to build itself.
 
