@@ -117,6 +117,9 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 			LDFlags:    []string{"-s", "-w"},
 			ExtraArgs:  []string{"-trimpath"},
 		},
+		Package: config.PackageConfig{
+			IncludeReadme: true,
+		},
 		Test: config.TestConfig{
 			ExtraArgs: []string{},
 		},

@@ -11,6 +11,9 @@
         "ld_flags": ["-s", "-w"],
         "extra_args": ["-trimpath"]
     },
+    "package": {
+        "include_readme": true
+    },
     "test": {
         "extra_args": []
     }

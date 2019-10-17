@@ -47,9 +47,11 @@ func (packager Packager) Execute(project common.Project, cfg config.Config) erro
 
 		filesToArchive := []string{buildOutputPath}
 
-		readmePath := project.RelPath("README.md")
-		if packager.FileExists(readmePath) {
-			filesToArchive = append(filesToArchive, readmePath)
+		if cfg.Package.IncludeReadme {
+			readmePath := project.RelPath("README.md")
+			if packager.FileExists(readmePath) {
+				filesToArchive = append(filesToArchive, readmePath)
+			}
 		}
 
 		if filepath.Ext(archivePath) == ".tgz" {

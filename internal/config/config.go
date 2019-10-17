@@ -18,6 +18,7 @@ const FileName = "go-james.json"
 type Config struct {
 	Project ProjectConfig `json:"project"` // Project contains the general project variables
 	Build   BuildConfig   `json:"build"`   // Build contains the build specific project variables
+	Package PackageConfig `json:"package"` // Build contains the package specific project variables
 	Test    TestConfig    `json:"test"`    // Build contains the test specific project variables
 }
 
@@ -35,6 +36,11 @@ type BuildConfig struct {
 	OutputPath string   `json:"ouput_path"` // The path of the executable to generate
 	LDFlags    []string `json:"ld_flags"`   // The ldflags to pass to the build command
 	ExtraArgs  []string `json:"extra_args"` // The extra arguments to pass to the build command
+}
+
+// PackageConfig contains the build specific configuration settings
+type PackageConfig struct {
+	IncludeReadme bool `json:"include_readme"` // Include the readme when packaging or not
 }
 
 // TestConfig contains the test specific configuration settings
