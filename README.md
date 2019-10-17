@@ -1,4 +1,4 @@
-<p style="text-align: center;"><img src="https://github.com/pieterclaerhout/go-james/raw/master/resources/gopher-james.png" width="120"/></p>
+<p align="center"><img align="center" src="https://github.com/pieterclaerhout/go-james/raw/master/resources/gopher-james.png" width="120"/></p>
 
 <h1 style="text-align: center;">go-james</h1>
 
