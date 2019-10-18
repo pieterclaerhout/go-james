@@ -79,8 +79,8 @@ func (commandRunner CommandRunner) RunToStdout(cmdLine []string, workdir string,
 	command.Stdout = os.Stdout
 	command.Stderr = os.Stderr
 
-	log.Debug("Executing:", shellquote.Join(cmdLine...))
-	log.DebugDump(command.Env, "Environment:")
+	commandRunner.logCommand(cmdLine, env)
+
 	if err := command.Start(); err != nil {
 		return err
 	}
@@ -97,8 +97,8 @@ func (commandRunner CommandRunner) RunReturnOutput(cmdLine []string, workdir str
 		return "", err
 	}
 
-	log.Debug("Executing:", shellquote.Join(cmdLine...))
-	log.DebugDump(command.Env, "Environment:")
+	commandRunner.logCommand(cmdLine, env)
+
 	output, err := command.CombinedOutput()
 	if err != nil {
 		if log.DebugMode {
@@ -145,6 +145,13 @@ func (commandRunner CommandRunner) RunScriptIfExistsReturnOutput(scriptPath stri
 		return "", nil
 	}
 	return commandRunner.RunScriptReturnOutput(scriptPath, args, workdir, env)
+}
+
+func (commandRunner CommandRunner) logCommand(cmdLine []string, env map[string]string) {
+	log.Debug("Executing:", shellquote.Join(cmdLine...))
+	if len(env) > 0 {
+		log.DebugDump(env, "Environment:")
+	}
 }
 
 func (commandRunner CommandRunner) cmdLineForScriptWithArgs(script string, args interface{}) []string {
