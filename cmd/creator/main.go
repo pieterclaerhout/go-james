@@ -39,6 +39,20 @@ var NewCmd = climax.Command{
 			Help:     `The description of the project`,
 			Variable: true,
 		},
+		{
+			Name:     "overwrite",
+			Short:    "",
+			Usage:    `--overwrite`,
+			Help:     `Overwrite the destination path if it exists already`,
+			Variable: false,
+		},
+		{
+			Name:     "create-git-repo",
+			Short:    "",
+			Usage:    `--create-git-repo`,
+			Help:     `Create a local git repository for this project`,
+			Variable: false,
+		},
 	},
 	Handle: func(ctx climax.Context) int {
 
@@ -46,9 +60,11 @@ var NewCmd = climax.Command{
 		packageName, _ := ctx.Get("package")
 		name, _ := ctx.Get("name")
 		description, _ := ctx.Get("description")
+		overwrite := ctx.Is("overwrite")
+		createGitRepo := ctx.Is("create-git-repo")
 
 		executor := internal.NewExecutor("")
-		return executor.DoNew(path, packageName, name, description)
+		return executor.DoNew(path, packageName, name, description, overwrite, createGitRepo)
 
 	},
 }

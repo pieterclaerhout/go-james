@@ -101,13 +101,15 @@ func (executor Executor) DoInit() int {
 }
 
 // DoNew initializes a project in an existing directory
-func (executor Executor) DoNew(path string, packageName string, name string, description string) int {
+func (executor Executor) DoNew(path string, packageName string, name string, description string, overwrite bool, createGitRepo bool) int {
 	return executor.runSubcommand(creator.Creator{
-		Mode:        creator.NewProject,
-		Path:        path,
-		Package:     packageName,
-		Name:        name,
-		Description: description,
+		Mode:          creator.NewProject,
+		Path:          path,
+		Package:       packageName,
+		Name:          name,
+		Description:   description,
+		Overwrite:     overwrite,
+		CreateGitRepo: createGitRepo,
 	}, false)
 }
 

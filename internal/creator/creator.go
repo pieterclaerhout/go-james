@@ -6,6 +6,7 @@ import (
 
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
+	"github.com/pieterclaerhout/go-log"
 	"github.com/pkg/errors"
 )
 
@@ -32,11 +33,13 @@ type Creator struct {
 	common.Template
 	common.Logging
 
-	Mode        Mode
-	Path        string
-	Package     string
-	Name        string
-	Description string
+	Mode          Mode
+	Path          string
+	Package       string
+	Name          string
+	Description   string
+	Overwrite     bool
+	CreateGitRepo bool
 }
 
 // Execute executes the command
@@ -64,6 +67,17 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		return errors.New("Package not specified")
 	}
 
+	if creator.PathExists(creator.Path) {
+		if creator.Overwrite {
+			log.Warn("!!! Overwriting:", creator.Path, "!!!")
+			if err := os.RemoveAll(creator.Path); err != nil {
+				return err
+			}
+		} else {
+			return errors.New("The destination path exists already")
+		}
+	}
+
 	project = common.NewProject(creator.Path)
 
 	type creationStep func(project common.Project, cfg config.Config) error
@@ -77,7 +91,10 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		creator.createReadme,
 		creator.createSourceFiles,
 		creator.createGoMod,
-		creator.createGitRepo,
+	}
+
+	if creator.CreateGitRepo {
+		steps = append(steps, creator.createGitRepo)
 	}
 
 	for _, step := range steps {

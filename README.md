@@ -113,6 +113,8 @@ You can specify the following options:
 * `--package`: the main package for the new project, e.g. `github.com/pieterclaerhout/go-example` (defaults to the project name if specified)
 * `--name`: the name of the project, if not specified, the last part of the path is used
 * `--description`: the description of the project, used for the readme
+* `--overwrite`: if the destination path already exists, overwrite it (be careful, the original folder will be replaced)
+* `--create-git-repo`: if specified, a local Git repository will be created for the project and the source files will automatically be committed.
 
 ## Initializing an existing project
 
