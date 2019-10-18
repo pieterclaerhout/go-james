@@ -1,6 +1,9 @@
 package common
 
 import (
+	"os"
+	"path/filepath"
+
 	"github.com/pieterclaerhout/go-log"
 )
 
@@ -9,6 +12,11 @@ type Logging struct{}
 
 // LogPathCreation logs the creation of a file path
 func (logging Logging) LogPathCreation(path string) {
+	if wd, err := os.Getwd(); err == nil {
+		if relPath, err := filepath.Rel(wd, path); err == nil {
+			path = relPath
+		}
+	}
 	log.Info("Creating:", path)
 }
 
