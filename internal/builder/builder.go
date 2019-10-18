@@ -18,6 +18,7 @@ import (
 type Builder struct {
 	common.CommandRunner
 	common.FileSystem
+	common.Timer
 
 	OutputPath string
 	GOOS       string
@@ -27,6 +28,9 @@ type Builder struct {
 
 // Execute executes the command
 func (builder Builder) Execute(project common.Project, cfg config.Config) error {
+
+	builder.StartTimer()
+	defer builder.PrintElapsed("\nBuild time:")
 
 	if builder.GOOS == "" {
 		builder.GOOS = runtime.GOOS
