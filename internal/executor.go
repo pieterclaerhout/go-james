@@ -50,9 +50,10 @@ func (executor Executor) DoBuild(outputPath string, goos string, goarch string, 
 }
 
 // DoPackage performs a package of the project
-func (executor Executor) DoPackage(verbose bool) int {
+func (executor Executor) DoPackage(verbose bool, concurrency int) int {
 	return executor.runSubcommand(packager.Packager{
-		Verbose: verbose,
+		Verbose:     verbose,
+		Concurrency: concurrency,
 	}, true)
 }
 

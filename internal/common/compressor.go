@@ -10,21 +10,13 @@ type Compressor struct {
 }
 
 // CreateTgz creates a tgz file from a path
-func (c Compressor) CreateTgz(srcPaths []string, tgzPath string) error {
-	engine := compressors.NewTarball(tgzPath)
-	return c.createArchive(engine, srcPaths)
+func (c Compressor) CreateTgz(tgzPath string) compressors.Compressor {
+	c.LogPathCreation(tgzPath)
+	return compressors.NewTarball(tgzPath)
 }
 
 // CreateZip creates a zip file from a path
-func (c Compressor) CreateZip(srcPaths []string, zipPath string) error {
-	engine := compressors.NewZip(zipPath)
-	return c.createArchive(engine, srcPaths)
-}
-
-func (c Compressor) createArchive(engine compressors.Compressor, srcPaths []string) error {
-	for _, srcPath := range srcPaths {
-		engine.AddFile("", srcPath)
-	}
-	c.LogPathCreation(engine.Path())
-	return engine.Close()
+func (c Compressor) CreateZip(zipPath string) compressors.Compressor {
+	c.LogPathCreation(zipPath)
+	return compressors.NewZip(zipPath)
 }

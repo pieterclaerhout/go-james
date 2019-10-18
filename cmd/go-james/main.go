@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/pieterclaerhout/go-james/cmd/builder"
@@ -22,6 +23,8 @@ import (
 )
 
 func main() {
+
+	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	if log.DebugMode {
 		log.PrintTimestamp = true

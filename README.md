@@ -158,7 +158,7 @@ With every build, these variables are automatically updated.
 From within the project root, run the `package` command to build the executable for windows / darwin / linux in the 386 and amd64 variants and compresses the result as a `.zip` (windows) or `.tgz` (linux / mac):
 
 ```
-go-james package [-v]
+go-james package [-v] [--concurrency=4]
 ```
 
 By default, the output is put in the `build` subdirectory but can be customized in [the configuration file]((#the-config-file-go-jamesjson)).
@@ -174,6 +174,7 @@ The executable will be compressed and, if present in the project, the project's 
 You can specify the following options:
 
 * `-v`: the packages which are built will be listed.
+* `--concurrency`: how many package processes should run in parallel, defaults to the number of CPUs.
 
 As part of the build process, the `versioninfo` package will be filled with the following details:
 
