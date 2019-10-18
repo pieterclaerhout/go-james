@@ -180,6 +180,7 @@ func (creator Creator) createSourceFiles(project common.Project, cfg config.Conf
 		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main.go"):      mainCmdTemplate,
 		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main_test.go"): mainCmdTestingTemplate,
 		project.RelPath("versioninfo", "versioninfo.go"):                           versionInfoTemplate,
+		project.RelPath("scripts", "post_build.go"):                                postBuildScript,
 	}
 
 	for path, template := range filesToCreate {

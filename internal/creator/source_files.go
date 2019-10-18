@@ -43,3 +43,15 @@ var Revision string
 // Branch will be injected with the current branch name
 var Branch string
 `
+
+const postBuildScript = `package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	fmt.Printf("Running post buid: %v\n", os.Args)
+}
+`
