@@ -18,5 +18,5 @@ func (t *Timer) StartTimer() {
 
 // PrintElapsed prints the elapsed time to stdout
 func (t *Timer) PrintElapsed(prefix string) {
-	log.Info("\n", prefix, time.Since(t.start))
+	log.Info("\n"+prefix, time.Since(t.start))
 }
