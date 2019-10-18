@@ -3,7 +3,6 @@ package config
 import (
 	"encoding/json"
 	"io/ioutil"
-	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -132,11 +131,12 @@ func (config Config) Badges() []Badge {
 
 		versionBadge := Badge{
 			Title: "GitHub Version",
-			Link:  "https://badge.fury.io/gh/" + url.PathEscape(relativePackageName),
-			Image: "https://badge.fury.io/gh/" + url.PathEscape(relativePackageName) + ".svg",
+			Link:  "https://" + packageName + "/releases",
+			Image: "https://img.shields.io/github/v/release/" + relativePackageName,
 		}
 		badges = append(badges, versionBadge)
 
+		// https: //img.shields.io/github/v/release/pieterclaerhout/go-james?include_prereleases
 		issuesBadge := Badge{
 			Title: "GitHub issues",
 			Link:  "https://" + packageName + "/issues",
