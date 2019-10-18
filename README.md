@@ -32,6 +32,7 @@ Using the `go-james` tool, you can automate and streamline this process. The too
     - [Project Config](#project-config)
     - [Build Config](#build-config)
     - [Test Config](#test-config)
+- [Updating `go-james`](#updating-go-james)
 - [Bootstrapping `go-james`](#bootstrapping-go-james)
 - [Roadmap](#roadmap)
 - [Resources](#resources)
@@ -300,6 +301,14 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 ### Test Config
 
 * `extra_args`: contains any extra command-line parameters you want to add to the `go test` command when you run `go-james test`.
+
+## Updating `go-james`
+
+Just run:
+
+```
+go-james update
+```
 
 ## Bootstrapping `go-james`
 
