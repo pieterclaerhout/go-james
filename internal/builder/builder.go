@@ -30,7 +30,7 @@ type Builder struct {
 func (builder Builder) Execute(project common.Project, cfg config.Config) error {
 
 	builder.StartTimer()
-	defer builder.PrintElapsed("\nBuild time:")
+	defer builder.PrintElapsed("Build time:")
 
 	if builder.GOOS == "" {
 		builder.GOOS = runtime.GOOS

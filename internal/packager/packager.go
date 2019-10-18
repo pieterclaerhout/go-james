@@ -18,6 +18,7 @@ type Packager struct {
 	common.Compressor
 	common.FileSystem
 	common.Logging
+	common.Timer
 
 	Concurrency int
 	Verbose     bool
@@ -25,6 +26,9 @@ type Packager struct {
 
 // Execute executes the command
 func (packager Packager) Execute(project common.Project, cfg config.Config) error {
+
+	packager.StartTimer()
+	defer packager.PrintElapsed("Package time:")
 
 	if packager.Concurrency < 1 {
 		packager.Concurrency = runtime.NumCPU()
