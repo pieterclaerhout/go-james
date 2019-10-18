@@ -45,6 +45,7 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		ProjectPath:        project.Path,
 		ProjectName:        cfg.Project.Name,
 		ProjectDescription: cfg.Project.Description,
+		ProjectCopyright:   cfg.Project.Copyright,
 		Version:            cfg.Project.Version,
 		Revision:           builder.determineRevision(project),
 		Branch:             builder.determineBranch(project),
@@ -78,6 +79,7 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 
 	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "ProjectName", buildArgs.ProjectName)...)
 	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "ProjectDescription", buildArgs.ProjectDescription)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "ProjectCopyright", buildArgs.ProjectCopyright)...)
 	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "Version", buildArgs.Version)...)
 	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "Revision", buildArgs.Revision)...)
 	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "Branch", buildArgs.Branch)...)

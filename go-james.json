@@ -3,6 +3,7 @@
         "name": "go-james",
         "version": "0.5.0",
         "description": "James is your butler and helps you to create, build, test and run your Go projects",
+        "copyright": "© 2019 Pieter Claerhout",
         "package": "github.com/pieterclaerhout/go-james",
         "main_package": "github.com/pieterclaerhout/go-james/cmd/go-james"
     },

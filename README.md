@@ -21,6 +21,7 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 - [Starting a new project](#starting-a-new-project)
 - [Initializing an existing project](#initializing-an-existing-project)
 - [Building a project](#building-a-project)
+- [Pre-build and post-build hooks](#pre-build-and-post-build-hooks)
 - [Packaging a project](#packaging-a-project)
 - [Debugging a project](#debugging-a-project)
 - [Running a project](#running-a-project)
@@ -85,22 +86,26 @@ It will automatically create the following folder and file structure:
 
 ```
 go-example
+├── .git
 ├── .gitignore
 ├── .vscode
-│   └── launch.json
+│   ├── launch.json
 │   └── tasks.json
 ├── LICENSE
 ├── README.md
-├── build
-│   └── go-example
 ├── cmd
 │   └── go-example
-│       └── main.go
+│       ├── main.go
 │       └── main_test.go
 ├── go-james.json
 ├── go.mod
 ├── library.go
 ├── library_test.go
+├── scripts
+│   ├── post_build
+│   │   └── post_build.example.go
+│   └── pre_build
+│       └── pre_build.example.go
 └── versioninfo
     └── versioninfo.go
 ```
@@ -149,11 +154,16 @@ As part of the build process, the `versioninfo` package will be filled with the 
 
 * `versioninfo.ProjectName`: the name of the project from [the configuration file]((#the-config-file-go-jamesjson))
 * `versioninfo.ProjectDescription`: the description of the project from [the configuration file]((#the-config-file-go-jamesjson))
+* `versioninfo.ProjectCopyright`: the copyright of the project from [the configuration file]((#the-config-file-go-jamesjson))
 * `versioninfo.Version`: the version of the project from [the configuration file]((#the-config-file-go-jamesjson))
 * `versioninfo.Revision`: the current Git commit hash
 * `versioninfo.Branch`: the current Git branch name
 
 With every build, these variables are automatically updated.
+
+## Pre-build and post-build hooks
+
+_TODO: needs to be written…_
 
 ## Packaging a project
 
@@ -246,8 +256,9 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 {
     "project": {
         "name": "go-example",
-        "version": "1.0",
+        "version": "1.0.0",
         "description": "",
+        "copyright": "",
         "package": "github.com/pieterclaerhout/go-example",
         "main_package": "github.com/pieterclaerhout/go-example/cmd/go-example"
     },
@@ -272,6 +283,7 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 * `name`: the name of your project (will be availabme under `<package>/versioninfo.ProjectName`)
 * `version`: the version of your project (will be availabme under `<package>/versioninfo.Version`)
 * `description`: the description of your project (will be availabme under `<package>/versioninfo.ProjectDescription`)
+* `copyright`: the description of your project (will be availabme under `<package>/versioninfo.ProjectCopyright`)
 * `package`: the root package of your project
 * `main_package`: the full path to the main package of your app, defaults to `<package>/cmd/<project-name>`
 

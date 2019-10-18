@@ -27,6 +27,7 @@ type ProjectConfig struct {
 	Name        string `json:"name"`         // The name of the project
 	Version     string `json:"version"`      // The version of the project
 	Description string `json:"description"`  // The description of the project
+	Copyright   string `json:"copyright"`    // The copyright statement for the project
 	Package     string `json:"package"`      // The top-level package for the project
 	MainPackage string `json:"main_package"` // The package path to the main entry point (the package containing main)
 }

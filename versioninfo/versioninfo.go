@@ -6,6 +6,9 @@ var ProjectName string
 // ProjectDescription contains the description of the project
 var ProjectDescription string
 
+// ProjectCopyright contains the copyright for the project
+var ProjectCopyright string
+
 // Version contains the version number from the config file
 var Version string
 

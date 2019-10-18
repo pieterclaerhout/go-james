@@ -133,6 +133,7 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 			Name:        creator.Name,
 			Version:     "1.0.0",
 			Description: creator.Description,
+			Copyright:   "",
 			Package:     creator.Package,
 			MainPackage: creator.Package + "/cmd/" + creator.Name,
 		},

@@ -17,6 +17,7 @@ import(
 func main() {
 	fmt.Println("Project: "+ versioninfo.ProjectName)
 	fmt.Println("Description: "+ versioninfo.ProjectDescription)
+	fmt.Println("Copyright: "+ versioninfo.ProjectCopyright)
 	fmt.Println("Version: "+ versioninfo.Version)
 	fmt.Println("Revision: " + versioninfo.Revision)
 	fmt.Println("Branch: " + versioninfo.Branch)
@@ -33,6 +34,9 @@ var ProjectName string
 
 // ProjectDescription contains the description of the project
 var ProjectDescription string
+
+// ProjectCopyright contains the copyright for the project
+var ProjectCopyright string
 
 // Version contains the version of the app
 var Version string

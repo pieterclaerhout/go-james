@@ -12,6 +12,7 @@ type BuildArgs struct {
 	GOARCH             string   `json:"GOARCH,omitempty"`              // The GOARCH for which was compiled
 	ProjectName        string   `json:"project_name,omitempty"`        // The project name
 	ProjectDescription string   `json:"project_description,omitempty"` // The project description
+	ProjectCopyright   string   `json:"project_copyright,omitempty"`   // The project copyright
 	Version            string   `json:"version,omitempty"`             // The version info
 	Revision           string   `json:"revision,omitempty"`            // The project revision
 	Branch             string   `json:"branch,omitempty"`              // The project branch
