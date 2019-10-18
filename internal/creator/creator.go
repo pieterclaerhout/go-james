@@ -42,6 +42,15 @@ type Creator struct {
 // Execute executes the command
 func (creator Creator) Execute(project common.Project, cfg config.Config) error {
 
+	if creator.Path == "" && creator.Name != "" {
+		wd, _ := os.Getwd()
+		creator.Path = filepath.Join(wd, creator.Name)
+	}
+
+	if creator.Package == "" && creator.Name != "" {
+		creator.Package = creator.Name
+	}
+
 	if creator.Mode == InitProject {
 		creator.Path, _ = os.Getwd()
 		creator.Package = filepath.Base(creator.Path)

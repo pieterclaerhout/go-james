@@ -109,10 +109,10 @@ An important file which is generated and can be used to further customize the pr
 
 You can specify the following options:
 
-* `--path` (required): the path where the new project should be created, e.g. `/home/username/go-example`
-* `--package` (required): the main package for the new project, e.g. `github.com/pieterclaerhout/go-example`
-* `--name` (optional): the name of the project, if not specified, the last part of the path is used
-* `--description` (optional): the description of the project, used for the readme
+* `--path`: the path where the new project should be created, e.g. `/home/username/go-example` (if not specified, it will create a directory with the name of the prject in the current path)
+* `--package`: the main package for the new project, e.g. `github.com/pieterclaerhout/go-example` (defaults to the project name if specified)
+* `--name`: the name of the project, if not specified, the last part of the path is used
+* `--description`: the description of the project, used for the readme
 
 ## Initializing an existing project
 
