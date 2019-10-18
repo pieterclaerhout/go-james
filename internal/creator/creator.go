@@ -55,9 +55,7 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		return errors.New("Package not specified")
 	}
 
-	project = common.Project{
-		Path: creator.Path,
-	}
+	project = common.NewProject(creator.Path)
 
 	type creationStep func(project common.Project, cfg config.Config) error
 
@@ -180,7 +178,8 @@ func (creator Creator) createSourceFiles(project common.Project, cfg config.Conf
 		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main.go"):      mainCmdTemplate,
 		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main_test.go"): mainCmdTestingTemplate,
 		project.RelPath("versioninfo", "versioninfo.go"):                           versionInfoTemplate,
-		project.RelPath("scripts", "post_build.go"):                                postBuildScript,
+		project.RelPath("scripts", "pre_build", "pre_build.example.go"):            preBuildScript,
+		project.RelPath("scripts", "post_build", "post_build.example.go"):          postBuildScript,
 	}
 
 	for path, template := range filesToCreate {

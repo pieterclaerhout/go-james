@@ -44,14 +44,36 @@ var Revision string
 var Branch string
 `
 
-const postBuildScript = `package main
+const preBuildScript = `package main
 
 import (
-	"fmt"
-	"os"
+	"github.com/pieterclaerhout/go-james"
+	"github.com/pieterclaerhout/go-log"
 )
 
 func main() {
-	fmt.Printf("Running post buid: %v\n", os.Args)
+
+	args, err := james.ParseBuildArgs()
+	log.CheckError(err)
+
+	log.InfoDump(args, "pre_build arguments")
+
+}
+`
+
+const postBuildScript = `package main
+
+import (
+	"github.com/pieterclaerhout/go-james"
+	"github.com/pieterclaerhout/go-log"
+)
+
+func main() {
+
+	args, err := james.ParseBuildArgs()
+	log.CheckError(err)
+
+	log.InfoDump(args, "post_build arguments")
+
 }
 `

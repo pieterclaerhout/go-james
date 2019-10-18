@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/kballard/go-shellquote"
+	"github.com/pieterclaerhout/go-james"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 	"github.com/pkg/errors"
@@ -27,20 +28,29 @@ type Builder struct {
 // Execute executes the command
 func (builder Builder) Execute(project common.Project, cfg config.Config) error {
 
-	versionInfo := map[string]string{
-		"ProjectName":        cfg.Project.Name,
-		"ProjectDescription": cfg.Project.Description,
-		"Version":            cfg.Project.Version,
-		"Revision":           builder.determineRevision(project),
-		"Branch":             builder.determineBranch(project),
-	}
-
 	if builder.GOOS == "" {
 		builder.GOOS = runtime.GOOS
 	}
 
 	if builder.GOARCH == "" {
 		builder.GOARCH = runtime.GOARCH
+	}
+
+	outputPath, err := builder.outputPath(cfg)
+	if err != nil {
+		return err
+	}
+
+	buildArgs := james.BuildArgs{
+		ProjectPath:        project.Path,
+		ProjectName:        cfg.Project.Name,
+		ProjectDescription: cfg.Project.Description,
+		Version:            cfg.Project.Version,
+		Revision:           builder.determineRevision(project),
+		Branch:             builder.determineBranch(project),
+		OutputPath:         outputPath,
+		GOOS:               builder.GOOS,
+		GOARCH:             builder.GOARCH,
 	}
 
 	if builder.Verbose {
@@ -53,10 +63,6 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		buildCmd = append(buildCmd, "-v")
 	}
 
-	outputPath, err := builder.outputPath(cfg)
-	if err != nil {
-		return err
-	}
 	if outputPath != "" {
 		buildCmd = append(buildCmd, "-o", outputPath)
 	}
@@ -70,9 +76,11 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 
 	ldFlags := cfg.Build.LDFlags
 
-	for key, val := range versionInfo {
-		ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, key, val)...)
-	}
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "ProjectName", buildArgs.ProjectName)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "ProjectDescription", buildArgs.ProjectDescription)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "Version", buildArgs.Version)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "Revision", buildArgs.Revision)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "Branch", buildArgs.Branch)...)
 
 	if len(ldFlags) > 0 {
 		buildCmd = append(buildCmd, "-ldflags", shellquote.Join(ldFlags...))
@@ -83,11 +91,30 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 	}
 
 	buildCmd = append(buildCmd, cfg.Project.MainPackage)
-	return builder.RunToStdout(buildCmd, project.Path, map[string]string{
-		"GO111MODULE": "on",
-		"GOOS":        builder.GOOS,
-		"GOARCH":      builder.GOARCH,
-	})
+
+	buildArgs.RawBuildCommand = buildCmd
+
+	if err := builder.RunProjectHook(project, "pre_build", buildArgs); err != nil {
+		return err
+	}
+
+	if err := builder.RunToStdout(
+		buildCmd,
+		project.Path,
+		map[string]string{
+			"GO111MODULE": "on",
+			"GOOS":        builder.GOOS,
+			"GOARCH":      builder.GOARCH,
+		},
+	); err != nil {
+		return err
+	}
+
+	if outputPath, err = filepath.Abs(outputPath); err != nil {
+		return err
+	}
+
+	return builder.RunProjectHook(project, "post_build", buildArgs)
 
 }
 
