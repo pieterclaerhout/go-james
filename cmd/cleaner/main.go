@@ -2,6 +2,7 @@ package cleaner
 
 import (
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/pieterclaerhout/go-james/internal/cleaner"
 	"github.com/tucnak/climax"
 )
 
@@ -11,7 +12,11 @@ var CleanCmd = climax.Command{
 	Brief: "Removes the build artifacts",
 	Help:  "Removes the build artifacts",
 	Handle: func(ctx climax.Context) int {
+
+		tool := cleaner.Cleaner{}
+
 		executor := internal.NewExecutor("")
-		return executor.DoClean()
+		return executor.RunTool(tool, true)
+
 	},
 }

@@ -2,6 +2,7 @@ package debugger
 
 import (
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/pieterclaerhout/go-james/internal/debugger"
 	"github.com/tucnak/climax"
 )
 
@@ -11,7 +12,13 @@ var DebugCmd = climax.Command{
 	Brief: "Debug a binary or example using delve",
 	Help:  "Debug a binary or example using delve",
 	Handle: func(ctx climax.Context) int {
+
+		tool := debugger.Debugger{
+			Args: ctx.Args,
+		}
+
 		executor := internal.NewExecutor("")
-		return executor.DoDebug(ctx.Args)
+		return executor.RunTool(tool, true)
+
 	},
 }

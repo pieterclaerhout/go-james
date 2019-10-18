@@ -17,6 +17,7 @@ import (
 	"github.com/pieterclaerhout/go-james/cmd/uninstaller"
 	"github.com/pieterclaerhout/go-james/cmd/version"
 	"github.com/pieterclaerhout/go-james/internal"
+	rawrunner "github.com/pieterclaerhout/go-james/internal/runner"
 	"github.com/pieterclaerhout/go-james/versioninfo"
 	"github.com/pieterclaerhout/go-log"
 	"github.com/tucnak/climax"
@@ -44,8 +45,12 @@ func main() {
 			args = os.Args[2:]
 		}
 
+		tool := rawrunner.Runner{
+			Args: args,
+		}
+
 		executor := internal.NewExecutor("")
-		result = executor.DoRun(args)
+		result = executor.RunTool(tool, true)
 
 	} else {
 

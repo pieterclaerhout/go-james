@@ -2,6 +2,7 @@ package creator
 
 import (
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/pieterclaerhout/go-james/internal/creator"
 	"github.com/tucnak/climax"
 )
 
@@ -63,8 +64,18 @@ var NewCmd = climax.Command{
 		overwrite := ctx.Is("overwrite")
 		createGitRepo := ctx.Is("create-git-repo")
 
+		tool := creator.Creator{
+			Mode:          creator.NewProject,
+			Path:          path,
+			Package:       packageName,
+			Name:          name,
+			Description:   description,
+			Overwrite:     overwrite,
+			CreateGitRepo: createGitRepo,
+		}
+
 		executor := internal.NewExecutor("")
-		return executor.DoNew(path, packageName, name, description, overwrite, createGitRepo)
+		return executor.RunTool(tool, false)
 
 	},
 }
@@ -75,7 +86,13 @@ var InitCmd = climax.Command{
 	Brief: "Create a new Go app or library in an existing directory",
 	Help:  "Create a new Go app or library in an existing directory",
 	Handle: func(ctx climax.Context) int {
+
+		tool := creator.Creator{
+			Mode: creator.InitProject,
+		}
+
 		executor := internal.NewExecutor("")
-		return executor.DoInit()
+		return executor.RunTool(tool, false)
+
 	},
 }

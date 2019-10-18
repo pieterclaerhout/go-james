@@ -2,6 +2,7 @@ package tester
 
 import (
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/pieterclaerhout/go-james/internal/tester"
 	"github.com/tucnak/climax"
 )
 
@@ -11,7 +12,11 @@ var TestCmd = climax.Command{
 	Brief: "Run the tests",
 	Help:  "Run the tests",
 	Handle: func(ctx climax.Context) (exitcode int) {
+
+		tool := tester.Tester{}
+
 		executor := internal.NewExecutor("")
-		return executor.DoTest()
+		return executor.RunTool(tool, true)
+
 	},
 }

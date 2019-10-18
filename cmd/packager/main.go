@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/pieterclaerhout/go-james/internal/packager"
 	"github.com/tucnak/climax"
 )
 
@@ -34,8 +35,13 @@ var PackageCmd = climax.Command{
 		concurrency, _ := ctx.Get("concurrency")
 		concurrencyAsInt, _ := strconv.Atoi(concurrency)
 
+		tool := packager.Packager{
+			Verbose:     verbose,
+			Concurrency: concurrencyAsInt,
+		}
+
 		executor := internal.NewExecutor("")
-		return executor.DoPackage(verbose, concurrencyAsInt)
+		return executor.RunTool(tool, true)
 
 	},
 }

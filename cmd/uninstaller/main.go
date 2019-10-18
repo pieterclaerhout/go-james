@@ -2,6 +2,7 @@ package uninstaller
 
 import (
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/pieterclaerhout/go-james/internal/uninstaller"
 	"github.com/tucnak/climax"
 )
 
@@ -11,7 +12,11 @@ var UninstallCmd = climax.Command{
 	Brief: "Removes the executable from $GOPATh/bin",
 	Help:  "Removes the executable from $GOPATh/bin",
 	Handle: func(ctx climax.Context) int {
+
+		tool := uninstaller.Uninstaller{}
+
 		executor := internal.NewExecutor("")
-		return executor.DoUninstall()
+		return executor.RunTool(tool, true)
+
 	},
 }

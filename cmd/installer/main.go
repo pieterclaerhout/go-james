@@ -2,6 +2,7 @@ package installer
 
 import (
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/pieterclaerhout/go-james/internal/installer"
 	"github.com/tucnak/climax"
 )
 
@@ -23,8 +24,12 @@ var InstallCmd = climax.Command{
 
 		verbose := ctx.Is("verbose")
 
+		tool := installer.Installer{
+			Verbose: verbose,
+		}
+
 		executor := internal.NewExecutor("")
-		return executor.DoInstall(verbose)
+		return executor.RunTool(tool, true)
 
 	},
 }

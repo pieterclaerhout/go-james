@@ -1,8 +1,9 @@
 package builder
 
 import (
-	"github.com/tucnak/climax"
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/pieterclaerhout/go-james/internal/builder"
+	"github.com/tucnak/climax"
 )
 
 // BuildCmd defines the build command
@@ -47,8 +48,15 @@ var BuildCmd = climax.Command{
 		goarch, _ := ctx.Get("goarch")
 		verbose := ctx.Is("verbose")
 
+		tool := builder.Builder{
+			OutputPath: output,
+			GOOS:       goos,
+			GOARCH:     goarch,
+			Verbose:    verbose,
+		}
+
 		executor := internal.NewExecutor("")
-		return executor.DoBuild(output, goos, goarch, verbose)
+		return executor.RunTool(tool, true)
 
 	},
 }
