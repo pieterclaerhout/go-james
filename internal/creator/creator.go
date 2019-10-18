@@ -68,7 +68,7 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		return errors.New("Package not specified")
 	}
 
-	if creator.PathExists(creator.Path) {
+	if creator.Mode == NewProject && creator.PathExists(creator.Path) {
 		if creator.Overwrite {
 			log.Warn("!!! Overwriting:", creator.Path, "!!!")
 			if err := os.RemoveAll(creator.Path); err != nil {
