@@ -15,6 +15,7 @@ import (
 	"github.com/pieterclaerhout/go-james/cmd/runner"
 	"github.com/pieterclaerhout/go-james/cmd/tester"
 	"github.com/pieterclaerhout/go-james/cmd/uninstaller"
+	"github.com/pieterclaerhout/go-james/cmd/updater"
 	"github.com/pieterclaerhout/go-james/cmd/version"
 	"github.com/pieterclaerhout/go-james/internal"
 	rawrunner "github.com/pieterclaerhout/go-james/internal/runner"
@@ -73,6 +74,7 @@ func main() {
 		app.AddCommand(tester.TestCmd)
 		app.AddCommand(uninstaller.UninstallCmd)
 		app.AddCommand(version.VersionCmd)
+		app.AddCommand(updater.UpdateCmd)
 
 		result = app.Run()
 

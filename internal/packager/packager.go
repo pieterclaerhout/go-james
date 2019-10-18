@@ -117,7 +117,7 @@ func (packager Packager) archiveOutputPathForDistribution(cfg config.Config, d d
 	if d.GOOS == "windows" {
 		path += ".exe.zip"
 	} else {
-		path += ".tgz"
+		path += ".tar.gz"
 	}
 	return path
 }
