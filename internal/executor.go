@@ -42,7 +42,7 @@ func (executor Executor) RunTool(subcommand Subcommand, parseConfig bool) int {
 	if parseConfig {
 		cfg, err = config.NewConfigFromDir(executor.Path)
 		if err != nil {
-			executor.LogErrorInDebugMode(err)
+			executor.LogError(err)
 			return 1
 		}
 	}

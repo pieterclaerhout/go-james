@@ -1,9 +1,8 @@
 package version
 
 import (
-	"fmt"
-
-	"github.com/pieterclaerhout/go-james/versioninfo"
+	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/pieterclaerhout/go-james/internal/version"
 	"github.com/tucnak/climax"
 )
 
@@ -13,7 +12,11 @@ var VersionCmd = climax.Command{
 	Brief: "Print version info and exit",
 	Help:  "Print version info and exit",
 	Handle: func(ctx climax.Context) int {
-		fmt.Println(versioninfo.ProjectName + " " + versioninfo.Version + " (" + versioninfo.Revision + ", " + versioninfo.Branch + ")")
-		return 0
+
+		tool := version.Version{}
+
+		executor := internal.NewExecutor("")
+		return executor.RunTool(tool, false)
+
 	},
 }
