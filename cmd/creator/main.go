@@ -1,6 +1,9 @@
 package creator
 
 import (
+	"os"
+	"path/filepath"
+
 	"github.com/pieterclaerhout/go-james/internal"
 	"github.com/tucnak/climax"
 )
@@ -46,6 +49,11 @@ var NewCmd = climax.Command{
 		packageName, _ := ctx.Get("package")
 		name, _ := ctx.Get("name")
 		description, _ := ctx.Get("description")
+
+		if path == "" && name != "" {
+			wd, _ := os.Getwd()
+			path = filepath.Join(wd, name)
+		}
 
 		executor := internal.NewExecutor("")
 		return executor.DoNew(path, packageName, name, description)

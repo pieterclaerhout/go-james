@@ -136,7 +136,6 @@ func (config Config) Badges() []Badge {
 		}
 		badges = append(badges, versionBadge)
 
-		// https: //img.shields.io/github/v/release/pieterclaerhout/go-james?include_prereleases
 		issuesBadge := Badge{
 			Title: "GitHub issues",
 			Link:  "https://" + packageName + "/issues",
