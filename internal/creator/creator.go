@@ -107,7 +107,7 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 	cfg = config.Config{
 		Project: config.ProjectConfig{
 			Name:        creator.Name,
-			Version:     "1.0",
+			Version:     "1.0.0",
 			Description: creator.Description,
 			Package:     creator.Package,
 			MainPackage: creator.Package + "/cmd/" + creator.Name,
