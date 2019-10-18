@@ -28,7 +28,7 @@ func (d distribution) String() string {
 }
 
 func (d distribution) DirName() string {
-	return d.GOOS + "-" + d.GOARCH
+	return d.GOOS + "_" + d.GOARCH
 }
 
 func (packager Packager) allDistributionsToBuild() ([]distribution, error) {

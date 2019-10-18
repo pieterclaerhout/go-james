@@ -30,7 +30,7 @@ func (packager Packager) Execute(project common.Project, cfg config.Config) erro
 		packager.Concurrency = runtime.NumCPU()
 	}
 
-	packager.LogInfo("Concurrency", packager.Concurrency)
+	packager.LogInfo("Using a concurrency of:", packager.Concurrency)
 
 	distributions, err := packager.allDistributionsToBuild()
 	if err != nil {
@@ -109,9 +109,9 @@ func (packager Packager) buildOutputPathForDistribution(cfg config.Config, d dis
 }
 
 func (packager Packager) archiveOutputPathForDistribution(cfg config.Config, d distribution) string {
-	path := filepath.Join(cfg.Build.OutputPath, cfg.Project.Name+"_"+d.DirName()+"_v"+cfg.Project.Version)
+	path := filepath.Join(cfg.Build.OutputPath, cfg.Project.Name+"_"+d.DirName())
 	if d.GOOS == "windows" {
-		path += ".zip"
+		path += ".exe.zip"
 	} else {
 		path += ".tgz"
 	}
