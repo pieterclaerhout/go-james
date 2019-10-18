@@ -63,7 +63,10 @@ To start a new project, you can use the `new` subcommand as follows:
 go-james new --path=<target path> \
              --package=<package> \
              --name=<name of your project> \
-             --description=<description of your project>
+             --description=<description of your project> \
+             --copyright=<copyright of your project>
+             [--create-git-repo] \
+             [--overwrite] \
 ```
 
 When you run it, you'll get the following output:
@@ -118,8 +121,9 @@ You can specify the following options:
 * `--package`: the main package for the new project, e.g. `github.com/pieterclaerhout/go-example` (defaults to the project name if specified)
 * `--name`: the name of the project, if not specified, the last part of the path is used
 * `--description`: the description of the project, used for the readme
-* `--overwrite`: if the destination path already exists, overwrite it (be careful, the original folder will be replaced)
+* `--copyright`: the copyright of the project, used for the readme
 * `--create-git-repo`: if specified, a local Git repository will be created for the project and the source files will automatically be committed.
+* `--overwrite`: if the destination path already exists, overwrite it (be careful, the original folder will be replaced)
 
 ## Initializing an existing project
 

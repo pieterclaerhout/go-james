@@ -38,6 +38,7 @@ type Creator struct {
 	Package       string
 	Name          string
 	Description   string
+	Copyright     string
 	Overwrite     bool
 	CreateGitRepo bool
 }
@@ -133,7 +134,7 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 			Name:        creator.Name,
 			Version:     "1.0.0",
 			Description: creator.Description,
-			Copyright:   "",
+			Copyright:   creator.Copyright,
 			Package:     creator.Package,
 			MainPackage: creator.Package + "/cmd/" + creator.Name,
 		},

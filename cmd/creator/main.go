@@ -41,6 +41,13 @@ var NewCmd = climax.Command{
 			Variable: true,
 		},
 		{
+			Name:     "copyright",
+			Short:    "",
+			Usage:    `--copyright=<copyright>`,
+			Help:     `The copyright of the project`,
+			Variable: true,
+		},
+		{
 			Name:     "overwrite",
 			Short:    "",
 			Usage:    `--overwrite`,
@@ -61,6 +68,7 @@ var NewCmd = climax.Command{
 		packageName, _ := ctx.Get("package")
 		name, _ := ctx.Get("name")
 		description, _ := ctx.Get("description")
+		copyright, _ := ctx.Get("copyright")
 		overwrite := ctx.Is("overwrite")
 		createGitRepo := ctx.Is("create-git-repo")
 
@@ -70,6 +78,7 @@ var NewCmd = climax.Command{
 			Package:       packageName,
 			Name:          name,
 			Description:   description,
+			Copyright:     copyright,
 			Overwrite:     overwrite,
 			CreateGitRepo: createGitRepo,
 		}
