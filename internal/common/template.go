@@ -2,6 +2,7 @@ package common
 
 import (
 	"bytes"
+	"strconv"
 	"text/template"
 )
 
@@ -13,7 +14,9 @@ type Template struct {
 // RenderTextTemplate renders a text template
 func (t Template) RenderTextTemplate(templateData string, params interface{}) (string, error) {
 
-	tpl := template.New("t")
+	tpl := template.New("t").Funcs(template.FuncMap{
+		"quote": strconv.Quote,
+	})
 	parsedTemplate, err := tpl.Parse(templateData)
 	if err != nil {
 		return "", err

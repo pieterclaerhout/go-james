@@ -30,22 +30,22 @@ const mainCmdTestingTemplate = `package main_test
 const versionInfoTemplate = `package versioninfo
 
 // ProjectName contains the name of the project
-var ProjectName string
+var ProjectName string = {{quote .Project.Name}}
 
 // ProjectDescription contains the description of the project
-var ProjectDescription string
+var ProjectDescription string = {{quote .Project.Name}}
 
 // ProjectCopyright contains the copyright for the project
-var ProjectCopyright string
+var ProjectCopyright string = ""
 
 // Version contains the version of the app
-var Version string
+var Version string = {{quote .Project.Version}}
 
 // Revision will be injected with the current commit hash
-var Revision string
+var Revision string = "head"
 
 // Branch will be injected with the current branch name
-var Branch string
+var Branch string = "master"
 `
 
 const preBuildScript = `package main
