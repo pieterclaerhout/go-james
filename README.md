@@ -16,6 +16,7 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Updating](#updating)
 - [Starting a new project](#starting-a-new-project)
 - [Initializing an existing project](#initializing-an-existing-project)
 - [Building a project](#building-a-project)
@@ -46,13 +47,25 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 
 ## Installation
 
-The best way to install this tool is to run `go install` as follows:
+To install it, download the `go-james` executable from  the [releases](https://github.com/pieterclaerhout/go-james/releases) and place it in your `$PATH`, preferable `$GOPATH/bin`.
+
+Alternatively, you can also run:
 
 ```
 go get -u github.com/pieterclaerhout/go-james/cmd/go-james
 ```
 
-This will create the `go-james` command in your `$GOPATH/bin` folder. The tool is self-contained and doesn't have any external dependencies.
+This will create the `go-james` command in your `$GOPATH/bin` folder.
+
+The tool is self-contained and doesn't have any external dependencies.
+
+## Updating 
+
+Simply run:
+
+```
+go-james update
+```
 
 ## Starting a new project
 
