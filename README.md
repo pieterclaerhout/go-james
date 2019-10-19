@@ -2,7 +2,7 @@
 
 <h1 align="center">go-james</h1>
 
-<p align="center"><b>This project is stil in alpha, use at your own risk</b></p>
+<p align="center"><a href="https://goreportcard.com/report/github.com/pieterclaerhout/go-james" rel="nofollow"><img src="https://camo.githubusercontent.com/4870b0a18ef6cc3f3d10e5c468a8da7f17aee89d/68747470733a2f2f676f7265706f7274636172642e636f6d2f62616467652f6769746875622e636f6d2f706965746572636c616572686f75742f676f2d6a616d6573" alt="Go Report Card" data-canonical-src="https://goreportcard.com/badge/github.com/pieterclaerhout/go-james" style="max-width:100%;"></a> <a href="http://godoc.org/github.com/pieterclaerhout/go-james" rel="nofollow"><img src="https://camo.githubusercontent.com/c1cccc4298cc381799b2ac901183e30d76f24033/68747470733a2f2f676f646f632e6f72672f6769746875622e636f6d2f706965746572636c616572686f75742f676f2d6a616d65733f7374617475732e737667" alt="Documentation" data-canonical-src="https://godoc.org/github.com/pieterclaerhout/go-james?status.svg" style="max-width:100%;"></a> <a href="https://github.com/pieterclaerhout/go-james/raw/master/LICENSE"><img src="https://camo.githubusercontent.com/b65a7a2b7a579e10dad81e1ef2ef8945c8970806/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d41706163686525323076322d6f72616e67652e737667" alt="License" data-canonical-src="https://img.shields.io/badge/license-Apache%20v2-orange.svg" style="max-width:100%;"></a> <a href="https://github.com/pieterclaerhout/go-james/releases"><img src="https://camo.githubusercontent.com/113e1eb8bce0a2c952c6d12bf679b2ada756a4f5/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f762f72656c656173652f706965746572636c616572686f75742f676f2d6a616d6573" alt="GitHub Version" data-canonical-src="https://img.shields.io/github/v/release/pieterclaerhout/go-james" style="max-width:100%;"></a> <a href="https://github.com/pieterclaerhout/go-james/issues"><img src="https://camo.githubusercontent.com/e53684485fb0405984e3c51d9fcfcd895a2340ce/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f706965746572636c616572686f75742f676f2d6a616d65732e737667" alt="GitHub issues" data-canonical-src="https://img.shields.io/github/issues/pieterclaerhout/go-james.svg" style="max-width:100%;"></a>  <a href="https://github.com/pieterclaerhout/go-james/"><img src="https://camo.githubusercontent.com/3fe96add896b4c526262790e6ba86472517b6993/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6173742d636f6d6d69742f706965746572636c616572686f75742f676f2d6a616d65732e737667" alt="GitHub Last Commit" data-canonical-src="https://img.shields.io/github/last-commit/pieterclaerhout/go-james.svg" style="max-width:100%;"></a></p>
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/pieterclaerhout/go-james)](https://goreportcard.com/report/github.com/pieterclaerhout/go-james) [![Documentation](https://godoc.org/github.com/pieterclaerhout/go-james?status.svg)](http://godoc.org/github.com/pieterclaerhout/go-james) [![License](https://img.shields.io/badge/license-Apache%20v2-orange.svg)](https://github.com/pieterclaerhout/go-james/raw/master/LICENSE) [![GitHub Version](https://img.shields.io/github/v/release/pieterclaerhout/go-james)](https://github.com/pieterclaerhout/go-james/releases) [![GitHub issues](https://img.shields.io/github/issues/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/issues)  [![GitHub Last Commit](https://img.shields.io/github/last-commit/pieterclaerhout/go-james.svg)](https://github.com/pieterclaerhout/go-james/)
 
@@ -65,9 +65,9 @@ go-james new --path=<target path> \
              --package=<package> \
              --name=<name of your project> \
              --description=<description of your project> \
-             --copyright=<copyright of your project>
+             --copyright=<copyright of your project> \
              [--create-git-repo] \
-             [--overwrite] \
+             [--overwrite]
 ```
 
 When you run it, you'll get the following output:
