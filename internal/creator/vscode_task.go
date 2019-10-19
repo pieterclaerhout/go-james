@@ -1,5 +1,9 @@
 package creator
 
+import (
+	"github.com/pieterclaerhout/go-james/internal/config"
+)
+
 const visualStudioCodeTasksFileName = "tasks.json"
 
 type visualStudioCodeTask struct {
@@ -10,9 +14,9 @@ type visualStudioCodeTask struct {
 	ProblemMatcher []string `json:"problemMatcher"`
 }
 
-func newVisualStudioCodeTask(label string, command string) visualStudioCodeTask {
+func newVisualStudioCodeTask(cfg config.Config, label string, command string) visualStudioCodeTask {
 	return visualStudioCodeTask{
-		Label:          label,
+		Label:          cfg.Project.Name + " | " + label,
 		Command:        command,
 		Type:           "shell",
 		Group:          "build",
@@ -25,18 +29,18 @@ type visualStudioCodeTasks struct {
 	Tasks   []visualStudioCodeTask `json:"tasks"`
 }
 
-func newVisualStudioCodeTaskList() *visualStudioCodeTasks {
+func newVisualStudioCodeTaskList(cfg config.Config) *visualStudioCodeTasks {
 	result := &visualStudioCodeTasks{
 		Version: "2.0.0",
 		Tasks: []visualStudioCodeTask{
-			newVisualStudioCodeTask("build", "go-james build"),
-			newVisualStudioCodeTask("build (verbose)", "go-james build -v"),
-			newVisualStudioCodeTask("clean", "go-james clean"),
-			newVisualStudioCodeTask("tests", "go-james test"),
-			newVisualStudioCodeTask("run", "go-james run"),
-			newVisualStudioCodeTask("install", "go-james install"),
-			newVisualStudioCodeTask("uninstall", "go-james uninstall"),
-			newVisualStudioCodeTask("run (debug)", "DEBUG=1 go-james run"),
+			newVisualStudioCodeTask(cfg, "build", "go-james build"),
+			newVisualStudioCodeTask(cfg, "build (verbose)", "go-james build -v"),
+			newVisualStudioCodeTask(cfg, "clean", "go-james clean"),
+			newVisualStudioCodeTask(cfg, "tests", "go-james test"),
+			newVisualStudioCodeTask(cfg, "run", "go-james run"),
+			newVisualStudioCodeTask(cfg, "install", "go-james install"),
+			newVisualStudioCodeTask(cfg, "uninstall", "go-james uninstall"),
+			newVisualStudioCodeTask(cfg, "run (debug)", "DEBUG=1 go-james run"),
 		},
 	}
 	return result

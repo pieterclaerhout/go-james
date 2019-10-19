@@ -2,7 +2,7 @@
     "Version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "go-james | build",
             "command": "./build/go-james build",
             "type": "shell",
             "group": "build",
@@ -11,7 +11,7 @@
             ]
         },
         {
-            "label": "purge github readme",
+            "label": "go-james | purge github readme",
             "command": "hub-purge pieterclaerhout/go-james",
             "type": "shell",
             "group": "build",
@@ -20,7 +20,7 @@
             ]
         },
         {
-            "label": "package",
+            "label": "go-james | package",
             "command": "./build/go-james package -v",
             "type": "shell",
             "group": "build",
@@ -29,7 +29,7 @@
             ]
         },
         {
-            "label": "create sample app",
+            "label": "go-james | create sample app",
             "command": "go build -o build/go-james github.com/pieterclaerhout/go-james/cmd/go-james &&  rm -rf go-example && ./build/go-james new --path go-example --package github.com/pieterclaerhout/go-example --description 'My Project Description'",
             "type": "shell",
             "group": "build",
@@ -38,7 +38,7 @@
             ]
         },
         {
-            "label": "bootstrap",
+            "label": "go-james | bootstrap",
             "command": "go build -v -o build/go-james github.com/pieterclaerhout/go-james/cmd/go-james",
             "type": "shell",
             "group": "build",
@@ -47,7 +47,7 @@
             ]
         },
         {
-            "label": "clean",
+            "label": "go-james | clean",
             "command": "./build/go-james clean",
             "type": "shell",
             "group": "build",
@@ -56,7 +56,7 @@
             ]
         },
         {
-            "label": "build (verbose)",
+            "label": "go-james | build (verbose)",
             "command": "./build/go-james build -v",
             "type": "shell",
             "group": "build",
@@ -65,7 +65,7 @@
             ]
         },
         {
-            "label": "build (debug & verbose)",
+            "label": "go-james | build (debug & verbose)",
             "command": "DEBUG=1 ./build/go-james build -v",
             "type": "shell",
             "group": "build",
@@ -74,7 +74,7 @@
             ]
         },
         {
-            "label": "tests",
+            "label": "go-james | tests",
             "command": "./build/go-james test",
             "type": "shell",
             "group": "build",
@@ -83,7 +83,7 @@
             ]
         },
         {
-            "label": "run",
+            "label": "go-james | run",
             "command": "./build/go-james run",
             "type": "shell",
             "group": "build",
@@ -92,7 +92,7 @@
             ]
         },
         {
-            "label": "run (debug)",
+            "label": "go-james | run (debug)",
             "command": "DEBUG=1 ./build/go-james run",
             "type": "shell",
             "group": "build",
