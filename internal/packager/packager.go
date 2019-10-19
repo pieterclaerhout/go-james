@@ -27,14 +27,18 @@ type Packager struct {
 // Execute executes the command
 func (packager Packager) Execute(project common.Project, cfg config.Config) error {
 
-	packager.StartTimer()
-	defer packager.PrintElapsed("Package time:")
+	if packager.Verbose {
+		packager.StartTimer()
+		defer packager.PrintElapsed("Package time:")
+	}
 
 	if packager.Concurrency < 1 {
 		packager.Concurrency = runtime.NumCPU()
 	}
 
-	packager.LogInfo("Using a concurrency of:", packager.Concurrency)
+	if packager.Verbose {
+		packager.LogInfo("Packaging using a concurrency of:", packager.Concurrency)
+	}
 
 	distributions, err := packager.allDistributionsToBuild()
 	if err != nil {
@@ -68,17 +72,12 @@ func (packager Packager) RequiresBuild() bool {
 
 func (packager Packager) buildDistribution(project common.Project, cfg config.Config, d distribution) error {
 
-	if packager.Verbose {
-		packager.StartTimer()
-		defer packager.PrintElapsed("Package time:")
-	}
-
 	buildOutputPath := packager.buildOutputPathForDistribution(cfg, d)
 
+	packager.LogPathCreation(buildOutputPath)
 	b := builder.Builder{
-		OutputPath:        buildOutputPath,
-		Verbose:           packager.Verbose,
-		ReportElapsedTime: false,
+		OutputPath: buildOutputPath,
+		Verbose:    false,
 	}
 	if err := b.Execute(project, cfg); err != nil {
 		return err

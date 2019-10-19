@@ -20,17 +20,16 @@ type Builder struct {
 	common.FileSystem
 	common.Timer
 
-	OutputPath        string
-	GOOS              string
-	GOARCH            string
-	Verbose           bool
-	ReportElapsedTime bool
+	OutputPath string
+	GOOS       string
+	GOARCH     string
+	Verbose    bool
 }
 
 // Execute executes the command
 func (builder Builder) Execute(project common.Project, cfg config.Config) error {
 
-	if builder.ReportElapsedTime {
+	if builder.Verbose {
 		builder.StartTimer()
 		defer builder.PrintElapsed("Build time:")
 	}
