@@ -49,10 +49,11 @@ var BuildCmd = climax.Command{
 		verbose := ctx.Is("verbose")
 
 		tool := builder.Builder{
-			OutputPath: output,
-			GOOS:       goos,
-			GOARCH:     goarch,
-			Verbose:    verbose,
+			OutputPath:        output,
+			GOOS:              goos,
+			GOARCH:            goarch,
+			Verbose:           verbose,
+			ReportElapsedTime: verbose,
 		}
 
 		executor := internal.NewExecutor("")

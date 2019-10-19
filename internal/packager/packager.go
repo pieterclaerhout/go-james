@@ -68,11 +68,17 @@ func (packager Packager) RequiresBuild() bool {
 
 func (packager Packager) buildDistribution(project common.Project, cfg config.Config, d distribution) error {
 
+	if packager.Verbose {
+		packager.StartTimer()
+		defer packager.PrintElapsed("Package time:")
+	}
+
 	buildOutputPath := packager.buildOutputPathForDistribution(cfg, d)
 
 	b := builder.Builder{
-		OutputPath: buildOutputPath,
-		Verbose:    packager.Verbose,
+		OutputPath:        buildOutputPath,
+		Verbose:           packager.Verbose,
+		ReportElapsedTime: false,
 	}
 	if err := b.Execute(project, cfg); err != nil {
 		return err
