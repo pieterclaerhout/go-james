@@ -168,7 +168,76 @@ With every build, these variables are automatically updated.
 
 ## Pre-build and post-build hooks
 
-_TODO: needs to be written…_
+Just before the build, if a file called `<project_root>/scripts/pre_build/pre_build.go` is present, it will be executed and will get a lot of info about the build injected. It's a plain Go file, so use whatever trick or tool you know. A sample pre-build script looks as follows:
+
+```go
+package main
+
+import (
+	"github.com/pieterclaerhout/go-james"
+	"github.com/pieterclaerhout/go-log"
+)
+
+func main() {
+
+	args, err := james.ParseBuildArgs()
+	log.CheckError(err)
+
+	log.InfoDump(args, "pre_build arguments")
+
+}
+```
+
+You can also execute a script after the build. To do so, create a file `<project_root>/scripts/post_build/post_build.go` with contents similar to:
+
+```go
+package main
+
+import (
+	"github.com/pieterclaerhout/go-james"
+	"github.com/pieterclaerhout/go-log"
+)
+
+func main() {
+
+	args, err := james.ParseBuildArgs()
+	log.CheckError(err)
+
+	log.InfoDump(args, "post_build arguments")
+
+}
+```
+
+To parse the arguments, you can use [`james.ParseBuildArgs()`](https://godoc.org/github.com/pieterclaerhout/go-james#ParseBuildArgs).
+
+The parameters it gets are are struct of the type [`james.BuildArgs`](https://godoc.org/github.com/pieterclaerhout/go-james#BuildArgs):
+
+```
+james.BuildArgs{
+  ProjectPath: "/Users/pclaerhout/Downloads/JonoFotografie/go-james",
+  OutputPath: "build/go-james",
+  GOOS: "darwin",
+  GOARCH: "amd64",
+  ProjectName: "go-james",
+  ProjectDescription: "James is your butler and helps you to create, build, test and run your Go projects",
+  ProjectCopyright: "© 2019 Copyright Pieter Claerhout",
+  Version: "0.7.0",
+  Revision: "2065b13",
+  Branch: "master",
+  RawBuildCommand: []string{
+    "go",
+    "build",
+    "-o",
+    "build/go-james",
+    "-ldflags",
+    "-s -w -X github.com/pieterclaerhout/go-james/versioninfo.ProjectName=go-james -X 'github.com/pieterclaerhout/go-james/versioninfo.ProjectDescription=James is your butler and helps you to create, build, test and run your Go projects' -X 'github.com/pieterclaerhout/go-james/versioninfo.ProjectCopyright=© 2019 Copyright Pieter Claerhout' -X github.com/pieterclaerhout/go-james/versioninfo.Version=0.7.0 -X github.com/pieterclaerhout/go-james/versioninfo.Revision=2065b13 -X github.com/pieterclaerhout/go-james/versioninfo.Branch=master",
+    "-trimpath",
+    "github.com/pieterclaerhout/go-james/cmd/go-james",
+  },
+}
+```
+
+
 
 ## Packaging a project
 
