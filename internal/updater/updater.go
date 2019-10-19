@@ -26,10 +26,10 @@ func (updater Updater) Execute(project common.Project, cfg config.Config) error 
 	}
 
 	if latest.Version.Equals(v) {
-		updater.LogInfo("Current binary is the latest version", versioninfo.Version)
+		updater.LogInfo("You are running the latest version", versioninfo.Version)
 	} else {
 		updater.LogInfo("Successfully updated to version", latest.Version)
-		updater.LogInfo("Release note:\n", latest.ReleaseNotes)
+		updater.LogInfo("\nRelease notes:\n", latest.ReleaseNotes)
 	}
 
 	return nil
