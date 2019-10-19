@@ -47,9 +47,7 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 
 ## Installation
 
-To install it, download the `go-james` executable from  the [releases](https://github.com/pieterclaerhout/go-james/releases) and place it in your `$PATH`, preferable `$GOPATH/bin`.
-
-Alternatively, you can also run:
+You can run the following command to install `go-james`:
 
 ```
 go get -u github.com/pieterclaerhout/go-james/cmd/go-james
@@ -58,6 +56,8 @@ go get -u github.com/pieterclaerhout/go-james/cmd/go-james
 This will create the `go-james` command in your `$GOPATH/bin` folder.
 
 The tool is self-contained and doesn't have any external dependencies.
+
+To install it manually, download the `go-james` executable from  the [releases](https://github.com/pieterclaerhout/go-james/releases) and place it in `$GOPATH/bin`.
 
 ## Updating 
 
