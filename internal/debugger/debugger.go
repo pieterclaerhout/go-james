@@ -23,7 +23,7 @@ func (debugger Debugger) Execute(project common.Project, cfg config.Config) erro
 	debugCmdPath := debugger.GoBin("dlv")
 
 	if !debugger.FileExists(debugCmdPath) {
-		debugger.LogPathCreation(debugCmdPath)
+		debugger.LogPathCreation("Installing:", debugCmdPath)
 	}
 
 	env := map[string]string{}

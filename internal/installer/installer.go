@@ -19,7 +19,7 @@ func (installer Installer) Execute(project common.Project, cfg config.Config) er
 
 	dstPath := installer.GoBin(cfg.Project.Name)
 
-	installer.LogPathCreation(dstPath)
+	installer.LogPathCreation("Installing:", dstPath)
 
 	b := builder.Builder{
 		OutputPath: dstPath,

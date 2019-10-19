@@ -234,7 +234,7 @@ func (creator Creator) createGoMod(project common.Project, cfg config.Config) er
 
 	env := map[string]string{"GO111MODULE": "on"}
 
-	creator.LogPathCreation(goModPath)
+	creator.LogPathCreation("Writing:", goModPath)
 	cmd := []string{"go", "mod", "init", cfg.Project.Package}
 	if output, err := creator.RunReturnOutput(cmd, project.Path, env); err != nil {
 		creator.LogError(output)

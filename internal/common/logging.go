@@ -11,13 +11,13 @@ import (
 type Logging struct{}
 
 // LogPathCreation logs the creation of a file path
-func (logging Logging) LogPathCreation(path string) {
+func (logging Logging) LogPathCreation(prefix string, path string) {
 	if wd, err := os.Getwd(); err == nil {
 		if relPath, err := filepath.Rel(wd, path); err == nil {
 			path = relPath
 		}
 	}
-	log.Info("Creating:", path)
+	log.Info(prefix, path)
 }
 
 // LogInfo logs an info message

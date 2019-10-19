@@ -74,7 +74,7 @@ func (packager Packager) buildDistribution(project common.Project, cfg config.Co
 
 	buildOutputPath := packager.buildOutputPathForDistribution(cfg, d)
 
-	packager.LogPathCreation(buildOutputPath)
+	packager.LogPathCreation("Building:", buildOutputPath)
 	b := builder.Builder{
 		OutputPath: buildOutputPath,
 		Verbose:    false,
@@ -104,6 +104,8 @@ func (packager Packager) buildDistribution(project common.Project, cfg config.Co
 	if err := os.RemoveAll(filepath.Dir(buildOutputPath)); err != nil {
 		return err
 	}
+
+	packager.LogPathCreation("Created:", archivePath)
 
 	return nil
 

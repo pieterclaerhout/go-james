@@ -28,7 +28,7 @@ func (fileSystem FileSystem) WriteTextFileIfNotExists(path string, data string) 
 
 // WriteTextFile creates a text with with data as its contents
 func (fileSystem FileSystem) WriteTextFile(path string, data string) error {
-	fileSystem.LogPathCreation(path)
+	fileSystem.LogPathCreation("Writing:", path)
 	return ioutil.WriteFile(path, []byte(data), 0666)
 }
 
@@ -53,7 +53,7 @@ func (fileSystem FileSystem) WriteJSONFile(path string, data interface{}) error 
 
 	b = fileSystem.formatBytes(b)
 
-	fileSystem.LogPathCreation(path)
+	fileSystem.LogPathCreation("Writing:", path)
 	return ioutil.WriteFile(path, b, 0777)
 
 }
@@ -100,6 +100,6 @@ func (fileSystem FileSystem) createDirForPathIfNeeded(path string) error {
 	if fileSystem.FileExists(path) {
 		return errors.New("Cannot create dir, file with that name exists already: " + path)
 	}
-	fileSystem.LogPathCreation(path)
+	fileSystem.LogPathCreation("Writing:", path)
 	return os.MkdirAll(path, 0755)
 }
