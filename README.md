@@ -10,6 +10,18 @@ When you often create new apps using [Go](https://golang.org), it quickly become
 
 Using the `go-james` tool, you can automate and streamline this process. The tool will take care of initializing your project, running your project, debugging it, building it and running the tests.
 
+You should be using `go-james` if:
+
+* you're tired of setting up your projects manually
+* you don't want to have to specify the main package every time you want build or run your project
+* you keep on forgetting how to setup debugging [Visual Studio Code](https://code.visualstudio.com)
+* you don't want to setup your tasks file manually in [Visual Studio Code](https://code.visualstudio.com)
+* you want to have the Git revision, branch name and version number automatically in your project
+* you're tired of manually writing Makefiles to build, test and run your project
+* you want a better way to do tasks before and after the build than writing non-portable shell scripts
+* you want an easy way to cross-compile for all common GOOS/GOARCH combinations
+* you want a way to build, run and test your project in a cross-platform manner
+
 ---
 
 <!-- TOC depthFrom:2 -->
@@ -39,7 +51,7 @@ Using the `go-james` tool, you can automate and streamline this process. The too
 <!-- /TOC -->
 
 ---
- 
+
 ## Requirements
 
 * [Go](https://golang.org) 1.13 or newer

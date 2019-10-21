@@ -7,6 +7,7 @@ require (
 	github.com/go-delve/delve v1.3.1
 	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51
+	github.com/pieterclaerhout/go-date v1.0.2 // indirect
 	github.com/pieterclaerhout/go-formatter v1.0.3 // indirect
 	github.com/pieterclaerhout/go-log v1.0.4
 	github.com/pieterclaerhout/go-waitgroup v1.0.6
