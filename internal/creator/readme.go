@@ -3,16 +3,19 @@ package creator
 import (
 	"strings"
 
+	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
 
 type readme struct {
-	Config config.Config
+	Project common.Project
+	Config  config.Config
 }
 
-func newReadme(cfg config.Config) readme {
+func newReadme(project common.Project, cfg config.Config) readme {
 	return readme{
-		Config: cfg,
+		Project: project,
+		Config:  cfg,
 	}
 }
 
@@ -28,7 +31,7 @@ func (r readme) markdownString() string {
 		b.WriteString("\n")
 	}
 
-	for _, badge := range r.Config.Badges() {
+	for _, badge := range r.Project.Badges() {
 		b.WriteString(badge.MarkdownString())
 		b.WriteString(" ")
 	}

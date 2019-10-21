@@ -1,9 +1,9 @@
 package creator
 
-const mainLibTemplate = `package {{.ShortPackageName}}
+const mainLibTemplate = `package {{.Project.ShortPackageName}}
 `
 
-const mainLibTestingTemplate = `package {{.ShortPackageName}}_test
+const mainLibTestingTemplate = `package {{.Project.ShortPackageName}}_test
 `
 
 const mainCmdTemplate = `package main
@@ -30,16 +30,16 @@ const mainCmdTestingTemplate = `package main_test
 const versionInfoTemplate = `package versioninfo
 
 // ProjectName contains the name of the project
-var ProjectName string = {{quote .Project.Name}}
+var ProjectName string = {{quote .Config.Project.Name}}
 
 // ProjectDescription contains the description of the project
-var ProjectDescription string = {{quote .Project.Name}}
+var ProjectDescription string = {{quote .Config.Project.Name}}
 
 // ProjectCopyright contains the copyright for the project
 var ProjectCopyright string = ""
 
 // Version contains the version of the app
-var Version string = {{quote .Project.Version}}
+var Version string = {{quote .Config.Project.Version}}
 
 // Revision will be injected with the current commit hash
 var Revision string = "head"

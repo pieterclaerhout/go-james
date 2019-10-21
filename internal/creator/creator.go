@@ -56,8 +56,17 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 	}
 
 	if creator.Mode == InitProject {
+
 		creator.Path, _ = os.Getwd()
-		creator.Package = filepath.Base(creator.Path)
+
+		if packageName, err := project.Package(); err == nil {
+			creator.Package = packageName
+		}
+
+		if creator.Package == "" {
+			creator.Package = common.PackageNameToShort(creator.Path)
+		}
+
 	}
 
 	if creator.Path == "" {
@@ -79,7 +88,10 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		}
 	}
 
-	project = common.NewProject(creator.Path)
+	project = common.NewProject(creator.Path, creator.Package)
+
+	log.Info("Creating package:", creator.Package)
+	log.Info("Project path:", project.Path)
 
 	type creationStep func(project common.Project, cfg config.Config) error
 
@@ -135,7 +147,6 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 			Version:     "1.0.0",
 			Description: creator.Description,
 			Copyright:   creator.Copyright,
-			Package:     creator.Package,
 			MainPackage: creator.Package + "/cmd/" + creator.Name,
 		},
 		Build: config.BuildConfig{
@@ -191,7 +202,7 @@ func (creator Creator) createGitIgnore(project common.Project, cfg config.Config
 
 func (creator Creator) createReadme(project common.Project, cfg config.Config) error {
 
-	readme := newReadme(cfg)
+	readme := newReadme(project, cfg)
 
 	path := project.RelPath(common.ReadmeFileName)
 	return creator.WriteTextFileIfNotExists(path, readme.markdownString())
@@ -200,18 +211,26 @@ func (creator Creator) createReadme(project common.Project, cfg config.Config) e
 
 func (creator Creator) createSourceFiles(project common.Project, cfg config.Config) error {
 
+	packageName, err := project.Package()
+	if err != nil {
+		return err
+	}
+
 	filesToCreate := map[string]string{
 		project.RelPath("library.go"):                                                                       mainLibTemplate,
 		project.RelPath("library_test.go"):                                                                  mainLibTestingTemplate,
-		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main.go"):                               mainCmdTemplate,
-		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main_test.go"):                          mainCmdTestingTemplate,
+		project.RelPath("cmd", filepath.Base(packageName), "main.go"):                                       mainCmdTemplate,
+		project.RelPath("cmd", filepath.Base(packageName), "main_test.go"):                                  mainCmdTestingTemplate,
 		project.RelPath(common.VersionInfoPackage, common.VersionInfoFileName):                              versionInfoTemplate,
 		project.RelPath(common.ScriptDirName, common.ScriptPreBuild, common.ScriptPreBuild+".example.go"):   preBuildScript,
 		project.RelPath(common.ScriptDirName, common.ScriptPostBuild, common.ScriptPostBuild+".example.go"): postBuildScript,
 	}
 
 	for path, template := range filesToCreate {
-		if err := creator.WriteTextTemplateIfNotExists(path, template, cfg); err != nil {
+		if err := creator.WriteTextTemplateIfNotExists(path, template, map[string]interface{}{
+			"Project": project,
+			"Config":  cfg,
+		}); err != nil {
 			return err
 		}
 	}
@@ -222,6 +241,11 @@ func (creator Creator) createSourceFiles(project common.Project, cfg config.Conf
 
 func (creator Creator) createGoMod(project common.Project, cfg config.Config) error {
 
+	packageName, err := project.Package()
+	if err != nil {
+		return err
+	}
+
 	goModPath := project.RelPath(common.GoModFileName)
 	if creator.FileExists(goModPath) {
 		return nil
@@ -230,7 +254,7 @@ func (creator Creator) createGoMod(project common.Project, cfg config.Config) er
 	env := map[string]string{"GO111MODULE": "on"}
 
 	creator.LogPathCreation("Writing:", goModPath)
-	cmd := []string{"go", "mod", "init", cfg.Project.Package}
+	cmd := []string{"go", "mod", "init", packageName}
 	if output, err := creator.RunReturnOutput(cmd, project.Path, env); err != nil {
 		creator.LogError(output)
 		return err

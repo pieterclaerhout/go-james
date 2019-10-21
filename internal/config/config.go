@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/pieterclaerhout/go-log"
 	"github.com/pkg/errors"
@@ -24,11 +23,11 @@ type Config struct {
 
 // ProjectConfig contains the general project variables
 type ProjectConfig struct {
-	Name        string `json:"name"`         // The name of the project
-	Version     string `json:"version"`      // The version of the project
-	Description string `json:"description"`  // The description of the project
-	Copyright   string `json:"copyright"`    // The copyright statement for the project
-	Package     string `json:"package"`      // The top-level package for the project
+	Name        string `json:"name"`        // The name of the project
+	Version     string `json:"version"`     // The version of the project
+	Description string `json:"description"` // The description of the project
+	Copyright   string `json:"copyright"`   // The copyright statement for the project
+	// Package     string `json:"package"`      // The top-level package for the project
 	MainPackage string `json:"main_package"` // The package path to the main entry point (the package containing main)
 }
 
@@ -79,9 +78,9 @@ func NewConfigFromPath(path string) (Config, error) {
 		return config, errors.New("Config setting Project.Version should not be empty")
 	}
 
-	if config.Project.Package == "" {
-		return config, errors.New("Config setting Project.Package should not be empty")
-	}
+	// if config.Project.Package == "" {
+	// 	return config, errors.New("Config setting Project.Package should not be empty")
+	// }
 
 	if config.Project.MainPackage == "" {
 		return config, errors.New("Config setting Project.MainPackage should not be empty")
@@ -97,72 +96,4 @@ func NewConfigFromPath(path string) (Config, error) {
 func NewConfigFromDir(path string) (Config, error) {
 	configPath := filepath.Join(path, FileName)
 	return NewConfigFromPath(configPath)
-}
-
-// Badges returns the list of badges which should be shown for the project
-func (config Config) Badges() []Badge {
-
-	packageName := strings.TrimRight(config.Project.Package, "/")
-	relativePackageName := strings.TrimPrefix(packageName, "github.com/")
-
-	badges := []Badge{}
-
-	goReportBadge := Badge{
-		Title: "Go Report Card",
-		Link:  "https://goreportcard.com/report/" + packageName,
-		Image: "https://goreportcard.com/badge/" + packageName,
-	}
-	badges = append(badges, goReportBadge)
-
-	docsBadge := Badge{
-		Title: "Documentation",
-		Link:  "http://godoc.org/" + packageName,
-		Image: "https://godoc.org/" + packageName + "?status.svg",
-	}
-	badges = append(badges, docsBadge)
-
-	if strings.HasPrefix(packageName, "github.com/") {
-
-		licenseBadge := Badge{
-			Title: "License",
-			Link:  "https://" + packageName + "/raw/master/LICENSE",
-			Image: "https://img.shields.io/badge/license-Apache%20v2-orange.svg",
-		}
-		badges = append(badges, licenseBadge)
-
-		versionBadge := Badge{
-			Title: "GitHub Version",
-			Link:  "https://" + packageName + "/releases",
-			Image: "https://img.shields.io/github/v/release/" + relativePackageName,
-		}
-		badges = append(badges, versionBadge)
-
-		issuesBadge := Badge{
-			Title: "GitHub issues",
-			Link:  "https://" + packageName + "/issues",
-			Image: "https://img.shields.io/github/issues/" + relativePackageName + ".svg",
-		}
-		badges = append(badges, issuesBadge)
-
-		lastCommitBadge := Badge{
-			Title: "GitHub last commit",
-			Link:  "https://" + packageName,
-			Image: "https://img.shields.io/github/last-commit/" + relativePackageName + ".svg",
-		}
-		badges = append(badges, lastCommitBadge)
-
-	}
-
-	return badges
-
-}
-
-// ShortPackageName returns the package name for the main package
-func (config Config) ShortPackageName() string {
-	name := filepath.Base(config.Project.Package)
-	name = strings.TrimPrefix(name, "go-")
-	name = strings.TrimSuffix(name, "go-")
-	name = strings.ReplaceAll(name, "-", "")
-	name = strings.ToLower(name)
-	return name
 }

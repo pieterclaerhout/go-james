@@ -29,7 +29,14 @@ type Builder struct {
 // Execute executes the command
 func (builder Builder) Execute(project common.Project, cfg config.Config) error {
 
+	packageName, err := project.Package()
+	if err != nil {
+		return err
+	}
+
 	if builder.Verbose {
+		builder.LogInfo("Building:", packageName)
+		builder.LogInfo("\n")
 		builder.StartTimer()
 		defer builder.PrintElapsed("Build time:")
 	}
@@ -83,12 +90,12 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 
 	ldFlags := cfg.Build.LDFlags
 
-	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "ProjectName", buildArgs.ProjectName)...)
-	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "ProjectDescription", buildArgs.ProjectDescription)...)
-	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "ProjectCopyright", buildArgs.ProjectCopyright)...)
-	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "Version", buildArgs.Version)...)
-	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "Revision", buildArgs.Revision)...)
-	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(cfg, "Branch", buildArgs.Branch)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(packageName, "ProjectName", buildArgs.ProjectName)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(packageName, "ProjectDescription", buildArgs.ProjectDescription)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(packageName, "ProjectCopyright", buildArgs.ProjectCopyright)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(packageName, "Version", buildArgs.Version)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(packageName, "Revision", buildArgs.Revision)...)
+	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(packageName, "Branch", buildArgs.Branch)...)
 
 	if len(ldFlags) > 0 {
 		buildCmd = append(buildCmd, "-ldflags", shellquote.Join(ldFlags...))
@@ -149,7 +156,7 @@ func (builder Builder) determineBranch(project common.Project) string {
 
 }
 
-func (builder Builder) ldFlagForVersionInfo(cfg config.Config, name string, value string) []string {
+func (builder Builder) ldFlagForVersionInfo(packageName string, name string, value string) []string {
 
 	result := []string{}
 
@@ -159,7 +166,7 @@ func (builder Builder) ldFlagForVersionInfo(cfg config.Config, name string, valu
 		}
 		result = append(
 			result,
-			"-X", cfg.Project.Package+"/versioninfo."+name+"="+value,
+			"-X", packageName+"/versioninfo."+name+"="+value,
 		)
 	}
 

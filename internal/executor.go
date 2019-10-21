@@ -47,7 +47,7 @@ func (executor Executor) RunTool(subcommand Subcommand, parseConfig bool) int {
 		}
 	}
 
-	project := common.NewProject(executor.Path)
+	project := common.NewProject(executor.Path, "")
 
 	if subcommand.RequiresBuild() {
 
