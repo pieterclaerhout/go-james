@@ -3,10 +3,9 @@ package creator
 import (
 	"strings"
 
+	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
-
-const gitIgnoreFileName = ".gitignore"
 
 type gitIgnore struct {
 	PatternsToIgnore []string
@@ -14,7 +13,7 @@ type gitIgnore struct {
 
 func newGitIgnore(cfg config.Config) gitIgnore {
 	return gitIgnore{
-		PatternsToIgnore: []string{"/build"},
+		PatternsToIgnore: []string{"/" + common.BuildDirName},
 	}
 }
 

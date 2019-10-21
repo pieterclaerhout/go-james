@@ -113,7 +113,7 @@ func (commandRunner CommandRunner) RunReturnOutput(cmdLine []string, workdir str
 // RunProjectHook runs the given hook in the context of the project passing the args to ti
 func (commandRunner CommandRunner) RunProjectHook(project Project, hookName string, args interface{}) error {
 	return commandRunner.RunScriptIfExistsToStdout(
-		project.RelPath("scripts", hookName, hookName+".go"), args, project.Path, map[string]string{},
+		project.RelPath(ScriptDirName, hookName, hookName+".go"), args, project.Path, map[string]string{},
 	)
 }
 

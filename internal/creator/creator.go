@@ -139,7 +139,7 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 			MainPackage: creator.Package + "/cmd/" + creator.Name,
 		},
 		Build: config.BuildConfig{
-			OutputPath: filepath.Join("build/"),
+			OutputPath: filepath.Join(common.BuildDirName + "/"),
 			LDFlags:    []string{"-s", "-w"},
 			ExtraArgs:  []string{"-trimpath"},
 		},
@@ -175,7 +175,7 @@ func (creator Creator) createLaunchConfig(project common.Project, cfg config.Con
 
 func (creator Creator) createLicense(project common.Project, cfg config.Config) error {
 
-	path := project.RelPath(licenseFileName)
+	path := project.RelPath(common.LicenseFileName)
 	return creator.WriteTextFileIfNotExists(path, apacheLicense)
 
 }
@@ -184,7 +184,7 @@ func (creator Creator) createGitIgnore(project common.Project, cfg config.Config
 
 	gitIgnore := newGitIgnore(cfg)
 
-	path := project.RelPath(gitIgnoreFileName)
+	path := project.RelPath(common.GitIgnoreFileName)
 	return creator.WriteTextFileIfNotExists(path, gitIgnore.string())
 
 }
@@ -193,7 +193,7 @@ func (creator Creator) createReadme(project common.Project, cfg config.Config) e
 
 	readme := newReadme(cfg)
 
-	path := project.RelPath(readmeFileName)
+	path := project.RelPath(common.ReadmeFileName)
 	return creator.WriteTextFileIfNotExists(path, readme.markdownString())
 
 }
@@ -201,13 +201,13 @@ func (creator Creator) createReadme(project common.Project, cfg config.Config) e
 func (creator Creator) createSourceFiles(project common.Project, cfg config.Config) error {
 
 	filesToCreate := map[string]string{
-		project.RelPath("library.go"):                                              mainLibTemplate,
-		project.RelPath("library_test.go"):                                         mainLibTestingTemplate,
-		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main.go"):      mainCmdTemplate,
-		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main_test.go"): mainCmdTestingTemplate,
-		project.RelPath("versioninfo", "versioninfo.go"):                           versionInfoTemplate,
-		project.RelPath("scripts", "pre_build", "pre_build.example.go"):            preBuildScript,
-		project.RelPath("scripts", "post_build", "post_build.example.go"):          postBuildScript,
+		project.RelPath("library.go"):                                                                       mainLibTemplate,
+		project.RelPath("library_test.go"):                                                                  mainLibTestingTemplate,
+		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main.go"):                               mainCmdTemplate,
+		project.RelPath("cmd", filepath.Base(cfg.Project.Package), "main_test.go"):                          mainCmdTestingTemplate,
+		project.RelPath(common.VersionInfoPackage, common.VersionInfoFileName):                              versionInfoTemplate,
+		project.RelPath(common.ScriptDirName, common.ScriptPreBuild, common.ScriptPreBuild+".example.go"):   preBuildScript,
+		project.RelPath(common.ScriptDirName, common.ScriptPostBuild, common.ScriptPostBuild+".example.go"): postBuildScript,
 	}
 
 	for path, template := range filesToCreate {
@@ -216,18 +216,13 @@ func (creator Creator) createSourceFiles(project common.Project, cfg config.Conf
 		}
 	}
 
-	versionInfoPath := project.RelPath("versioninfo", "versioninfo.go")
-	if err := creator.WriteTextTemplateIfNotExists(versionInfoPath, versionInfoTemplate, cfg); err != nil {
-		return err
-	}
-
 	return nil
 
 }
 
 func (creator Creator) createGoMod(project common.Project, cfg config.Config) error {
 
-	goModPath := project.RelPath(goModFileName)
+	goModPath := project.RelPath(common.GoModFileName)
 	if creator.FileExists(goModPath) {
 		return nil
 	}
@@ -247,7 +242,7 @@ func (creator Creator) createGoMod(project common.Project, cfg config.Config) er
 
 func (creator Creator) createGitRepo(project common.Project, cfg config.Config) error {
 
-	gitRepoPath := project.RelPath(gitRepoFileName)
+	gitRepoPath := project.RelPath(common.GitRepoFileName)
 	if creator.DirExists(gitRepoPath) {
 		return nil
 	}

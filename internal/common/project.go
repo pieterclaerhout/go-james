@@ -29,3 +29,10 @@ func (project Project) RelPath(subpath ...string) string {
 	fullpath = append(fullpath, subpath...)
 	return filepath.Join(fullpath...)
 }
+
+// Package gets the main package of the project from the go.mod file
+func (project Project) Package() (string, error) {
+
+	return "", nil
+
+}

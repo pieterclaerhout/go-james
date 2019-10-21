@@ -6,8 +6,6 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
 
-const readmeFileName = "README.md"
-
 type readme struct {
 	Config config.Config
 }

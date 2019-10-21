@@ -102,7 +102,7 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 
 	buildArgs.RawBuildCommand = buildCmd
 
-	if err := builder.RunProjectHook(project, "pre_build", buildArgs); err != nil {
+	if err := builder.RunProjectHook(project, common.ScriptPreBuild, buildArgs); err != nil {
 		return err
 	}
 
@@ -122,7 +122,7 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		return err
 	}
 
-	return builder.RunProjectHook(project, "post_build", buildArgs)
+	return builder.RunProjectHook(project, common.ScriptPostBuild, buildArgs)
 
 }
 

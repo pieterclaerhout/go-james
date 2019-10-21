@@ -1,7 +1,5 @@
 package creator
 
-const licenseFileName = "LICENSE"
-
 const apacheLicense = `
 Apache License
 Version 2.0, January 2004
