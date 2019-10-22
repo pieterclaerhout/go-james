@@ -3,6 +3,7 @@ package creator
 import (
 	"path/filepath"
 
+	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
 
@@ -32,7 +33,7 @@ func newVisualStudioCodeLaunchConfigs(cfg config.Config) *visualStudioCodeLaunch
 				Type:    "go",
 				Request: "launch",
 				Mode:    "auto",
-				Program: filepath.Join("${workspaceFolder}", "cmd", cfg.Project.Name),
+				Program: filepath.Join("${workspaceFolder}", common.CmdDirName, cfg.Project.Name),
 				Env:     map[string]string{},
 				Args:    []string{},
 			},

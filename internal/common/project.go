@@ -139,3 +139,58 @@ func (project Project) ShortPackageName() string {
 	return PackageNameToShort(packageName)
 
 }
+
+// // GuessMainPackage tries to figure out what the main package of the project is
+// //
+// // The logic is as follows:
+// // - It will first go over all folders under cmd and will use the first one which defines the package "main"
+// // - If that doesn't result in a package name, it will return an empty string
+// func (project Project) GuessMainPackage() string {
+
+// 	// cmdPath := project.RelPath(CmdDirName)
+
+// 	// ctx := build.Context{
+// 	// 	GOPATH: project.Path,
+// 	// }
+
+// 	// files, err := ioutil.ReadDir(cmdPath)
+// 	// if err != nil {
+// 	// 	log.Error(err)
+// 	// 	return ""
+// 	// }
+
+// 	// for _, file := range files {
+// 	// 	if !file.IsDir() {
+// 	// 		continue
+// 	// 	}
+
+// 	// 	cmdPackagePath := filepath.Join(cmdPath, file.Name())
+// 	// 	cmdPackage, err := build.ImportDir(cmdPackagePath, build.FindOnly)
+// 	// 	if err != nil {
+// 	// 		log.Error(err)
+// 	// 		return ""
+// 	// 	}
+
+// 	// 	log.WarnDump(cmdPackage, file.Name())
+// 	// }
+
+// 	cfg := &packages.Config{
+// 		Dir:  project.Path,
+// 		Mode: packages.LoadFiles,
+// 	}
+// 	pkgs, err := packages.Load(cfg)
+// 	if err != nil {
+// 		// 		log.Error(err)
+// 		// 		return ""
+// 	}
+// 	// cmdPackage, err := ctx.Import("main", project.RelPath("xcarchiver/cmd/XcArchiver"), build.FindOnly)
+// 	// if err != nil {
+// 	// 	log.Error(err)
+// 	// 	return ""
+// 	// }
+
+// 	log.WarnDump(pkgs, project.Path)
+
+// 	return ""
+
+// }

@@ -32,3 +32,6 @@ const ScriptPostBuild = "post_build"
 
 // BuildDirName defines the name of the build folder
 const BuildDirName = "build"
+
+// CmdDirName defines the name of the cmd folder
+const CmdDirName = "cmd"

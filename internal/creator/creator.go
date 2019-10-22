@@ -141,6 +141,10 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 		creator.Name = filepath.Base(creator.Path)
 	}
 
+	// mainPackage := project.GuessMainPackage()
+
+	// log.Info("Guessed main package:", mainPackage)
+
 	cfg = config.Config{
 		Project: config.ProjectConfig{
 			Name:        creator.Name,
@@ -219,8 +223,8 @@ func (creator Creator) createSourceFiles(project common.Project, cfg config.Conf
 	filesToCreate := map[string]string{
 		project.RelPath("library.go"):                                                                       mainLibTemplate,
 		project.RelPath("library_test.go"):                                                                  mainLibTestingTemplate,
-		project.RelPath("cmd", filepath.Base(packageName), "main.go"):                                       mainCmdTemplate,
-		project.RelPath("cmd", filepath.Base(packageName), "main_test.go"):                                  mainCmdTestingTemplate,
+		project.RelPath(common.CmdDirName, filepath.Base(packageName), "main.go"):                           mainCmdTemplate,
+		project.RelPath(common.CmdDirName, filepath.Base(packageName), "main_test.go"):                      mainCmdTestingTemplate,
 		project.RelPath(common.VersionInfoPackage, common.VersionInfoFileName):                              versionInfoTemplate,
 		project.RelPath(common.ScriptDirName, common.ScriptPreBuild, common.ScriptPreBuild+".example.go"):   preBuildScript,
 		project.RelPath(common.ScriptDirName, common.ScriptPostBuild, common.ScriptPostBuild+".example.go"): postBuildScript,
