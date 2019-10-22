@@ -3,6 +3,7 @@ package creator
 import (
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
@@ -275,15 +276,38 @@ func (creator Creator) createGitRepo(project common.Project, cfg config.Config) 
 		return nil
 	}
 
-	commandsToRun := map[string][]string{
-		"Creating: Git repo":       []string{"git", "init"},
-		"Adding items to git repo": []string{"git", "add", "."},
-		"Committing git repo":      []string{"git", "commit", "-m", "Initial commit"},
+	type command struct {
+		description string
+		cmdLine     []string
 	}
 
-	for key, cmd := range commandsToRun {
-		creator.LogInfo(key)
-		if output, err := creator.RunReturnOutput(cmd, project.Path, map[string]string{}); err != nil {
+	commandsToRun := []command{
+		{
+			description: "Creating git repo",
+			cmdLine:     []string{"git", "init"},
+		},
+		{
+			description: "Adding items to git repo",
+			cmdLine:     []string{"git", "add", "."},
+		},
+		{
+			description: "Committing git repo",
+			cmdLine:     []string{"git", "commit", "-m", "Initial commit"},
+		},
+	}
+
+	if strings.HasPrefix(creator.Package, "github.com/") {
+		commandsToRun = append(commandsToRun,
+			command{
+				description: "Adding git remote",
+				cmdLine:     []string{"git", "remote", "add", "origin", "https://github.com/pieterclaerhout/go-example-project.git"},
+			},
+		)
+	}
+
+	for _, cmd := range commandsToRun {
+		creator.LogInfo(cmd.description)
+		if output, err := creator.RunReturnOutput(cmd.cmdLine, project.Path, map[string]string{}); err != nil {
 			creator.LogError(output)
 			return err
 		}
