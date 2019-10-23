@@ -33,9 +33,12 @@ type ProjectConfig struct {
 
 // BuildConfig contains the build specific configuration settings
 type BuildConfig struct {
-	OutputPath string   `json:"ouput_path"` // The path of the executable to generate
-	LDFlags    []string `json:"ld_flags"`   // The ldflags to pass to the build command
-	ExtraArgs  []string `json:"extra_args"` // The extra arguments to pass to the build command
+	OutputPath     string   `json:"ouput_path"`       // The path of the executable to generate
+	LDFlags        []string `json:"ld_flags"`         // The ldflags to pass to the build command
+	LDFlagsDarwin  []string `json:"ld_flags_darwin"`  // The ldflags to pass to the build command for Darwin
+	LDFlagsLinux   []string `json:"ld_flags_linux"`   // The ldflags to pass to the build command for Linux
+	LDFlagsWindows []string `json:"ld_flags_windows"` // The ldflags to pass to the build command for Windows
+	ExtraArgs      []string `json:"extra_args"`       // The extra arguments to pass to the build command
 }
 
 // PackageConfig contains the build specific configuration settings

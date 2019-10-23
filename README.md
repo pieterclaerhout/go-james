@@ -363,6 +363,14 @@ When you create a new project or init an existing one, a `go-james.json` file wi
             "-s",
             "-w"
         ],
+        "ld_flags_windows": [
+            "-s",
+            "-w",
+            "-H",
+            "windowsgui"
+        ],
+        "ld_flags_darwin": [],
+        "ld_flags_linux": [],
         "extra_args": [
             "-trimpath"
         ]
@@ -385,7 +393,10 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 ### Build Config
 
 * `output_path`: the path where the built executable should be placed. Defaults to `build/<project-name>`
-* `ld_flags`: the linker flags you want to use for building. You can find more info about these flags [here](https://golang.org/cmd/link/).
+* `ld_flags`: the linker flags you want to use for building. You can find more info about these flags [here](https://golang.org/cmd/link/). These are only used if you don't specify specific parameters for a specifc `GOOS`.
+* `ld_flags_darwin`: the linker flags you want to use for building `darwin`. You can find more info about these flags [here](https://golang.org/cmd/link/).
+* `ld_flags_linux`: the linker flags you want to use for building for `linux`. You can find more info about these flags [here](https://golang.org/cmd/link/).
+* `ld_flags_windows`: the linker flags you want to use for building for `windows`. You can find more info about these flags [here](https://golang.org/cmd/link/).
 * `extra_args`: contains any extra command-line parameters you want to add to the `go build` command when you run `go-james build`.
 
 ### Test Config

@@ -89,6 +89,15 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 	}
 
 	ldFlags := cfg.Build.LDFlags
+	if builder.GOOS == "darwin" && len(cfg.Build.LDFlagsDarwin) > 0 {
+		ldFlags = cfg.Build.LDFlagsDarwin
+	}
+	if builder.GOOS == "linux" && len(cfg.Build.LDFlagsLinux) > 0 {
+		ldFlags = cfg.Build.LDFlagsLinux
+	}
+	if builder.GOOS == "windows" && len(cfg.Build.LDFlagsWindows) > 0 {
+		ldFlags = cfg.Build.LDFlagsWindows
+	}
 
 	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(packageName, "ProjectName", buildArgs.ProjectName)...)
 	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(packageName, "ProjectDescription", buildArgs.ProjectDescription)...)
