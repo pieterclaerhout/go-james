@@ -94,22 +94,24 @@ func (macAppPackage MacAppPackage) createIcon(iconPath string) error {
 func (macAppPackage MacAppPackage) createInfoPlist(infoPlistPath string) error {
 
 	type infoPlist struct {
-		CFBundleExecutable     string          `plist:"CFBundleExecutable"`
-		CFBundleGetInfoString  string          `plist:"CFBundleGetInfoString"`
-		CFBundleIconFile       string          `plist:"CFBundleIconFile"`
-		CFBundleIdentifier     string          `plist:"CFBundleIdentifier"`
-		CFBundleName           string          `plist:"CFBundleName"`
-		CFBundlePackageType    string          `plist:"CFBundlePackageType"`
-		NSAppTransportSecurity map[string]bool `plist:"NSAppTransportSecurity"`
+		CFBundleExecutable      string          `plist:"CFBundleExecutable"`
+		CFBundleGetInfoString   string          `plist:"CFBundleGetInfoString"`
+		CFBundleIconFile        string          `plist:"CFBundleIconFile"`
+		CFBundleIdentifier      string          `plist:"CFBundleIdentifier"`
+		CFBundleName            string          `plist:"CFBundleName"`
+		CFBundlePackageType     string          `plist:"CFBundlePackageType"`
+		NSHighResolutionCapable bool            `plist:"NSHighResolutionCapable"`
+		NSAppTransportSecurity  map[string]bool `plist:"NSAppTransportSecurity"`
 	}
 
 	info := infoPlist{
-		CFBundleExecutable:    filepath.Base(macAppPackage.ExecutablePath),
-		CFBundleGetInfoString: filepath.Base(macAppPackage.ExecutablePath),
-		CFBundleIconFile:      "Icon.icns",
-		CFBundleIdentifier:    filepath.Base(macAppPackage.ExecutablePath),
-		CFBundleName:          filepath.Base(macAppPackage.ExecutablePath),
-		CFBundlePackageType:   "APPL",
+		CFBundleExecutable:      filepath.Base(macAppPackage.ExecutablePath),
+		CFBundleGetInfoString:   filepath.Base(macAppPackage.ExecutablePath),
+		CFBundleIconFile:        "Icon.icns",
+		CFBundleIdentifier:      filepath.Base(macAppPackage.ExecutablePath),
+		CFBundleName:            filepath.Base(macAppPackage.ExecutablePath),
+		CFBundlePackageType:     "APPL",
+		NSHighResolutionCapable: true,
 		NSAppTransportSecurity: map[string]bool{
 			"NSAllowsArbitraryLoads": true,
 		},
