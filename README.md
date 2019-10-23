@@ -237,8 +237,8 @@ The parameters it gets are are struct of the type [`james.BuildArgs`](https://go
 
 ```
 james.BuildArgs{
-  ProjectPath: "/Users/pclaerhout/Downloads/JonoFotografie/go-james",
-  OutputPath: "build/go-james",
+  ProjectPath: "/home/user/go-james",
+  OutputPath: "/home/user/go-james/build/go-james",
   GOOS: "darwin",
   GOARCH: "amd64",
   ProjectName: "go-james",
