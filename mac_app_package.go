@@ -11,11 +11,16 @@ import (
 	"github.com/groob/plist"
 )
 
+// MacAppPackage can be used to create a .app package for mac
 type MacAppPackage struct {
-	ExecutablePath string
-	IconPath       string
+	ExecutablePath   string // The path to the executable
+	IconPath         string // The path to the icon (should be a PNG file)
+	InfoString       string // The info string shown in the about dialog
+	BundleIdentifier string // The bundle identifier (if empty, the basename of the executable is used)
+	BundleName       string // The name of the bundle (if empty, the basename of the executable is used)
 }
 
+// NewMacAppPackage returns a new MacAppPackage instance for the executable and icon
 func NewMacAppPackage(executablePath string, iconPath string) *MacAppPackage {
 	return &MacAppPackage{
 		ExecutablePath: executablePath,
@@ -23,6 +28,7 @@ func NewMacAppPackage(executablePath string, iconPath string) *MacAppPackage {
 	}
 }
 
+// Create creates the .app package (moving the executable into the package)
 func (macAppPackage *MacAppPackage) Create() error {
 
 	dstPath := strings.TrimSuffix(macAppPackage.ExecutablePath, path.Ext(macAppPackage.ExecutablePath)) + ".app"
@@ -61,6 +67,7 @@ func (macAppPackage *MacAppPackage) Create() error {
 
 }
 
+// createIcon converts the icon to an icns file
 func (macAppPackage MacAppPackage) createIcon(iconPath string) error {
 
 	pngf, err := os.Open(macAppPackage.IconPath)
@@ -83,6 +90,7 @@ func (macAppPackage MacAppPackage) createIcon(iconPath string) error {
 	return icns.Encode(dest, srcImg)
 }
 
+// createInfoPlist creates the Info.plist for the app
 func (macAppPackage MacAppPackage) createInfoPlist(infoPlistPath string) error {
 
 	type infoPlist struct {
@@ -105,6 +113,18 @@ func (macAppPackage MacAppPackage) createInfoPlist(infoPlistPath string) error {
 		NSAppTransportSecurity: map[string]bool{
 			"NSAllowsArbitraryLoads": true,
 		},
+	}
+
+	if macAppPackage.InfoString != "" {
+		info.CFBundleGetInfoString = macAppPackage.InfoString
+	}
+
+	if macAppPackage.BundleIdentifier != "" {
+		info.CFBundleIdentifier = macAppPackage.BundleIdentifier
+	}
+
+	if macAppPackage.BundleName != "" {
+		info.CFBundleName = macAppPackage.BundleName
 	}
 
 	file, _ := os.Create(infoPlistPath)

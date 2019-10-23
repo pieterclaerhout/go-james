@@ -260,8 +260,6 @@ james.BuildArgs{
 }
 ```
 
-
-
 ## Packaging a project
 
 From within the project root, run the `package` command to build the executable for windows / darwin / linux in the 386 and amd64 variants and compresses the result as a `.zip` (windows) or `.tgz` (linux / mac):

@@ -7,6 +7,7 @@ require (
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/go-delve/delve v1.3.1
 	github.com/golang/protobuf v1.3.2 // indirect
+	github.com/groob/plist v0.0.0-20190114192801-a99fbe489d03
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/pieterclaerhout/go-date v1.0.2 // indirect
