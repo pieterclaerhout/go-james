@@ -188,6 +188,8 @@ func (builder Builder) outputPath(cfg config.Config) (string, error) {
 		outputPath = outputPath + ".exe"
 	}
 
+	outputPath, _ = filepath.Abs(outputPath)
+
 	return outputPath, nil
 
 }
