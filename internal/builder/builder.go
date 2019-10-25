@@ -11,6 +11,7 @@ import (
 	"github.com/pieterclaerhout/go-james"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
+	"github.com/pieterclaerhout/go-log"
 	"github.com/pkg/errors"
 )
 
@@ -193,7 +194,8 @@ func (builder Builder) outputPath(cfg config.Config) (string, error) {
 		outputPath = filepath.Join(cfg.Build.OutputPath, cfg.Project.Name)
 	}
 
-	if outputPath != "" && runtime.GOOS == "windows" && filepath.Ext(outputPath) != ".exe" {
+	log.Warn(builder.GOOS, outputPath)
+	if outputPath != "" && builder.GOOS == "windows" && filepath.Ext(outputPath) != ".exe" {
 		outputPath = outputPath + ".exe"
 	}
 
