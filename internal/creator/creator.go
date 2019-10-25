@@ -52,6 +52,10 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		creator.Path = filepath.Join(wd, creator.Name)
 	}
 
+	if creator.Path == "" && creator.Package != "" {
+		creator.Path = filepath.Base(creator.Package)
+	}
+
 	if creator.Package == "" && creator.Name != "" {
 		creator.Package = creator.Name
 	}
@@ -300,10 +304,11 @@ func (creator Creator) createGitRepo(project common.Project, cfg config.Config) 
 	}
 
 	if strings.HasPrefix(creator.Package, "github.com/") {
+		remoteRepository := "https://" + creator.Package + ".git"
 		commandsToRun = append(commandsToRun,
 			command{
-				description: "Adding git remote",
-				cmdLine:     []string{"git", "remote", "add", "origin", "https://github.com/pieterclaerhout/go-example-project.git"},
+				description: "Adding git remote: origin > " + remoteRepository,
+				cmdLine:     []string{"git", "remote", "add", "origin", remoteRepository},
 			},
 		)
 	}
