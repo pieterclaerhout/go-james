@@ -166,6 +166,9 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 			LDFlagsLinux:   []string{},
 			ExtraArgs:      []string{"-trimpath"},
 		},
+		Run: config.RunConfig{
+			Environ: map[string]string{},
+		},
 		Package: config.PackageConfig{
 			IncludeReadme: true,
 		},

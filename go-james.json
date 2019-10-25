@@ -15,6 +15,9 @@
         "ld_flags_linux": [],
         "extra_args": ["-trimpath"]
     },
+    "run": {
+        "environ": {}
+    },
     "package": {
         "include_readme": true
     },

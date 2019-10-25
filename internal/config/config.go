@@ -18,16 +18,16 @@ type Config struct {
 	Project ProjectConfig `json:"project"` // Project contains the general project variables
 	Build   BuildConfig   `json:"build"`   // Build contains the build specific project variables
 	Package PackageConfig `json:"package"` // Build contains the package specific project variables
+	Run     RunConfig     `json:"run"`     // Build contains the run specific project variables
 	Test    TestConfig    `json:"test"`    // Build contains the test specific project variables
 }
 
 // ProjectConfig contains the general project variables
 type ProjectConfig struct {
-	Name        string `json:"name"`        // The name of the project
-	Version     string `json:"version"`     // The version of the project
-	Description string `json:"description"` // The description of the project
-	Copyright   string `json:"copyright"`   // The copyright statement for the project
-	// Package     string `json:"package"`      // The top-level package for the project
+	Name        string `json:"name"`         // The name of the project
+	Version     string `json:"version"`      // The version of the project
+	Description string `json:"description"`  // The description of the project
+	Copyright   string `json:"copyright"`    // The copyright statement for the project
 	MainPackage string `json:"main_package"` // The package path to the main entry point (the package containing main)
 }
 
@@ -39,6 +39,11 @@ type BuildConfig struct {
 	LDFlagsLinux   []string `json:"ld_flags_linux"`   // The ldflags to pass to the build command for Linux
 	LDFlagsWindows []string `json:"ld_flags_windows"` // The ldflags to pass to the build command for Windows
 	ExtraArgs      []string `json:"extra_args"`       // The extra arguments to pass to the build command
+}
+
+// RunConfig contains the run specific configuration settings
+type RunConfig struct {
+	Environ map[string]string `json:"environ"` // The environment variables to use when running
 }
 
 // PackageConfig contains the build specific configuration settings

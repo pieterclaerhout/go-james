@@ -42,6 +42,8 @@ You should be using `go-james` if:
 - [The config file `go-james.json`](#the-config-file-go-jamesjson)
     - [Project Config](#project-config)
     - [Build Config](#build-config)
+    - [Run Config](#run-config)
+    - [Package Config](#package-config)
     - [Test Config](#test-config)
 - [Updating `go-james`](#updating-go-james)
 - [Bootstrapping `go-james`](#bootstrapping-go-james)
@@ -375,6 +377,14 @@ When you create a new project or init an existing one, a `go-james.json` file wi
             "-trimpath"
         ]
     },
+    "run": {
+        "environ": {
+            "var": "val"
+        }
+    },
+    "package": {
+        "include_readme": true
+    },
     "test": {
         "extra_args": []
     }
@@ -398,6 +408,14 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 * `ld_flags_linux`: the linker flags you want to use for building for `linux`. You can find more info about these flags [here](https://golang.org/cmd/link/).
 * `ld_flags_windows`: the linker flags you want to use for building for `windows`. You can find more info about these flags [here](https://golang.org/cmd/link/).
 * `extra_args`: contains any extra command-line parameters you want to add to the `go build` command when you run `go-james build`.
+
+### Run Config
+
+* `environ`: the environment variables to use when running the app
+
+### Package Config
+
+* `include_readme`: boolean indicating if the README.md file should be included in the package or not
 
 ### Test Config
 
