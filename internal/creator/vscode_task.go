@@ -33,8 +33,10 @@ func newVisualStudioCodeTaskList(cfg config.Config) *visualStudioCodeTasks {
 	result := &visualStudioCodeTasks{
 		Version: "2.0.0",
 		Tasks: []visualStudioCodeTask{
-			newVisualStudioCodeTask(cfg, "build", "go-james build"),
-			newVisualStudioCodeTask(cfg, "build (verbose)", "go-james build -v"),
+			newVisualStudioCodeTask(cfg, "build", "go-james build -v"),
+			newVisualStudioCodeTask(cfg, "build darwin/amd64", "go-james build -v --goos=darwin --goarch=amd64"),
+			newVisualStudioCodeTask(cfg, "build linux/amd64", "go-james build -v --goos=linux --goarch=amd64"),
+			newVisualStudioCodeTask(cfg, "build windows/amd64", "go-james build -v --goos=windows --goarch=amd64"),
 			newVisualStudioCodeTask(cfg, "clean", "go-james clean"),
 			newVisualStudioCodeTask(cfg, "tests", "go-james test"),
 			newVisualStudioCodeTask(cfg, "run", "go-james run"),
