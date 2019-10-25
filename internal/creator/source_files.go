@@ -8,7 +8,7 @@ const mainLibTestingTemplate = `package {{.Project.ShortPackageName}}_test
 
 const mainCmdTemplate = `package main
 
-import(
+import (
 	"fmt"
 
 	"{{.Project.Package}}/versioninfo"
