@@ -28,6 +28,8 @@ func main() {
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
+	log.PrintColors = true
+
 	if log.DebugMode {
 		log.PrintTimestamp = true
 	}

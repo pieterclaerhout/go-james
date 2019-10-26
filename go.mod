@@ -12,7 +12,7 @@ require (
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/pieterclaerhout/go-date v1.0.2 // indirect
 	github.com/pieterclaerhout/go-formatter v1.0.3 // indirect
-	github.com/pieterclaerhout/go-log v1.0.4
+	github.com/pieterclaerhout/go-log v1.0.6
 	github.com/pieterclaerhout/go-waitgroup v1.0.6
 	github.com/pkg/errors v0.8.1
 	github.com/rhysd/go-github-selfupdate v1.1.0
