@@ -25,7 +25,7 @@ func newVisualStudioCodeTask(cfg config.Config, label string, command string) vi
 }
 
 type visualStudioCodeTasks struct {
-	Version string
+	Version string                 `json:"version"`
 	Tasks   []visualStudioCodeTask `json:"tasks"`
 }
 
