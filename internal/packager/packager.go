@@ -90,7 +90,7 @@ func (packager Packager) buildDistribution(project common.Project, cfg config.Co
 		compressor = packager.CreateZip(archivePath)
 	}
 
-	compressor.AddFile("", buildOutputPath)
+	compressor.AddDirectory(filepath.Dir(buildOutputPath))
 
 	readmePath := project.RelPath("README.md")
 	if cfg.Package.IncludeReadme && packager.FileExists(readmePath) {

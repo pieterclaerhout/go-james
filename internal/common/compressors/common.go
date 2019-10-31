@@ -4,6 +4,7 @@ package compressors
 type Compressor interface {
 	Path() string                     // Path returns the path to the archive
 	AddFile(name string, path string) // AddFile adds the file from path as name to the archive
+	AddDirectory(path string)         // AddDirectory adds all files from within a directory
 	Close() error                     // Close creates and closes the archive
 }
 

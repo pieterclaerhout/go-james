@@ -41,8 +41,20 @@ func (archive *TarballCompressor) AddFile(name string, path string) {
 		Name: name,
 		Path: path,
 	}
-	log.Debug(entry, "Adding:")
+	log.Debug("Adding:", entry)
 	archive.entries = append(archive.entries, entry)
+}
+
+// AddDirectory adds all files from within a directory
+func (archive *TarballCompressor) AddDirectory(dirPath string) {
+	filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
+		if info.IsDir() {
+			return nil
+		}
+		relPath, _ := filepath.Rel(dirPath, path)
+		archive.AddFile(relPath, path)
+		return nil
+	})
 }
 
 // Close creates and closes the archive
@@ -52,6 +64,7 @@ func (archive *TarballCompressor) Close() error {
 		return errors.New("No files found to compress")
 	}
 
+	log.Debug("Creating:", archive.path)
 	file, err := os.Create(archive.path)
 	if err != nil {
 		return err
