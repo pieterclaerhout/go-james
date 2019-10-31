@@ -1,6 +1,8 @@
 package runner
 
 import (
+	"runtime"
+
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
@@ -8,6 +10,7 @@ import (
 // Runner implements the "run" command
 type Runner struct {
 	common.CommandRunner
+	common.FileSystem
 
 	Args []string
 }
@@ -15,7 +18,13 @@ type Runner struct {
 // Execute executes the command
 func (runner Runner) Execute(project common.Project, cfg config.Config) error {
 
-	runCmd := []string{project.RelPath(cfg.Build.OutputPath, cfg.Project.Name)}
+	appPath := project.RelPath(cfg.Build.OutputPath, cfg.Project.Name)
+	runCmd := []string{appPath}
+
+	if runtime.GOOS == "darwin" && !runner.FileExists(appPath) && runner.DirExists(appPath+".app") {
+		runCmd = []string{"open", appPath + ".app"}
+	}
+
 	runCmd = append(runCmd, runner.Args...)
 
 	return runner.RunToStdout(runCmd, project.Path, cfg.Run.Environ)
