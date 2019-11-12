@@ -11,7 +11,7 @@ var VersionCmd = climax.Command{
 	Name:  "version",
 	Brief: "Print version info and exit",
 	Help:  "Print version info and exit",
-	Handle: func(ctx climax.Context) int {
+	Handle: func(_ climax.Context) int {
 
 		tool := version.Version{}
 

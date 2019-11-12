@@ -12,7 +12,7 @@ var UpdateCmd = climax.Command{
 	Name:  "update",
 	Brief: "Updates " + versioninfo.ProjectName + " to the latest available release",
 	Help:  "Updates " + versioninfo.ProjectName + " to the latest available release",
-	Handle: func(ctx climax.Context) int {
+	Handle: func(_ climax.Context) int {
 
 		tool := updater.Updater{}
 

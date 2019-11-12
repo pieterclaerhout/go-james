@@ -11,7 +11,7 @@ var TestCmd = climax.Command{
 	Name:  "test",
 	Brief: "Run the tests",
 	Help:  "Run the tests",
-	Handle: func(ctx climax.Context) (exitcode int) {
+	Handle: func(_ climax.Context) (exitcode int) {
 
 		tool := tester.Tester{}
 

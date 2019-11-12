@@ -11,7 +11,7 @@ var UninstallCmd = climax.Command{
 	Name:  "uninstall",
 	Brief: "Removes the executable from $GOPATh/bin",
 	Help:  "Removes the executable from $GOPATh/bin",
-	Handle: func(ctx climax.Context) int {
+	Handle: func(_ climax.Context) int {
 
 		tool := uninstaller.Uninstaller{}
 

@@ -11,7 +11,7 @@ var CleanCmd = climax.Command{
 	Name:  "clean",
 	Brief: "Removes the build artifacts",
 	Help:  "Removes the build artifacts",
-	Handle: func(ctx climax.Context) int {
+	Handle: func(_ climax.Context) int {
 
 		tool := cleaner.Cleaner{}
 
