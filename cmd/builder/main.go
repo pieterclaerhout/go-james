@@ -15,7 +15,7 @@ var BuildCmd = climax.Command{
 		{
 			Name:     "output",
 			Short:    "o",
-			Usage:    `--ouput=<output-path>`,
+			Usage:    `--output=<output-path>`,
 			Help:     `The path where the executable should be stored`,
 			Variable: true,
 		},
