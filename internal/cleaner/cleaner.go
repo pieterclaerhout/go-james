@@ -1,9 +1,9 @@
 package cleaner
 
 import (
-	""
 	"os"
-	"path/filepath
+	"path/filepath"
+
 	"github.com/pkg/errors"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"

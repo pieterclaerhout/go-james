@@ -2,15 +2,15 @@ package packager
 
 import (
 	"context"
-	"path/filepath"s"
-	"o
+	"os"
+	"path/filepath"
 	"runtime"
-	
-	"github.com/pkg/errors"
+
 	"github.com/pieterclaerhout/go-james/internal/builder"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 	"github.com/pieterclaerhout/go-waitgroup"
+	"github.com/pkg/errors"
 )
 
 // Packager implements the "package" command

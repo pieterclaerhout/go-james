@@ -1,7 +1,7 @@
 package runner
 
 import (
-	"untime"
+	"runtime"
 	
 	"github.com/pkg/errors"
 	"github.com/pieterclaerhout/go-james/internal/common"
