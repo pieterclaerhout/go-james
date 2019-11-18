@@ -360,7 +360,7 @@ When you create a new project or init an existing one, a `go-james.json` file wi
         "main_package": "github.com/pieterclaerhout/go-example/cmd/go-example"
     },
     "build": {
-        "ouput_path": "build/go-example",
+        "output_path": "build/go-example",
         "ld_flags": [
             "-s",
             "-w"
