@@ -134,10 +134,6 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		return err
 	}
 
-	if outputPath, err = filepath.Abs(outputPath); err != nil {
-		return err
-	}
-
 	return builder.RunProjectHook(project, common.ScriptPostBuild, buildArgs)
 
 }

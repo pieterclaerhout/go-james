@@ -46,7 +46,7 @@ func (packager Packager) Execute(project common.Project, cfg config.Config) erro
 	}
 
 	ctx := context.Background()
-	wg, ctx := waitgroup.NewErrorGroup(ctx, packager.Concurrency)
+	wg, _ := waitgroup.NewErrorGroup(ctx, packager.Concurrency)
 	if err != nil {
 		return err
 	}
