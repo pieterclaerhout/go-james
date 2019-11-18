@@ -28,7 +28,7 @@ func newVisualStudioCodeLaunchConfigs(cfg config.Config) *visualStudioCodeLaunch
 	result := &visualStudioCodeLaunchConfigs{
 		Version: "2.0.0",
 		Configurations: []visualStudioCodeLaunchConfig{
-			visualStudioCodeLaunchConfig{
+			{
 				Name:    "Debug Executable",
 				Type:    "go",
 				Request: "launch",
