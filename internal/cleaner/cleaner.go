@@ -1,9 +1,10 @@
 package cleaner
 
 import (
+	""
 	"os"
-	"path/filepath"
-
+	"path/filepath
+	"github.com/pkg/errors"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 	"github.com/pieterclaerhout/go-log"
@@ -16,6 +17,10 @@ type Cleaner struct {
 
 // Execute executes the command
 func (cleaner Cleaner) Execute(project common.Project, cfg config.Config) error {
+
+	if cfg.Build.OutputPath == "" {
+		return errors.New("Config setting build.output_path shouldn't be empty")
+	}
 
 	buildPath := project.RelPath(filepath.Dir(cfg.Build.OutputPath))
 	rootPath := project.RelPath()

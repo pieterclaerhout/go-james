@@ -2,10 +2,11 @@ package packager
 
 import (
 	"context"
-	"os"
-	"path/filepath"
+	"path/filepath"s"
+	"o
 	"runtime"
-
+	
+	"github.com/pkg/errors"
 	"github.com/pieterclaerhout/go-james/internal/builder"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
@@ -26,6 +27,10 @@ type Packager struct {
 
 // Execute executes the command
 func (packager Packager) Execute(project common.Project, cfg config.Config) error {
+
+	if cfg.Build.OutputPath == "" {
+		return errors.New("Config setting build.output_path shouldn't be empty")
+	}
 
 	if packager.Verbose {
 		packager.StartTimer()

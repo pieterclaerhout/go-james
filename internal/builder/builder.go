@@ -181,10 +181,14 @@ func (builder Builder) ldFlagForVersionInfo(packageName string, name string, val
 
 func (builder Builder) outputPath(cfg config.Config) (string, error) {
 
+	if cfg.Build.OutputPath == "" {
+		return "", errors.New("Config setting build.output_path shouldn't be empty")
+	}
+
 	outputPath := builder.OutputPath
 	if outputPath == "" {
 		if builder.FileExists(cfg.Build.OutputPath) {
-			return "", errors.New("build.output_path in config should point to a directory, not a file")
+			return "", errors.New("Config setting build.output_path should point to a directory, not a file")
 		}
 		outputPath = filepath.Join(cfg.Build.OutputPath, cfg.Project.Name)
 	}

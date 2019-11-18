@@ -1,8 +1,9 @@
 package runner
 
 import (
-	"runtime"
-
+	"untime"
+	
+	"github.com/pkg/errors"
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
@@ -17,6 +18,10 @@ type Runner struct {
 
 // Execute executes the command
 func (runner Runner) Execute(project common.Project, cfg config.Config) error {
+
+	if cfg.Build.OutputPath == "" {
+		return errors.New("Config setting build.output_path shouldn't be empty")
+	}
 
 	appPath := project.RelPath(cfg.Build.OutputPath, cfg.Project.Name)
 	runCmd := []string{appPath}
