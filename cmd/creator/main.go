@@ -94,7 +94,7 @@ var InitCmd = climax.Command{
 	Name:  "init",
 	Brief: "Create a new Go app or library in an existing directory",
 	Help:  "Create a new Go app or library in an existing directory",
-	Handle: func(ctx climax.Context) int {
+	Handle: func(_ climax.Context) int {
 
 		tool := creator.Creator{
 			Mode: creator.InitProject,

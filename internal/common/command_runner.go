@@ -100,10 +100,8 @@ func (commandRunner CommandRunner) RunReturnOutput(cmdLine []string, workdir str
 	commandRunner.logCommand(cmdLine, env)
 
 	output, err := command.CombinedOutput()
-	if err != nil {
-		if log.DebugMode {
-			log.Error(err)
-		}
+	if err != nil && log.DebugMode {
+		log.Error(err)
 	}
 
 	return string(output), err

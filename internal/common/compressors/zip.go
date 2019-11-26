@@ -46,7 +46,7 @@ func (archive *ZipCompressor) AddFile(name string, path string) {
 
 // AddDirectory adds all files from within a directory
 func (archive *ZipCompressor) AddDirectory(dirPath string) {
-	filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
+	filepath.Walk(dirPath, func(path string, info os.FileInfo, _ error) error {
 		if info.IsDir() {
 			return nil
 		}

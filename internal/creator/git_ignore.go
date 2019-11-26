@@ -11,7 +11,7 @@ type gitIgnore struct {
 	PatternsToIgnore []string
 }
 
-func newGitIgnore(cfg config.Config) gitIgnore {
+func newGitIgnore(_ config.Config) gitIgnore {
 	return gitIgnore{
 		PatternsToIgnore: []string{"/" + common.BuildDirName},
 	}
