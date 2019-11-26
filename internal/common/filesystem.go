@@ -71,7 +71,7 @@ func (fileSystem FileSystem) formatBytes(data []byte) []byte {
 // PathExists is a helper function to check if a path exists or not
 func (fileSystem FileSystem) PathExists(path string) bool {
 	_, err := os.Stat(path)
-	return os.IsNotExist(err) == false
+	return !os.IsNotExist(err)
 }
 
 // FileExists is a helper function to check if a file exists or not
