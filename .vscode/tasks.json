@@ -21,7 +21,7 @@
         },
         {
             "label": "go-james | package",
-            "command": "./build/go-james package -v --concurrency=1",
+            "command": "./build/go-james package -v",
             "type": "shell",
             "group": "build",
             "problemMatcher": [
