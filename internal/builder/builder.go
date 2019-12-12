@@ -190,10 +190,12 @@ func (builder Builder) outputPath(cfg config.Config) (string, error) {
 		if builder.FileExists(cfg.Build.OutputPath) {
 			return "", errors.New("Config setting build.output_path should point to a directory, not a file")
 		}
-		outputPath = filepath.Join(cfg.Build.OutputPath, cfg.Project.Name)
+		outputPath = cfg.Build.OutputPath
 	}
 
-	if outputPath != "" && builder.GOOS == "windows" && filepath.Ext(outputPath) != ".exe" {
+	outputPath = filepath.Join(outputPath, cfg.Project.Name)
+
+	if builder.GOOS == "windows" && filepath.Ext(outputPath) != ".exe" {
 		outputPath = outputPath + ".exe"
 	}
 
