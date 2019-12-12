@@ -26,7 +26,7 @@ var PackageCmd = climax.Command{
 			Short:    "c",
 			Usage:    `--concurrency`,
 			Help:     `how many package processes can run simultaneously (defaults to the number of CPUs).`,
-			Variable: false,
+			Variable: true,
 		},
 	},
 	Handle: func(ctx climax.Context) int {

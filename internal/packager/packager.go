@@ -83,6 +83,8 @@ func (packager Packager) buildDistribution(project common.Project, cfg config.Co
 	b := builder.Builder{
 		OutputPath: buildOutputPath,
 		Verbose:    false,
+		GOOS:       d.GOOS,
+		GOARCH:     d.GOARCH,
 	}
 	if err := b.Execute(project, cfg); err != nil {
 		return err
@@ -95,7 +97,7 @@ func (packager Packager) buildDistribution(project common.Project, cfg config.Co
 		compressor = packager.CreateZip(archivePath)
 	}
 
-	compressor.AddDirectory(filepath.Dir(buildOutputPath))
+	compressor.AddDirectory(buildOutputPath)
 
 	readmePath := project.RelPath("README.md")
 	if cfg.Package.IncludeReadme && packager.FileExists(readmePath) {
@@ -106,7 +108,7 @@ func (packager Packager) buildDistribution(project common.Project, cfg config.Co
 		return err
 	}
 
-	if err := os.RemoveAll(filepath.Dir(buildOutputPath)); err != nil {
+	if err := os.RemoveAll(buildOutputPath); err != nil {
 		return err
 	}
 
@@ -117,11 +119,7 @@ func (packager Packager) buildDistribution(project common.Project, cfg config.Co
 }
 
 func (packager Packager) buildOutputPathForDistribution(cfg config.Config, d distribution) string {
-	path := filepath.Join(cfg.Build.OutputPath, d.DirName(), cfg.Project.Name)
-	if d.GOOS == "windows" {
-		path += ".exe"
-	}
-	return path
+	return filepath.Join(cfg.Build.OutputPath, d.DirName())
 }
 
 func (packager Packager) archiveOutputPathForDistribution(cfg config.Config, d distribution) string {
