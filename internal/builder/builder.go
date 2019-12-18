@@ -147,7 +147,11 @@ func (builder Builder) determineRevision(project common.Project) string {
 
 	cmdLine := []string{"git", "rev-parse", "--short", "HEAD"}
 
-	result, _ := builder.RunReturnOutput(cmdLine, project.Path, map[string]string{})
+	result, err := builder.RunReturnOutput(cmdLine, project.Path, map[string]string{})
+	if err != nil && strings.Contains(result, "not a git repository") {
+		return ""
+	}
+
 	return strings.TrimSpace(result)
 
 }
@@ -156,7 +160,11 @@ func (builder Builder) determineBranch(project common.Project) string {
 
 	cmdLine := []string{"git", "rev-parse", "--abbrev-ref", "HEAD"}
 
-	result, _ := builder.RunReturnOutput(cmdLine, project.Path, map[string]string{})
+	result, err := builder.RunReturnOutput(cmdLine, project.Path, map[string]string{})
+	if err != nil && strings.Contains(result, "not a git repository") {
+		return ""
+	}
+
 	return strings.TrimSpace(result)
 
 }
