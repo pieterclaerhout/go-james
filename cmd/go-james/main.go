@@ -29,10 +29,7 @@ func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	log.PrintColors = true
-
-	if log.DebugMode {
-		log.PrintTimestamp = true
-	}
+	log.DebugMode = false
 
 	var commandName string
 	var result int

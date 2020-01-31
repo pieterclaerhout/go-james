@@ -67,6 +67,8 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		GOARCH:             builder.GOARCH,
 	}
 
+	// runtime.Version() is incorrect as it's the version which is used to compile go-james, not the version which is
+	// used to compile
 	if builder.Verbose {
 		builder.LogInfo("> Compiling for", builder.GOOS+"/"+builder.GOARCH, "using", runtime.Version())
 	}
