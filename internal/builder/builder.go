@@ -67,10 +67,8 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		GOARCH:             builder.GOARCH,
 	}
 
-	// runtime.Version() is incorrect as it's the version which is used to compile go-james, not the version which is
-	// used to compile
 	if builder.Verbose {
-		builder.LogInfo("> Compiling for", builder.GOOS+"/"+builder.GOARCH, "using", runtime.Version())
+		builder.LogInfo("> Compiling for", builder.GOOS+"/"+builder.GOARCH, "using", builder.goVersion())
 	}
 
 	buildCmd := []string{"go", "build"}
@@ -186,6 +184,24 @@ func (builder Builder) ldFlagForVersionInfo(packageName string, name string, val
 	}
 
 	return result
+
+}
+
+func (builder Builder) goVersion() string {
+
+	result, err := builder.RunReturnOutput([]string{"go", "version"}, "", map[string]string{})
+	if err != nil {
+		builder.LogError("Failed to get Go version:", err)
+		return ""
+	}
+
+	result = strings.TrimPrefix(result, "go version ")
+	resultParts := strings.Split(result, " ")
+	if len(resultParts) > 0 {
+		return resultParts[0]
+	}
+
+	return ""
 
 }
 
