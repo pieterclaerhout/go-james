@@ -183,7 +183,7 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 
 func (creator Creator) createTasks(project common.Project, cfg config.Config) error {
 
-	tasks := newVisualStudioCodeTaskList(cfg)
+	tasks := newVisualStudioCodeTaskList(cfg, creator.CreateGitRepo)
 
 	tasksPath := project.RelPath(visualStudioDirName, visualStudioCodeTasksFileName)
 	return creator.WriteJSONFileIfNotExists(tasksPath, tasks)
