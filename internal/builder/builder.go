@@ -6,6 +6,7 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/kballard/go-shellquote"
 	"github.com/pieterclaerhout/go-james"
@@ -13,6 +14,8 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/config"
 	"github.com/pkg/errors"
 )
+
+var once sync.Once
 
 // Builder implements the "build" command
 type Builder struct {
@@ -68,10 +71,10 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 	}
 
 	if builder.Verbose {
-		builder.LogInfo("> Compiling for", builder.GOOS+"/"+builder.GOARCH, "using", builder.goVersion())
+		builder.LogInfo("> Compiling for", builder.GOOS+"/"+builder.GOARCH, "using", builder.goVersion(cfg))
 	}
 
-	buildCmd := []string{"go", "build"}
+	buildCmd := []string{builder.goExecuteable(cfg), "build"}
 
 	if builder.Verbose {
 		buildCmd = append(buildCmd, "-v")
@@ -187,9 +190,9 @@ func (builder Builder) ldFlagForVersionInfo(packageName string, name string, val
 
 }
 
-func (builder Builder) goVersion() string {
+func (builder Builder) goVersion(cfg config.Config) string {
 
-	result, err := builder.RunReturnOutput([]string{"go", "version"}, "", map[string]string{})
+	result, err := builder.RunReturnOutput([]string{builder.goExecuteable(cfg), "version"}, "", map[string]string{})
 	if err != nil {
 		builder.LogError("Failed to get Go version:", err)
 		return ""
@@ -229,4 +232,14 @@ func (builder Builder) outputPath(cfg config.Config) (string, error) {
 
 	return outputPath, nil
 
+}
+
+func (builder Builder) goExecuteable(cfg config.Config) string {
+	if cfg.Build.UseGotip {
+		once.Do(func() {
+			builder.LogWarn("> Using gotip to build")
+		})
+		return "gotip"
+	}
+	return "go"
 }

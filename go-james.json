@@ -13,7 +13,8 @@
         "ld_flags_windows": [],
         "ld_flags_darwin": [],
         "ld_flags_linux": [],
-        "extra_args": ["-trimpath"]
+        "extra_args": ["-trimpath"],
+        "use_gotip": false
     },
     "run": {
         "environ": {}

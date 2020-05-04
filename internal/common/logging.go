@@ -25,6 +25,11 @@ func (logging Logging) LogInfo(args ...interface{}) {
 	log.Info(args...)
 }
 
+// LogWarn logs a warning message
+func (logging Logging) LogWarn(args ...interface{}) {
+	log.Warn(args...)
+}
+
 // LogError logs an error
 func (logging Logging) LogError(args ...interface{}) {
 	log.Error(args...)

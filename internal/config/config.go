@@ -39,6 +39,7 @@ type BuildConfig struct {
 	LDFlagsLinux   []string `json:"ld_flags_linux"`   // The ldflags to pass to the build command for Linux
 	LDFlagsWindows []string `json:"ld_flags_windows"` // The ldflags to pass to the build command for Windows
 	ExtraArgs      []string `json:"extra_args"`       // The extra arguments to pass to the build command
+	UseGotip       bool     `json:"use_gotip"`        // Use gotip to build instead of Go itself
 }
 
 // RunConfig contains the run specific configuration settings

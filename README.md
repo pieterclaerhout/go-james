@@ -375,7 +375,8 @@ When you create a new project or init an existing one, a `go-james.json` file wi
         "ld_flags_linux": [],
         "extra_args": [
             "-trimpath"
-        ]
+        ],
+        "use_gotip": false
     },
     "run": {
         "environ": {
@@ -408,6 +409,7 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 * `ld_flags_linux`: the linker flags you want to use for building for `linux`. You can find more info about these flags [here](https://golang.org/cmd/link/).
 * `ld_flags_windows`: the linker flags you want to use for building for `windows`. You can find more info about these flags [here](https://golang.org/cmd/link/).
 * `extra_args`: contains any extra command-line parameters you want to add to the `go build` command when you run `go-james build`.
+* `use_gotip`: setting this to true uses `gotip` to compile instead of the regular `go`command. Make sure you have [`gotip`](https://pkg.go.dev/golang.org/dl/gotip?tab=doc) installed.
 
 ### Run Config
 
