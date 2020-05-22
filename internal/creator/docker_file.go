@@ -6,10 +6,13 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
 
-const dockerfileTemplate = `FROM golang:alpine AS mod-download
+const dockerfileTemplate = `FROM golang:alpine AS go-james
 
 RUN apk update && apk add git && rm -rf /var/cache/apk/*
 RUN GO111MODULE=on go get -u github.com/pieterclaerhout/go-james/cmd/go-james
+
+
+FROM go-james AS mod-download
 
 RUN mkdir -p /app
 
