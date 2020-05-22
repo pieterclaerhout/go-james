@@ -24,9 +24,6 @@ func main() {
 }
 `
 
-const mainCmdTestingTemplate = `package main_test
-`
-
 const versionInfoTemplate = `package versioninfo
 
 // ProjectName contains the name of the project
