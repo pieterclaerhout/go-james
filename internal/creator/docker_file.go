@@ -8,6 +8,9 @@ import (
 
 const dockerfileTemplate = `FROM golang:alpine AS mod-download
 
+RUN apk update && apk add git && rm -rf /var/cache/apk/*
+RUN go get -u github.com/pieterclaerhout/go-james/cmd/go-james
+
 RUN mkdir -p /app
 
 ADD go.mod /app

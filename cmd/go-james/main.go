@@ -6,6 +6,8 @@ import (
 	"runtime"
 	"strings"
 
+	"github.com/pieterclaerhout/go-james/cmd/dockerimage"
+
 	"github.com/pieterclaerhout/go-james/cmd/builder"
 	"github.com/pieterclaerhout/go-james/cmd/cleaner"
 	"github.com/pieterclaerhout/go-james/cmd/creator"
@@ -15,7 +17,6 @@ import (
 	"github.com/pieterclaerhout/go-james/cmd/runner"
 	"github.com/pieterclaerhout/go-james/cmd/tester"
 	"github.com/pieterclaerhout/go-james/cmd/uninstaller"
-	"github.com/pieterclaerhout/go-james/cmd/updater"
 	"github.com/pieterclaerhout/go-james/cmd/version"
 	"github.com/pieterclaerhout/go-james/internal"
 	rawrunner "github.com/pieterclaerhout/go-james/internal/runner"
@@ -67,13 +68,13 @@ func main() {
 		app.AddCommand(creator.InitCmd)
 		app.AddCommand(creator.NewCmd)
 		app.AddCommand(debugger.DebugCmd)
+		app.AddCommand(dockerimage.DockerImageCmd)
 		app.AddCommand(installer.InstallCmd)
 		app.AddCommand(packager.PackageCmd)
 		app.AddCommand(runner.RunCmd)
 		app.AddCommand(tester.TestCmd)
 		app.AddCommand(uninstaller.UninstallCmd)
 		app.AddCommand(version.VersionCmd)
-		app.AddCommand(updater.UpdateCmd)
 
 		result = app.Run()
 
