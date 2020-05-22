@@ -56,7 +56,7 @@ You should be using `go-james` if:
 
 ## Requirements
 
-* [Go](https://golang.org) 1.13 or newer
+* [Go](https://golang.org) 1.14 or newer
 * [Go Modules](https://github.com/golang/go/wiki/Modules) (the de-facto standard)
 
 ## Installation
@@ -72,14 +72,6 @@ This will create the `go-james` command in your `$GOPATH/bin` folder.
 The tool is self-contained and doesn't have any external dependencies.
 
 To install it manually, download the `go-james` executable from  the [releases](https://github.com/pieterclaerhout/go-james/releases) and place it in `$GOPATH/bin`.
-
-## Updating 
-
-Simply run:
-
-```
-go-james update
-```
 
 ## Starting a new project
 
@@ -99,44 +91,59 @@ When you run it, you'll get the following output:
 
 ```
 ➜ go-james new --path go-example --package github.com/pieterclaerhout/go-example
-Creating: go-example/go-james.json
-Creating: go-example/.vscode/launch.json
-Creating: go-example/.vscode/tasks.json
-Creating: go-example/LICENSE
-Creating: go-example/.gitignore
-Creating: go-example/README.md
-Creating: go-example/library.go
-Creating: go-example/cmd/go-example/main.go
-Creating: go-example/versioninfo/versioninfo.go
-go: creating new go.mod: module github.com/pieterclaerhout/go-example
+Creating package: github.com/pieterclaerhout/go-example
+Project path: /Users/pclaerhout/Desktop/go-example
+Writing: go-example
+Writing: go-example/go-james.json
+Writing: go-example/.vscode
+Writing: go-example/.vscode/tasks.json
+Writing: go-example/.vscode/settings.json
+Writing: go-example/.vscode/launch.json
+Writing: go-example/LICENSE
+Writing: go-example/.gitignore
+Writing: go-example/.dockerignore
+Writing: go-example/Dockerfile
+Writing: go-example/README.md
+Writing: go-example/scripts/post_build
+Writing: go-example/scripts/post_build/post_build.example.go
+Writing: go-example/library.go
+Writing: go-example/library_test.go
+Writing: go-example/cmd/go-example
+Writing: go-example/cmd/go-example/main.go
+Writing: go-example/versioninfo
+Writing: go-example/versioninfo/versioninfo.go
+Writing: go-example/scripts/pre_build
+Writing: go-example/scripts/pre_build/pre_build.example.go
+Writing: go-example/go.mod
 ```
 
 It will automatically create the following folder and file structure:
 
 ```
 go-example
-├── .git
-├── .gitignore
-├── .vscode
-│   ├── launch.json
-│   └── tasks.json
-├── LICENSE
-├── README.md
-├── cmd
-│   └── go-example
-│       ├── main.go
-│       └── main_test.go
-├── go-james.json
-├── go.mod
-├── library.go
-├── library_test.go
-├── scripts
-│   ├── post_build
-│   │   └── post_build.example.go
-│   └── pre_build
-│       └── pre_build.example.go
-└── versioninfo
-    └── versioninfo.go
+.
+├── Dockerfile
+├── Downloads
+├── DropBox
+├── Twixl\ Publisher
+└── go-example
+    ├── Dockerfile
+    ├── LICENSE
+    ├── README.md
+    ├── cmd
+    │   └── go-example
+    │       └── main.go
+    ├── go-james.json
+    ├── go.mod
+    ├── library.go
+    ├── library_test.go
+    ├── scripts
+    │   ├── post_build
+    │   │   └── post_build.example.go
+    │   └── pre_build
+    │       └── pre_build.example.go
+    └── versioninfo
+        └── versioninfo.go
 ```
 
 An important file which is generated and can be used to further customize the project and it's settings is the [`go-james.json`](#the-config-file-go-jamesjson) file which sits next to the `go.mod` file.
@@ -345,6 +352,22 @@ Similar to the `install` command, there is also an `uninstall` command which rem
 go-james uninstall
 ```
 
+## Running a static analysis
+
+You can use the `staticcheck` command to run the [staticcheck](https://staticcheck.io/docs/) static analyzer. The binary required to run staticcheck is automatically installed if needed.
+
+```
+go-james staticcheck
+```
+
+### Building a Docker image
+
+You can use the `docker-image` command to build a Docker image using the Dockerfile in the project folder. When you create a new project, a starter Dockerfile will be created automatically.
+
+```
+go-james docker-container
+```
+
 ## The config file `go-james.json`
 
 When you create a new project or init an existing one, a `go-james.json` file will be created in the root of your project. This file can be used to configure the project. The full config file is as follows:
@@ -388,6 +411,9 @@ When you create a new project or init an existing one, a `go-james.json` file wi
     },
     "test": {
         "extra_args": []
+    },
+    "staticcheck": {
+        "checks": ["all", "-ST1005", "-ST1000"]
     }
 }
 ```
@@ -423,13 +449,9 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 
 * `extra_args`: contains any extra command-line parameters you want to add to the `go test` command when you run `go-james test`.
 
-## Updating `go-james`
+### Staticcheck Config
 
-Just run:
-
-```
-go-james update
-```
+* `checks`: the checks for [staticcheck](https://staticcheck.io/docs/) you want to run
 
 ## Bootstrapping `go-james`
 
