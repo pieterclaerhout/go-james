@@ -106,6 +106,8 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		creator.createLaunchConfig,
 		creator.createLicense,
 		creator.createGitIgnore,
+		creator.createDockerIgnore,
+		creator.createDockerFile,
 		creator.createReadme,
 		creator.createSourceFiles,
 		creator.createGoMod,
@@ -145,10 +147,6 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 	if creator.Name == "" {
 		creator.Name = filepath.Base(creator.Path)
 	}
-
-	// mainPackage := project.GuessMainPackage()
-
-	// log.Info("Guessed main package:", mainPackage)
 
 	cfg = config.Config{
 		Project: config.ProjectConfig{
@@ -215,6 +213,24 @@ func (creator Creator) createGitIgnore(project common.Project, cfg config.Config
 
 }
 
+func (creator Creator) createDockerIgnore(project common.Project, cfg config.Config) error {
+
+	gitIgnore := newDockerIgnore(cfg)
+
+	path := project.RelPath(common.DockerIgnoreFileName)
+	return creator.WriteTextFileIfNotExists(path, gitIgnore.string())
+
+}
+
+func (creator Creator) createDockerFile(project common.Project, cfg config.Config) error {
+
+	gitIgnore := newDockerFile(cfg)
+
+	path := project.RelPath(common.DockerfileFileName)
+	return creator.WriteTextFileIfNotExists(path, gitIgnore.string())
+
+}
+
 func (creator Creator) createReadme(project common.Project, cfg config.Config) error {
 
 	readme := newReadme(project, cfg)
@@ -235,7 +251,6 @@ func (creator Creator) createSourceFiles(project common.Project, cfg config.Conf
 		project.RelPath("library.go"):                                                                       mainLibTemplate,
 		project.RelPath("library_test.go"):                                                                  mainLibTestingTemplate,
 		project.RelPath(common.CmdDirName, filepath.Base(packageName), "main.go"):                           mainCmdTemplate,
-		project.RelPath(common.CmdDirName, filepath.Base(packageName), "main_test.go"):                      mainCmdTestingTemplate,
 		project.RelPath(common.VersionInfoPackage, common.VersionInfoFileName):                              versionInfoTemplate,
 		project.RelPath(common.ScriptDirName, common.ScriptPreBuild, common.ScriptPreBuild+".example.go"):   preBuildScript,
 		project.RelPath(common.ScriptDirName, common.ScriptPostBuild, common.ScriptPostBuild+".example.go"): postBuildScript,

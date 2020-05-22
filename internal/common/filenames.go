@@ -6,6 +6,12 @@ const GoModFileName = "go.mod"
 // GitIgnoreFileName defines the name for .gitignore
 const GitIgnoreFileName = ".gitignore"
 
+// DockerIgnoreFileName defines the name for .dockerignore
+const DockerIgnoreFileName = ".dockerignore"
+
+// DockerfileFileName defines the name for Dockerfile
+const DockerfileFileName = "Dockerfile"
+
 // GitRepoFileName defines the name for .git
 const GitRepoFileName = ".git"
 
