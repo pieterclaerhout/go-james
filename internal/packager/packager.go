@@ -60,6 +60,8 @@ func (packager Packager) Execute(project common.Project, cfg config.Config) erro
 
 		localDistribution := distribution
 
+		packager.LogInfo("Building:", localDistribution.String())
+
 		wg.Add(func() error {
 			return packager.buildDistribution(project, cfg, localDistribution)
 		})
@@ -79,7 +81,7 @@ func (packager Packager) buildDistribution(project common.Project, cfg config.Co
 
 	buildOutputPath := packager.buildOutputPathForDistribution(cfg, d)
 
-	packager.LogPathCreation("Building:", buildOutputPath)
+	// packager.LogPathCreation("Building:", buildOutputPath)
 	b := builder.Builder{
 		OutputPath: buildOutputPath,
 		Verbose:    false,
