@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/pieterclaerhout/go-james/cmd/dockerimage"
+	"github.com/pieterclaerhout/go-james/cmd/staticcheck"
 
 	"github.com/pieterclaerhout/go-james/cmd/builder"
 	"github.com/pieterclaerhout/go-james/cmd/cleaner"
@@ -72,6 +73,7 @@ func main() {
 		app.AddCommand(installer.InstallCmd)
 		app.AddCommand(packager.PackageCmd)
 		app.AddCommand(runner.RunCmd)
+		app.AddCommand(staticcheck.StaticcheckCmd)
 		app.AddCommand(tester.TestCmd)
 		app.AddCommand(uninstaller.UninstallCmd)
 		app.AddCommand(version.VersionCmd)

@@ -9,4 +9,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/sirkon/goproxy v1.4.8
 	github.com/tucnak/climax v0.0.0-20180716104603-da4c02f3b1f8
+	golang.org/x/tools v0.0.0-20200521211927-2b542361a4fc // indirect
+	honnef.co/go/tools v0.0.1-2020.1.4 // indirect
 )

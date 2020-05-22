@@ -174,6 +174,9 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 		Test: config.TestConfig{
 			ExtraArgs: []string{},
 		},
+		Staticcheck: config.StaticcheckConfig{
+			Checks: []string{"all", "-ST1005", "-ST1000"},
+		},
 	}
 
 	return creator.WriteJSONFileIfNotExists(configPath, cfg)

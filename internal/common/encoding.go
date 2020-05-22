@@ -25,6 +25,6 @@ func (e Encoding) ToFormattedString(data interface{}) string {
 
 	var out bytes.Buffer
 	json.Indent(&out, b, "", "    ")
-	return string(out.Bytes())
+	return out.String()
 
 }

@@ -40,13 +40,14 @@ func newVisualStudioCodeTaskList(cfg config.Config, createGitRepo bool) *visualS
 			newVisualStudioCodeTask(cfg, "clean", "go-james clean"),
 			newVisualStudioCodeTask(cfg, "tests", "go-james test"),
 			newVisualStudioCodeTask(cfg, "run", "go-james run"),
+			newVisualStudioCodeTask(cfg, "staticcheck", "go-james staticcheck"),
 			newVisualStudioCodeTask(cfg, "docker-image", "go-james docker-image"),
 			newVisualStudioCodeTask(cfg, "install", "go-james install"),
 			newVisualStudioCodeTask(cfg, "uninstall", "go-james uninstall"),
 			newVisualStudioCodeTask(cfg, "run (debug)", "DEBUG=1 go-james run"),
 		},
 	}
-	if createGitRepo == true {
+	if createGitRepo {
 		result.Tasks = append(result.Tasks,
 			newVisualStudioCodeTask(cfg, "push to github", "git push --set-upstream origin"),
 		)

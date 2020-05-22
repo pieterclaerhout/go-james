@@ -21,7 +21,7 @@ func (dockerImager DockerImager) Execute(project common.Project, cfg config.Conf
 	dockerFilePath := project.RelPath(dockerFileName)
 
 	if !dockerImager.FileExists(dockerFilePath) {
-		return errors.New("No \"" + dockerFileName + "\" found in the project root")
+		return errors.New(dockerFileName + "\" was not found in the project root")
 	}
 
 	runCmd := []string{"docker", "build", "-t", cfg.Project.Name, "."}

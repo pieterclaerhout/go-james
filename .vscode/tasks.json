@@ -11,6 +11,15 @@
             ]
         },
         {
+            "label": "go-james | staticcheck",
+            "command": "./build/go-james staticcheck",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
             "label": "go-james | purge github readme",
             "command": "hub-purge pieterclaerhout/go-james",
             "type": "shell",

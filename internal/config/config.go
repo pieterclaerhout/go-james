@@ -15,11 +15,12 @@ const FileName = "go-james.json"
 
 // Config defines the project configuration
 type Config struct {
-	Project ProjectConfig `json:"project"` // Project contains the general project variables
-	Build   BuildConfig   `json:"build"`   // Build contains the build specific project variables
-	Package PackageConfig `json:"package"` // Build contains the package specific project variables
-	Run     RunConfig     `json:"run"`     // Build contains the run specific project variables
-	Test    TestConfig    `json:"test"`    // Build contains the test specific project variables
+	Project     ProjectConfig     `json:"project"`     // Project contains the general project variables
+	Build       BuildConfig       `json:"build"`       // Build contains the build specific project variables
+	Package     PackageConfig     `json:"package"`     // Build contains the package specific project variables
+	Run         RunConfig         `json:"run"`         // Build contains the run specific project variables
+	Test        TestConfig        `json:"test"`        // Build contains the test specific project variables
+	Staticcheck StaticcheckConfig `json:"staticcheck"` // Staticcheck contains the settings for staticcheck
 }
 
 // ProjectConfig contains the general project variables
@@ -50,6 +51,11 @@ type RunConfig struct {
 // PackageConfig contains the build specific configuration settings
 type PackageConfig struct {
 	IncludeReadme bool `json:"include_readme"` // Include the readme when packaging or not
+}
+
+// StaticcheckConfig contains the settings for staticcheck
+type StaticcheckConfig struct {
+	Checks []string `json:"checks"` // The checks which should be executed
 }
 
 // TestConfig contains the test specific configuration settings
@@ -86,10 +92,6 @@ func NewConfigFromPath(path string) (Config, error) {
 	if config.Project.Version == "" {
 		return config, errors.New("Config setting Project.Version should not be empty")
 	}
-
-	// if config.Project.Package == "" {
-	// 	return config, errors.New("Config setting Project.Package should not be empty")
-	// }
 
 	if config.Project.MainPackage == "" {
 		return config, errors.New("Config setting Project.MainPackage should not be empty")

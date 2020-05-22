@@ -24,5 +24,8 @@
     },
     "test": {
         "extra_args": []
+    },
+    "staticcheck": {
+        "checks": ["all", "-ST1005", "-ST1000"]
     }
 }
