@@ -1,0 +1,16 @@
+{
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/CVS": true,
+        "**/build": true
+    },
+    "files.watcherExclude": {
+        "**/build**": true
+    },
+    "search.exclude": {
+        "**/build": true
+    }
+}
