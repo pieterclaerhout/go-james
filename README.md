@@ -28,7 +28,6 @@ You should be using `go-james` if:
 
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Updating](#updating)
 - [Starting a new project](#starting-a-new-project)
 - [Initializing an existing project](#initializing-an-existing-project)
 - [Building a project](#building-a-project)
@@ -40,12 +39,6 @@ You should be using `go-james` if:
 - [Installing the executable](#installing-the-executable)
 - [Uninstalling the executable](#uninstalling-the-executable)
 - [The config file `go-james.json`](#the-config-file-go-jamesjson)
-    - [Project Config](#project-config)
-    - [Build Config](#build-config)
-    - [Run Config](#run-config)
-    - [Package Config](#package-config)
-    - [Test Config](#test-config)
-- [Updating `go-james`](#updating-go-james)
 - [Bootstrapping `go-james`](#bootstrapping-go-james)
 - [Roadmap](#roadmap)
 - [Resources](#resources)
@@ -61,6 +54,8 @@ You should be using `go-james` if:
 
 ## Installation
 
+### Using `go get`
+
 You can run the following command to install `go-james`:
 
 ```
@@ -70,6 +65,31 @@ go get -u github.com/pieterclaerhout/go-james/cmd/go-james
 This will create the `go-james` command in your `$GOPATH/bin` folder.
 
 The tool is self-contained and doesn't have any external dependencies.
+
+### Homebrew
+
+To install via [homebrew](https://brew.sh), run the following commands:
+
+```
+$ brew tap pieterclaerhout/go-james
+==> Tapping pieterclaerhout/go-james
+Cloning into '/usr/local/Homebrew/Library/Taps/pieterclaerhout/homebrew-go-james'...
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 4 (delta 0), reused 4 (delta 0), pack-reused 0
+Receiving objects: 100% (4/4), done.
+Tapped 1 formula (27 files, 26.5KB).
+
+$ brew install go-james
+==> Installing go-james from pieterclaerhout/go-james
+==> Downloading https://github.com/pieterclaerhout/go-james/releases/download/v1.5.2/go-james_darwin
+==> Downloading from https://github-production-release-asset-2e65be.s3.amazonaws.com/215086583/a8cd6
+######################################################################## 100.0%
+🍺  /usr/local/Cellar/go-james/1.5.2: 4 files, 11.5MB, built in 5 seconds
+```
+
+### Manually
 
 To install it manually, download the `go-james` executable from  the [releases](https://github.com/pieterclaerhout/go-james/releases) and place it in `$GOPATH/bin`.
 
