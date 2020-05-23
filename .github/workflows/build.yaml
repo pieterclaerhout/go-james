@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
 
-  build-test-and-check:
+  build-test-staticcheck:
     name: Build, Test and Check
     runs-on: ubuntu-latest
     steps:
