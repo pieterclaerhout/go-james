@@ -61,5 +61,5 @@ jobs:
     - uses: actions/upload-artifact@v2
       name: Publish
       with:
-        name: ${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_SHA_SHORT }}-${{ env.GITHUB_REF_NAME }}
+        name: ${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_SHA_SHORT }}-${{ env.GITHUB_REF_NAME }}.zip
         path: build/*.*
