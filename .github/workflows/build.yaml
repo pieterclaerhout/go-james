@@ -36,16 +36,24 @@ jobs:
         go get -v -t -d ./...
 
     - name: Build
-      run: go-james build
+      run: |
+        export PATH=${PATH}:`go env GOPATH`/bin
+        go-james build
 
     - name: Test
-      run: go-james test
+      run: |
+        export PATH=${PATH}:`go env GOPATH`/bin
+        go-james test
 
     - name: Staticcheck
-      run: go-james staticcheck
+      run: |
+        export PATH=${PATH}:`go env GOPATH`/bin
+        go-james staticcheck
 
     - name: Package
-      run: go-james package
+      run: |
+        export PATH=${PATH}:`go env GOPATH`/bin
+        go-james package
 
     - uses: actions/upload-artifact@v2
       name: Publish
