@@ -1,7 +1,7 @@
 {
     "project": {
         "name": "go-james",
-        "version": "1.5.0",
+        "version": "1.5.2",
         "description": "James is your butler and helps you to create, build, test and run your Go projects",
         "copyright": "© 2020 Copyright Pieter Claerhout",
         "package": "github.com/pieterclaerhout/go-james",
