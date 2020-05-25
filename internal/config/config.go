@@ -15,12 +15,13 @@ const FileName = "go-james.json"
 
 // Config defines the project configuration
 type Config struct {
-	Project     ProjectConfig     `json:"project"`     // Project contains the general project variables
-	Build       BuildConfig       `json:"build"`       // Build contains the build specific project variables
-	Package     PackageConfig     `json:"package"`     // Build contains the package specific project variables
-	Run         RunConfig         `json:"run"`         // Build contains the run specific project variables
-	Test        TestConfig        `json:"test"`        // Build contains the test specific project variables
-	Staticcheck StaticcheckConfig `json:"staticcheck"` // Staticcheck contains the settings for staticcheck
+	Project     ProjectConfig     `json:"project"`      // Project contains the general project variables
+	Build       BuildConfig       `json:"build"`        // Build contains the build specific project variables
+	Package     PackageConfig     `json:"package"`      // Build contains the package specific project variables
+	Run         RunConfig         `json:"run"`          // Build contains the run specific project variables
+	Test        TestConfig        `json:"test"`         // Build contains the test specific project variables
+	Staticcheck StaticcheckConfig `json:"staticcheck"`  // Staticcheck contains the settings for staticcheck
+	DockerImage DockerImageConfig `json:"docker-image"` // Staticcheck contains the settings for creating a docker image
 }
 
 // ProjectConfig contains the general project variables
@@ -56,6 +57,13 @@ type PackageConfig struct {
 // StaticcheckConfig contains the settings for staticcheck
 type StaticcheckConfig struct {
 	Checks []string `json:"checks"` // The checks which should be executed
+}
+
+// DockerImageConfig contains the settings for docker-image
+type DockerImageConfig struct {
+	Name       string `json:"name"`       // The name of the Docker image to create
+	Repository string `json:"repository"` // The repository to push to
+	Tag        string `json:"tag"`        // What should be used as the tag, either "revision" or "version". Defaults to "version"
 }
 
 // TestConfig contains the test specific configuration settings

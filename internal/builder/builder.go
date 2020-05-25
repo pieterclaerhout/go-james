@@ -22,6 +22,7 @@ type Builder struct {
 	common.CommandRunner
 	common.FileSystem
 	common.Timer
+	common.Version
 
 	OutputPath string
 	GOOS       string
@@ -63,8 +64,8 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		ProjectDescription: cfg.Project.Description,
 		ProjectCopyright:   cfg.Project.Copyright,
 		Version:            cfg.Project.Version,
-		Revision:           builder.determineRevision(project),
-		Branch:             builder.determineBranch(project),
+		Revision:           builder.Revision(project),
+		Branch:             builder.BranchName(project),
 		OutputPath:         outputPath,
 		GOOS:               builder.GOOS,
 		GOARCH:             builder.GOARCH,
@@ -144,32 +145,6 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 // RequiresBuild indicates if a build is required before running the command
 func (builder Builder) RequiresBuild() bool {
 	return false
-}
-
-func (builder Builder) determineRevision(project common.Project) string {
-
-	cmdLine := []string{"git", "rev-parse", "--short", "HEAD"}
-
-	result, err := builder.RunReturnOutput(cmdLine, project.Path, map[string]string{})
-	if err != nil && strings.Contains(result, "not a git repository") {
-		return ""
-	}
-
-	return strings.TrimSpace(result)
-
-}
-
-func (builder Builder) determineBranch(project common.Project) string {
-
-	cmdLine := []string{"git", "rev-parse", "--abbrev-ref", "HEAD"}
-
-	result, err := builder.RunReturnOutput(cmdLine, project.Path, map[string]string{})
-	if err != nil && strings.Contains(result, "not a git repository") {
-		return ""
-	}
-
-	return strings.TrimSpace(result)
-
 }
 
 func (builder Builder) ldFlagForVersionInfo(packageName string, name string, value string) []string {

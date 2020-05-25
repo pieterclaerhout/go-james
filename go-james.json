@@ -27,5 +27,10 @@
     },
     "staticcheck": {
         "checks": ["all", "-ST1005", "-ST1000"]
+    },
+    "docker-image": {
+        "name": "go-james",
+        "repository": "pieterclaerhout/go-james",
+        "tag": "revision"
     }
 }

@@ -434,6 +434,11 @@ When you create a new project or init an existing one, a `go-james.json` file wi
     },
     "staticcheck": {
         "checks": ["all", "-ST1005", "-ST1000"]
+    },
+    "docker-image": {
+        "name": "go-james",
+        "repository": "pieterclaerhout/go-james",
+        "tag": "revision"
     }
 }
 ```
@@ -472,6 +477,12 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 ### Staticcheck Config
 
 * `checks`: the checks for [staticcheck](https://staticcheck.io/docs/) you want to run
+
+### Docker Image Config
+
+* `name`: the name of the docker image you want to create. Defaults to the project name.
+* `repository`: the repository to which you want to push the image. If left empty, the image will only be created locally.
+* `tag`: can be either `revision` or `version` (the default) and indicates what value should be used for the tag.
 
 ## Bootstrapping `go-james`
 
