@@ -49,7 +49,7 @@ func newVisualStudioCodeTaskList(cfg config.Config, createGitRepo bool) *visualS
 	}
 	if createGitRepo {
 		result.Tasks = append(result.Tasks,
-			newVisualStudioCodeTask(cfg, "push to github", "git push --set-upstream origin"),
+			newVisualStudioCodeTask(cfg, "push to github", "git push --set-upstream origin master"),
 		)
 	}
 	return result
