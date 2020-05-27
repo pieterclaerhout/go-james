@@ -4,7 +4,6 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-	"strconv"
 	"strings"
 	"sync"
 
@@ -72,7 +71,13 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 	}
 
 	if builder.Verbose {
-		builder.LogInfo("> Compiling for", builder.GOOS+"/"+builder.GOARCH, "using", builder.goVersion(cfg))
+		builder.LogInfo(
+			"> Compiling version:", buildArgs.Version,
+			"revision:", buildArgs.Revision,
+			"branch:", buildArgs.Branch,
+			"for", builder.GOOS+"/"+builder.GOARCH,
+			"using", builder.goVersion(cfg),
+		)
 	}
 
 	buildCmd := []string{builder.goExecuteable(cfg), "build"}
@@ -152,9 +157,9 @@ func (builder Builder) ldFlagForVersionInfo(packageName string, name string, val
 	result := []string{}
 
 	if name != "" && value != "" {
-		if builder.Verbose {
-			builder.LogInfo("> Setting", name, "=", strconv.Quote(value))
-		}
+		// if builder.Verbose {
+		// 	builder.LogInfo("> Setting", name, "=", strconv.Quote(value))
+		// }
 		result = append(
 			result,
 			"-X", packageName+"/versioninfo."+name+"="+value,
