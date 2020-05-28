@@ -83,10 +83,9 @@ Tapped 1 formula (27 files, 26.5KB).
 
 $ brew install go-james
 ==> Installing go-james from pieterclaerhout/go-james
-==> Downloading https://github.com/pieterclaerhout/go-james/releases/download/v1.5.2/go-james_darwin
-==> Downloading from https://github-production-release-asset-2e65be.s3.amazonaws.com/215086583/a8cd6
+==> Downloading https://github.com/pieterclaerhout/go-james/releases/download/v1.6.0/go-james_darwin_amd64.tar.gz
 ######################################################################## 100.0%
-🍺  /usr/local/Cellar/go-james/1.5.2: 4 files, 11.5MB, built in 5 seconds
+🍺  /usr/local/Cellar/go-james/1.6.0: 4 files, 11.5MB, built in 3 seconds
 ```
 
 ### Manually
