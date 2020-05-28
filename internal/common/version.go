@@ -12,15 +12,23 @@ type Version struct {
 // Revision returns the Git revision in it's short format
 func (version Version) Revision(project Project) string {
 
-	// cmdLine := []string{"git", "rev-parse", "--short", "HEAD"}
-	cmdLine := []string{"git", "describe", "--always", "--abbrev=6", "--dirty"}
-
-	result, err := version.RunReturnOutput(cmdLine, project.Path, map[string]string{})
-	if err != nil && strings.Contains(result, "not a git repository") {
+	revParseCmd := []string{"git", "rev-parse", "--short", "HEAD"}
+	revParseOutput, err := version.RunReturnOutput(revParseCmd, project.Path, map[string]string{})
+	if err != nil && strings.Contains(revParseOutput, "not a git repository") {
 		return ""
 	}
 
-	return strings.TrimSpace(result)
+	dirtyCmd := []string{"git", "describe", "--always", "--abbrev=6", "--dirty"}
+	dirtyOutput, err := version.RunReturnOutput(dirtyCmd, project.Path, map[string]string{})
+	if err != nil && strings.Contains(revParseOutput, "not a git repository") {
+		return ""
+	}
+
+	if strings.HasSuffix(dirtyOutput, "-dirty") {
+		revParseOutput += "-dirty"
+	}
+
+	return revParseOutput
 
 }
 

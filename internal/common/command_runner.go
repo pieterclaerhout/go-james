@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/kballard/go-shellquote"
 	"github.com/pieterclaerhout/go-log"
@@ -104,7 +105,7 @@ func (commandRunner CommandRunner) RunReturnOutput(cmdLine []string, workdir str
 		log.Error(err)
 	}
 
-	return string(output), err
+	return strings.TrimSpace(string(output)), err
 
 }
 
