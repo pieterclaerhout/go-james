@@ -36,6 +36,9 @@ FROM scratch
 
 COPY --from=builder "/app/build/{{outputPath}}" /
 
+# Needed for a webserver, alter the port to match the required value
+EXPOSE 8080
+
 ENTRYPOINT ["/{{outputPath}}"]`
 
 type dockerFile struct {
