@@ -34,14 +34,15 @@ type Creator struct {
 	common.Template
 	common.Logging
 
-	Mode          Mode
-	Path          string
-	Package       string
-	Name          string
-	Description   string
-	Copyright     string
-	Overwrite     bool
-	CreateGitRepo bool
+	Mode        Mode
+	Path        string
+	Package     string
+	Name        string
+	Description string
+	Copyright   string
+	Overwrite   bool
+	WithGit     bool
+	WithDocker  bool
 }
 
 // Execute executes the command
@@ -106,16 +107,25 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		creator.createVSCodeSettings,
 		creator.createLaunchConfig,
 		creator.createLicense,
-		creator.createGitIgnore,
-		creator.createDockerIgnore,
-		creator.createDockerFile,
 		creator.createReadme,
 		creator.createSourceFiles,
 		creator.createGoMod,
 	}
 
-	if creator.CreateGitRepo {
-		steps = append(steps, creator.createGitRepo)
+	if creator.WithDocker {
+		steps = append(
+			steps,
+			creator.createDockerIgnore,
+			creator.createDockerFile,
+		)
+	}
+
+	if creator.WithGit {
+		steps = append(
+			steps,
+			creator.createGitIgnore,
+			creator.createGitRepo,
+		)
 	}
 
 	for _, step := range steps {
@@ -185,7 +195,7 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 
 func (creator Creator) createTasks(project common.Project, cfg config.Config) error {
 
-	tasks := newVisualStudioCodeTaskList(cfg, creator.CreateGitRepo)
+	tasks := newVisualStudioCodeTaskList(cfg, creator.WithGit)
 
 	tasksPath := project.RelPath(visualStudioDirName, visualStudioCodeTasksFileName)
 	return creator.WriteJSONFileIfNotExists(tasksPath, tasks)

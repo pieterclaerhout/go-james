@@ -55,10 +55,17 @@ var NewCmd = climax.Command{
 			Variable: false,
 		},
 		{
-			Name:     "create-git-repo",
+			Name:     "with-git",
 			Short:    "",
-			Usage:    `--create-git-repo`,
+			Usage:    `--with-git`,
 			Help:     `Create a local git repository for this project`,
+			Variable: false,
+		},
+		{
+			Name:     "with-docker",
+			Short:    "",
+			Usage:    `--with-docker`,
+			Help:     `Create a sample Dockerfile`,
 			Variable: false,
 		},
 	},
@@ -70,17 +77,19 @@ var NewCmd = climax.Command{
 		description, _ := ctx.Get("description")
 		copyright, _ := ctx.Get("copyright")
 		overwrite := ctx.Is("overwrite")
-		createGitRepo := ctx.Is("create-git-repo")
+		withGit := ctx.Is("with-git")
+		withDocker := ctx.Is("with-docker")
 
 		tool := creator.Creator{
-			Mode:          creator.NewProject,
-			Path:          path,
-			Package:       packageName,
-			Name:          name,
-			Description:   description,
-			Copyright:     copyright,
-			Overwrite:     overwrite,
-			CreateGitRepo: createGitRepo,
+			Mode:        creator.NewProject,
+			Path:        path,
+			Package:     packageName,
+			Name:        name,
+			Description: description,
+			Copyright:   copyright,
+			Overwrite:   overwrite,
+			WithGit:     withGit,
+			WithDocker:  withDocker,
 		}
 
 		executor := internal.NewExecutor("")
