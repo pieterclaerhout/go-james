@@ -2,21 +2,15 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "go-james | build",
-            "command": "./build/go-james build",
-            "type": "shell",
-            "group": "build",
-            "problemMatcher": [
-                "$go"
-            ]
-        },
-        {
             "label": "go-james | staticcheck",
             "command": "./build/go-james staticcheck",
             "type": "shell",
             "group": "build",
             "problemMatcher": [
                 "$go"
+            ],
+            "dependsOn":[
+                "go-james | build"
             ]
         },
         {
@@ -47,7 +41,7 @@
             ]
         },
         {
-            "label": "go-james | bootstrap",
+            "label": "go-james | build",
             "command": "go build -v -o build/go-james github.com/pieterclaerhout/go-james/cmd/go-james",
             "type": "shell",
             "group": "build",
@@ -107,6 +101,18 @@
             "group": "build",
             "problemMatcher": [
                 "$go"
+            ]
+        },
+        {
+            "label": "go-james | docker-image",
+            "command": "DEBUG=1 ./build/go-james docker-image",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": [
+                "$go"
+            ],
+            "dependsOn":[
+                "go-james | build"
             ]
         }
     ]
