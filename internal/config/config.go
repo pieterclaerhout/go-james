@@ -61,9 +61,10 @@ type StaticcheckConfig struct {
 
 // DockerImageConfig contains the settings for docker-image
 type DockerImageConfig struct {
-	Name       string `json:"name"`       // The name of the Docker image to create
-	Repository string `json:"repository"` // The repository to push to
-	Tag        string `json:"tag"`        // What should be used as the tag, either "revision" or "version". Defaults to "version"
+	Name            string `json:"name"`                     // The name of the Docker image to create
+	Repository      string `json:"repository"`               // The repository to push to
+	Tag             string `json:"tag"`                      // What should be used as the tag, either "revision" or "version". Defaults to "version"
+	PruneAfterBuild bool   `json:"prune_images_after_build"` // Perform the image prune after building
 }
 
 // TestConfig contains the test specific configuration settings

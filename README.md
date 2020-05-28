@@ -438,7 +438,8 @@ When you create a new project or init an existing one, a `go-james.json` file wi
     "docker-image": {
         "name": "go-james",
         "repository": "pieterclaerhout/go-james",
-        "tag": "revision"
+        "tag": "revision",
+        "prune_images_after_build": false
     }
 }
 ```
@@ -483,6 +484,7 @@ When you create a new project or init an existing one, a `go-james.json` file wi
 * `name`: the name of the docker image you want to create. Defaults to the project name.
 * `repository`: the repository to which you want to push the image. If left empty, the image will only be created locally.
 * `tag`: can be either `revision` or `version` (the default) and indicates what value should be used for the tag.
+* `prune_images_after_build`: if set to true, a `docker image prune -f` will be executed after the docker build step.
 
 ## Bootstrapping `go-james`
 

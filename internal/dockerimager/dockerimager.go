@@ -41,11 +41,11 @@ func (dockerImager DockerImager) Execute(project common.Project, cfg config.Conf
 		tag = dockerImager.Revision(project)
 	}
 
-	imageName += ":" + tag
+	imageNameWithTag := imageName + ":" + tag
 
-	dockerImager.LogInfo("Building Docker Image:", imageName)
+	dockerImager.LogInfo("Building Docker Image:", imageNameWithTag)
 
-	runCmd := []string{"docker", "build", "-t", imageName, "."}
+	runCmd := []string{"docker", "build", "-t", imageNameWithTag, "."}
 	if err := dockerImager.RunToStdout(runCmd, project.Path, cfg.Run.Environ); err != nil {
 		return err
 	}
@@ -53,9 +53,9 @@ func (dockerImager DockerImager) Execute(project common.Project, cfg config.Conf
 	repository := cfg.DockerImage.Repository
 	if repository != "" {
 
-		dockerImager.LogInfo("Tagging Docker Image:", imageName, "as:", repository+":"+tag)
+		dockerImager.LogInfo("Tagging Docker Image:", repository+":"+tag)
 
-		tagCmd := []string{"docker", "tag", imageName, repository + ":" + tag}
+		tagCmd := []string{"docker", "tag", imageNameWithTag, repository + ":" + tag}
 		if err := dockerImager.RunToStdout(tagCmd, project.Path, cfg.Run.Environ); err != nil {
 			return err
 		}
@@ -67,9 +67,29 @@ func (dockerImager DockerImager) Execute(project common.Project, cfg config.Conf
 			return err
 		}
 
-		// docker tag geoip-server pieterclaerhout/geoip-server:$(REVISION)
-		// docker push pieterclaerhout/geoip-server:$(REVISION)
+		cleanupCmd := []string{"docker", "image", "rm", imageNameWithTag}
+		if err := dockerImager.RunToStdout(cleanupCmd, project.Path, cfg.Run.Environ); err != nil {
+			return err
+		}
 
+	}
+
+	if cfg.DockerImage.PruneAfterBuild {
+
+		dockerImager.LogInfo("Pruning Docker Images")
+
+		pruneCmd := []string{"docker", "image", "prune", "-f"}
+		if _, err := dockerImager.RunReturnOutput(pruneCmd, project.Path, cfg.Run.Environ); err != nil {
+			return err
+		}
+
+	}
+
+	dockerImager.LogInfo("Docker Images after building")
+
+	listCmd := []string{"docker", "image", "list", repository}
+	if err := dockerImager.RunToStdout(listCmd, project.Path, cfg.Run.Environ); err != nil {
+		return err
 	}
 
 	return nil

@@ -40,7 +40,7 @@ func (staticChecker StaticChecker) Execute(project common.Project, cfg config.Co
 	}
 	staticcheckCmd = append(staticcheckCmd, "./...")
 
-	staticChecker.LogInfo("> Running:", shellquote.Join(staticcheckCmd...))
+	staticChecker.LogInfo("> Running: staticcheck", shellquote.Join(staticcheckCmd[1:]...))
 
 	err := staticChecker.RunToStdout(staticcheckCmd, project.Path, map[string]string{})
 	if err != nil && err.Error() != "exit status 1" {
