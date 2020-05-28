@@ -31,7 +31,7 @@
     "docker-image": {
         "name": "go-james",
         "repository": "pieterclaerhout/go-james",
-        "tag": "revision",
+        "tag": "version",
         "prune_images_after_build": true
     }
 }
