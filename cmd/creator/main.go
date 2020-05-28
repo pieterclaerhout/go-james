@@ -68,6 +68,13 @@ var NewCmd = climax.Command{
 			Help:     `Create a sample Dockerfile`,
 			Variable: false,
 		},
+		{
+			Name:     "with-github-action",
+			Short:    "",
+			Usage:    `--with-github-action`,
+			Help:     `Create a sample Github Action workflow`,
+			Variable: false,
+		},
 	},
 	Handle: func(ctx climax.Context) int {
 
@@ -79,17 +86,19 @@ var NewCmd = climax.Command{
 		overwrite := ctx.Is("overwrite")
 		withGit := ctx.Is("with-git")
 		withDocker := ctx.Is("with-docker")
+		withGithubAction := ctx.Is("with-github-action")
 
 		tool := creator.Creator{
-			Mode:        creator.NewProject,
-			Path:        path,
-			Package:     packageName,
-			Name:        name,
-			Description: description,
-			Copyright:   copyright,
-			Overwrite:   overwrite,
-			WithGit:     withGit,
-			WithDocker:  withDocker,
+			Mode:             creator.NewProject,
+			Path:             path,
+			Package:          packageName,
+			Name:             name,
+			Description:      description,
+			Copyright:        copyright,
+			Overwrite:        overwrite,
+			WithGit:          withGit,
+			WithDocker:       withDocker,
+			WithGithubAction: withGithubAction,
 		}
 
 		executor := internal.NewExecutor("")

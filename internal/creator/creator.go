@@ -34,15 +34,16 @@ type Creator struct {
 	common.Template
 	common.Logging
 
-	Mode        Mode
-	Path        string
-	Package     string
-	Name        string
-	Description string
-	Copyright   string
-	Overwrite   bool
-	WithGit     bool
-	WithDocker  bool
+	Mode             Mode
+	Path             string
+	Package          string
+	Name             string
+	Description      string
+	Copyright        string
+	Overwrite        bool
+	WithGit          bool
+	WithDocker       bool
+	WithGithubAction bool
 }
 
 // Execute executes the command
@@ -117,6 +118,13 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 			steps,
 			creator.createDockerIgnore,
 			creator.createDockerFile,
+		)
+	}
+
+	if creator.WithGithubAction {
+		steps = append(
+			steps,
+			creator.createGithubAction,
 		)
 	}
 
@@ -251,6 +259,15 @@ func (creator Creator) createDockerFile(project common.Project, cfg config.Confi
 
 	path := project.RelPath(common.DockerfileFileName)
 	return creator.WriteTextFileIfNotExists(path, gitIgnore.string())
+
+}
+
+func (creator Creator) createGithubAction(project common.Project, cfg config.Config) error {
+
+	githubAction := newGithubAction(cfg)
+
+	path := project.RelPath(".github", "workflows", "build.yaml")
+	return creator.WriteTextFileIfNotExists(path, githubAction.string())
 
 }
 

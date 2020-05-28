@@ -33,7 +33,7 @@
         },
         {
             "label": "go-james | create sample app",
-            "command": "go build -o build/go-james github.com/pieterclaerhout/go-james/cmd/go-james &&  rm -rf go-example && ./build/go-james new --path go-example --package github.com/pieterclaerhout/go-example --description 'My Project Description'",
+            "command": "go build -o build/go-james github.com/pieterclaerhout/go-james/cmd/go-james &&  rm -rf go-example && ./build/go-james new --path go-example --package github.com/pieterclaerhout/go-example --description 'My Project Description' --with-git --with-docker --with-github-action",
             "type": "shell",
             "group": "build",
             "problemMatcher": [

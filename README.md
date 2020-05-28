@@ -104,6 +104,8 @@ go-james new --path=<target path> \
              --description=<description of your project> \
              --copyright=<copyright of your project> \
              [--with-git] \
+             [--with-docker] \
+             [--with-github-action] \
              [--overwrite]
 ```
 
@@ -177,6 +179,7 @@ You can specify the following options:
 * `--copyright`: the copyright of the project, used for the readme
 * `--with-git`: if specified, a local Git repository will be created for the project and the source files will automatically be committed.
 * `--with-docker`: if specified, a sample Dockerfile and .dockerignore file will be created.
+* `--with-github-action`: if specified, a sample Github Actions file will be created.
 * `--overwrite`: if the destination path already exists, overwrite it (be careful, the original folder will be replaced)
 
 ## Initializing an existing project
