@@ -1,4 +1,4 @@
-FROM golang:1.14.3-alpine AS mod-download
+FROM golang:1.14.5-alpine AS mod-download
 
 RUN apk update && apk add git && rm -rf /var/cache/apk/*
 RUN GO111MODULE=on go get -u github.com/pieterclaerhout/go-james/cmd/go-james
