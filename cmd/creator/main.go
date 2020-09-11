@@ -112,10 +112,40 @@ var InitCmd = climax.Command{
 	Name:  "init",
 	Brief: "Create a new Go app or library in an existing directory",
 	Help:  "Create a new Go app or library in an existing directory",
-	Handle: func(_ climax.Context) int {
+	Flags: []climax.Flag{
+		{
+			Name:     "with-git",
+			Short:    "",
+			Usage:    `--with-git`,
+			Help:     `Create a local git repository for this project`,
+			Variable: false,
+		},
+		{
+			Name:     "with-docker",
+			Short:    "",
+			Usage:    `--with-docker`,
+			Help:     `Create a sample Dockerfile`,
+			Variable: false,
+		},
+		{
+			Name:     "with-github-action",
+			Short:    "",
+			Usage:    `--with-github-action`,
+			Help:     `Create a sample Github Action workflow`,
+			Variable: false,
+		},
+	},
+	Handle: func(ctx climax.Context) int {
+
+		withGit := ctx.Is("with-git")
+		withDocker := ctx.Is("with-docker")
+		withGithubAction := ctx.Is("with-github-action")
 
 		tool := creator.Creator{
-			Mode: creator.InitProject,
+			Mode:             creator.InitProject,
+			WithGit:          withGit,
+			WithDocker:       withDocker,
+			WithGithubAction: withGithubAction,
 		}
 
 		executor := internal.NewExecutor("")
