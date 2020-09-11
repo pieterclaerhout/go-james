@@ -173,7 +173,7 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 			Version:     "1.0.0",
 			Description: creator.Description,
 			Copyright:   creator.Copyright,
-			MainPackage: creator.Package + "/cmd/" + creator.Name,
+			MainPackage: creator.Package + "/cmd/" + creator.Package,
 		},
 		Build: config.BuildConfig{
 			OutputPath:     filepath.Join(common.BuildDirName + "/"),
