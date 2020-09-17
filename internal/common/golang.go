@@ -31,5 +31,5 @@ func (g Golang) GoBin(subpath ...string) string {
 
 // IsDebug returns true of the DEBUG env var is set
 func (g Golang) IsDebug() bool {
-	return os.Getenv("DEBUG") != ""
+	return os.Getenv("GO_JAMES_DEBUG") != ""
 }
