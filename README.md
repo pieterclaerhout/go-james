@@ -263,6 +263,8 @@ func main() {
 }
 ```
 
+### Parsing arguments in pre/post build scripts.
+
 To parse the arguments, you can use [`james.ParseBuildArgs()`](https://godoc.org/github.com/pieterclaerhout/go-james#ParseBuildArgs).
 
 The parameters it gets are are struct of the type [`james.BuildArgs`](https://godoc.org/github.com/pieterclaerhout/go-james#BuildArgs):
@@ -275,7 +277,7 @@ james.BuildArgs{
   GOARCH: "amd64",
   ProjectName: "go-james",
   ProjectDescription: "James is your butler and helps you to create, build, test and run your Go projects",
-  ProjectCopyright: "© 2019 Copyright Pieter Claerhout",
+  ProjectCopyright: "© 2019-2020 Copyright Pieter Claerhout",
   Version: "0.7.0",
   Revision: "2065b13",
   Branch: "master",
@@ -291,6 +293,60 @@ james.BuildArgs{
   },
 }
 ```
+
+The same information is also available in the following environment variables:
+
+```
+GO_JAMES_BRANCH="master"
+GO_JAMES_GOARCH="amd64"
+GO_JAMES_GOOS="darwin"
+GO_JAMES_OUTPUT_PATH="/home/user/go-james/build/go-james"
+GO_JAMES_PROJECT_COPYRIGHT="© 2019-2020 Copyright Pieter Claerhout"
+GO_JAMES_PROJECT_DESCRIPTION="James is your butler and helps you to create, build, test and run your Go projects"
+GO_JAMES_PROJECT_NAME="go-james"
+GO_JAMES_PROJECT_PATH="/home/user/go-james"
+GO_JAMES_REVISION="2065b13"
+GO_JAMES_VERSION="0.7.0"
+```
+
+### Using Bash scripts for pre/post build actions.
+
+If you prefer to use a bash script instead for the pre/post build actions, you can create a file called:
+
+```
+<project_root>/scripts/post_build/pre_build.sh
+```
+
+or
+
+```
+<project_root>/scripts/post_build/post_build.sh
+```
+
+It should be marked as executable.
+
+
+### Using Batch files for pre/post build actions.
+
+If you prefer to use a batch file on Windows instead for the pre/post build actions, you can create a file called:
+
+```
+<project_root>/scripts/post_build/pre_build.bat
+```
+
+or
+
+```
+<project_root>/scripts/post_build/post_build.bat
+```
+
+### How go-james defines which pre/post build script to run
+
+go-james will search for pre/post build scripts in the following order:
+
+* `pre_build.go` / `post_build.go`
+* `pre_build.sh` / `post_build.sh`
+* `pre_build.bat` / `post_build.bat`
 
 ## Packaging a project
 

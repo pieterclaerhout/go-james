@@ -28,3 +28,8 @@ func (g Golang) GoBin(subpath ...string) string {
 	subpath = append([]string{"bin"}, subpath...)
 	return g.GoPath(subpath...)
 }
+
+// IsDebug returns true of the DEBUG env var is set
+func (g Golang) IsDebug() bool {
+	return os.Getenv("DEBUG") != ""
+}

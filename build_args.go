@@ -19,6 +19,22 @@ type BuildArgs struct {
 	RawBuildCommand    []string `json:"raw_build_command,omitempty"`   // The raw build command which is executed
 }
 
+// AsMap returns the build arguments as a map
+func (b BuildArgs) AsMap() map[string]string {
+	return map[string]string{
+		"GO_JAMES_PROJECT_PATH":        b.ProjectPath,
+		"GO_JAMES_OUTPUT_PATH":         b.OutputPath,
+		"GO_JAMES_GOOS":                b.GOOS,
+		"GO_JAMES_GOARCH":              b.GOARCH,
+		"GO_JAMES_PROJECT_NAME":        b.ProjectName,
+		"GO_JAMES_PROJECT_DESCRIPTION": b.ProjectDescription,
+		"GO_JAMES_PROJECT_COPYRIGHT":   b.ProjectCopyright,
+		"GO_JAMES_VERSION":             b.Version,
+		"GO_JAMES_REVISION":            b.Revision,
+		"GO_JAMES_BRANCH":              b.Branch,
+	}
+}
+
 // ParseBuildArgs parses the build arguments from os.Args
 func ParseBuildArgs() (BuildArgs, error) {
 	return parseBuildArgsFromArguments(os.Args)

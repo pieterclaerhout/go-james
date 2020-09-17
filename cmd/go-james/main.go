@@ -20,6 +20,7 @@ import (
 	"github.com/pieterclaerhout/go-james/cmd/uninstaller"
 	"github.com/pieterclaerhout/go-james/cmd/version"
 	"github.com/pieterclaerhout/go-james/internal"
+	"github.com/pieterclaerhout/go-james/internal/common"
 	rawrunner "github.com/pieterclaerhout/go-james/internal/runner"
 	"github.com/pieterclaerhout/go-james/versioninfo"
 	"github.com/pieterclaerhout/go-log"
@@ -31,7 +32,7 @@ func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	log.PrintColors = true
-	log.DebugMode = false
+	log.DebugMode = common.Golang{}.IsDebug()
 
 	var commandName string
 	var result int

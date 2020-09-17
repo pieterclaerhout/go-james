@@ -157,9 +157,6 @@ func (builder Builder) ldFlagForVersionInfo(packageName string, name string, val
 	result := []string{}
 
 	if name != "" && value != "" {
-		// if builder.Verbose {
-		// 	builder.LogInfo("> Setting", name, "=", strconv.Quote(value))
-		// }
 		result = append(
 			result,
 			"-X", packageName+"/versioninfo."+name+"="+value,

@@ -7,7 +7,7 @@ var ProjectName string = "go-james"
 var ProjectDescription string = "James is your butler and helps you to create, build, test and run your Go projects"
 
 // ProjectCopyright contains the copyright for the project
-var ProjectCopyright string = "© 2019 Copyright Pieter Claerhout"
+var ProjectCopyright string = "© 2019-2020 Copyright Pieter Claerhout"
 
 // Version contains the version number from the config file
 var Version string = "1.3.0"
