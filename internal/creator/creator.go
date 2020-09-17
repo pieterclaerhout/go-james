@@ -282,11 +282,6 @@ func (creator Creator) createReadme(project common.Project, cfg config.Config) e
 
 func (creator Creator) createSourceFiles(project common.Project, cfg config.Config) error {
 
-	packageName, err := project.Package()
-	if err != nil {
-		return err
-	}
-
 	filesToCreate := map[string]string{
 		project.RelPath("library.go"):                                                                       mainLibTemplate,
 		project.RelPath("library_test.go"):                                                                  mainLibTestingTemplate,
