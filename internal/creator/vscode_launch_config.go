@@ -33,7 +33,7 @@ func newVisualStudioCodeLaunchConfigs(cfg config.Config) *visualStudioCodeLaunch
 				Type:    "go",
 				Request: "launch",
 				Mode:    "auto",
-				Program: filepath.Join("${workspaceFolder}", common.CmdDirName, cfg.Project.Name),
+				Program: filepath.Join("${workspaceFolder}", common.CmdDirName, "main"),
 				Env:     map[string]string{},
 				Args:    []string{},
 			},

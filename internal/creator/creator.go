@@ -173,7 +173,7 @@ func (creator Creator) createConfig(project common.Project, cfg config.Config) e
 			Version:     "1.0.0",
 			Description: creator.Description,
 			Copyright:   creator.Copyright,
-			MainPackage: creator.Package + "/cmd/" + creator.Package,
+			MainPackage: creator.Package + "/cmd/main",
 		},
 		Build: config.BuildConfig{
 			OutputPath:     filepath.Join(common.BuildDirName + "/"),
@@ -290,7 +290,7 @@ func (creator Creator) createSourceFiles(project common.Project, cfg config.Conf
 	filesToCreate := map[string]string{
 		project.RelPath("library.go"):                                                                       mainLibTemplate,
 		project.RelPath("library_test.go"):                                                                  mainLibTestingTemplate,
-		project.RelPath(common.CmdDirName, filepath.Base(packageName), "main.go"):                           mainCmdTemplate,
+		project.RelPath(common.CmdDirName, "main", "main.go"):                                               mainCmdTemplate,
 		project.RelPath(common.VersionInfoPackage, common.VersionInfoFileName):                              versionInfoTemplate,
 		project.RelPath(common.ScriptDirName, common.ScriptPreBuild, common.ScriptPreBuild+".example.go"):   preBuildScript,
 		project.RelPath(common.ScriptDirName, common.ScriptPostBuild, common.ScriptPostBuild+".example.go"): postBuildScript,
