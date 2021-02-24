@@ -7,10 +7,10 @@ var ProjectName string = "go-james"
 var ProjectDescription string = "James is your butler and helps you to create, build, test and run your Go projects"
 
 // ProjectCopyright contains the copyright for the project
-var ProjectCopyright string = "© 2019-2020 Copyright Pieter Claerhout"
+var ProjectCopyright string = "© 2019-2021 Copyright Pieter Claerhout"
 
 // Version contains the version number from the config file
-var Version string = "1.3.0"
+var Version string = "2.0.0"
 
 // Revision will be injected with the current commit hash
 var Revision string = "head"
