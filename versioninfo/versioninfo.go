@@ -10,7 +10,7 @@ var ProjectDescription string = "James is your butler and helps you to create, b
 var ProjectCopyright string = "© 2019-2021 Copyright Pieter Claerhout"
 
 // Version contains the version number from the config file
-var Version string = "2.0.0"
+var Version string = "1.8.1"
 
 // Revision will be injected with the current commit hash
 var Revision string = "head"
