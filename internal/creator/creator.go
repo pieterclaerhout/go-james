@@ -44,6 +44,7 @@ type Creator struct {
 	WithGit          bool
 	WithDocker       bool
 	WithGithubAction bool
+	WithGitlabCI     bool
 }
 
 // Execute executes the command
@@ -125,6 +126,13 @@ func (creator Creator) Execute(project common.Project, cfg config.Config) error 
 		steps = append(
 			steps,
 			creator.createGithubAction,
+		)
+	}
+
+	if creator.WithGitlabCI {
+		steps = append(
+			steps,
+			creator.createGitlabCI,
 		)
 	}
 
@@ -268,6 +276,15 @@ func (creator Creator) createGithubAction(project common.Project, cfg config.Con
 
 	path := project.RelPath(".github", "workflows", "build.yaml")
 	return creator.WriteTextFileIfNotExists(path, githubAction.string())
+
+}
+
+func (creator Creator) createGitlabCI(project common.Project, cfg config.Config) error {
+
+	gitlabCI := newGitlabCI(cfg)
+
+	path := project.RelPath(".gitlab-ci.yml")
+	return creator.WriteTextFileIfNotExists(path, gitlabCI.string())
 
 }
 
