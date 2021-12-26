@@ -4,7 +4,7 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
 
-const gitlabCITemplate = `image: golang:latest
+const gitlabCITemplate = `image: golang:buster
 
 variables:
   REPO_NAME: gitlab.com/$CI_PROJECT_PATH
@@ -28,16 +28,19 @@ stages:
     paths:
       - .go/pkg
       - .go/bin
+      - go.mod
+      - go.sum
     key: 
       files:
         - go.sum
+        - go.mod
       prefix: $CI_JOB_IMAGE
 
 Build:
   stage: Build
   script:
     - go get -u github.com/pieterclaerhout/go-james/cmd/go-james
-    - go get -v -t -d $(go list ./... )
+    - go get -v -t -d $(go list ./...)
     - go-james build
   extends:
     - .go-cache
