@@ -75,6 +75,13 @@ var NewCmd = climax.Command{
 			Help:     `Create a sample Github Action workflow`,
 			Variable: false,
 		},
+		{
+			Name:     "with-gitlab-ci",
+			Short:    "",
+			Usage:    `--with-gitlab-ci`,
+			Help:     `Create a sample Gitlab-CI workflow`,
+			Variable: false,
+		},
 	},
 	Handle: func(ctx climax.Context) int {
 
@@ -87,6 +94,7 @@ var NewCmd = climax.Command{
 		withGit := ctx.Is("with-git")
 		withDocker := ctx.Is("with-docker")
 		withGithubAction := ctx.Is("with-github-action")
+		withGitlabCI := ctx.Is("with-gitlab-ci")
 
 		tool := creator.Creator{
 			Mode:             creator.NewProject,
@@ -99,6 +107,7 @@ var NewCmd = climax.Command{
 			WithGit:          withGit,
 			WithDocker:       withDocker,
 			WithGithubAction: withGithubAction,
+			WithGitlabCI:     withGitlabCI,
 		}
 
 		executor := internal.NewExecutor("")
@@ -140,12 +149,14 @@ var InitCmd = climax.Command{
 		withGit := ctx.Is("with-git")
 		withDocker := ctx.Is("with-docker")
 		withGithubAction := ctx.Is("with-github-action")
+		withGitlabCI := ctx.Is("with-gitlab-ci")
 
 		tool := creator.Creator{
 			Mode:             creator.InitProject,
 			WithGit:          withGit,
 			WithDocker:       withDocker,
 			WithGithubAction: withGithubAction,
+			WithGitlabCI:     withGitlabCI,
 		}
 
 		executor := internal.NewExecutor("")

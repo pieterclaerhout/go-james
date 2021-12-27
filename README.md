@@ -105,6 +105,7 @@ go-james new --path=<target path> \
              [--with-git] \
              [--with-docker] \
              [--with-github-action] \
+             [--with-gitlab-ci] \
              [--overwrite]
 ```
 
@@ -179,6 +180,7 @@ You can specify the following options:
 * `--with-git`: if specified, a local Git repository will be created for the project and the source files will automatically be committed.
 * `--with-docker`: if specified, a sample Dockerfile and .dockerignore file will be created.
 * `--with-github-action`: if specified, a sample Github Actions file will be created.
+* `--with-gitlab-ci`: if specified, a sample Gitlab-CI file will be created.
 * `--overwrite`: if the destination path already exists, overwrite it (be careful, the original folder will be replaced)
 
 ## Initializing an existing project
