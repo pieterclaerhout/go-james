@@ -8,7 +8,7 @@ import (
 	"github.com/pieterclaerhout/go-james/internal/config"
 )
 
-const staticcheckPackagePath = "honnef.co/go/tools/cmd/staticcheck"
+const staticcheckPackagePath = "honnef.co/go/tools/cmd/staticcheck@latest"
 
 // StaticChecker implements the "staticcheck" command
 type StaticChecker struct {
