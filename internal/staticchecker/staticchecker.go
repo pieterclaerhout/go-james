@@ -27,7 +27,7 @@ func (staticChecker StaticChecker) Execute(project common.Project, cfg config.Co
 	}
 
 	env := map[string]string{}
-	installCmd := []string{"go", "install", "-u", staticcheckPackagePath}
+	installCmd := []string{"go", "install", staticcheckPackagePath}
 	if output, err := staticChecker.RunReturnOutput(installCmd, project.Path, env); err != nil {
 		staticChecker.LogError(output)
 		return err
