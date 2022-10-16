@@ -21,7 +21,7 @@ jobs:
         lfs: true
 
     - name: Restore Cache
-      uses: actions/cache@preview
+      uses: actions/cache@v3
       id: cache
       with:
         path: ~/go/pkg
@@ -29,7 +29,7 @@ jobs:
 
     - name: Get go-james
       run: |
-        go get -u github.com/pieterclaerhout/go-james/cmd/go-james
+        go install github.com/pieterclaerhout/go-james/cmd/go-james
 
     - name: Get dependencies
       run: |
