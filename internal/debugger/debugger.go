@@ -27,7 +27,7 @@ func (debugger Debugger) Execute(project common.Project, cfg config.Config) erro
 	}
 
 	env := map[string]string{}
-	installCmd := []string{"go", "get", "-u", delvePackagePath}
+	installCmd := []string{"go", "install", "-u", delvePackagePath}
 	if output, err := debugger.RunReturnOutput(installCmd, project.Path, env); err != nil {
 		debugger.LogError(output)
 		return err
