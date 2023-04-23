@@ -70,6 +70,8 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 		GOARCH:             builder.GOARCH,
 	}
 
+	buildCmd := []string{builder.goExecuteable(cfg), "build"}
+
 	if builder.Verbose {
 		builder.LogInfo(
 			"> Compiling version:", buildArgs.Version,
@@ -78,11 +80,6 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 			"for", builder.GOOS+"/"+builder.GOARCH,
 			"using", builder.goVersion(cfg),
 		)
-	}
-
-	buildCmd := []string{builder.goExecuteable(cfg), "build"}
-
-	if builder.Verbose {
 		buildCmd = append(buildCmd, "-v")
 	}
 
@@ -91,10 +88,8 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 	}
 
 	outputFolder := filepath.Dir(outputPath)
-	if builder.DirExists(outputFolder) || builder.FileExists(outputFolder) {
-		if err := os.RemoveAll(outputFolder); err != nil {
-			return err
-		}
+	if err := os.RemoveAll(outputFolder); err != nil {
+		return err
 	}
 
 	ldFlags := cfg.Build.LDFlags
@@ -115,16 +110,9 @@ func (builder Builder) Execute(project common.Project, cfg config.Config) error 
 	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(packageName, "Revision", buildArgs.Revision)...)
 	ldFlags = append(ldFlags, builder.ldFlagForVersionInfo(packageName, "Branch", buildArgs.Branch)...)
 
-	if len(ldFlags) > 0 {
-		buildCmd = append(buildCmd, "-ldflags", shellquote.Join(ldFlags...))
-	}
-
-	if len(cfg.Build.ExtraArgs) > 0 {
-		buildCmd = append(buildCmd, cfg.Build.ExtraArgs...)
-	}
-
+	buildCmd = append(buildCmd, "-ldflags", shellquote.Join(ldFlags...))
+	buildCmd = append(buildCmd, cfg.Build.ExtraArgs...)
 	buildCmd = append(buildCmd, cfg.Project.MainPackage)
-
 	buildArgs.RawBuildCommand = buildCmd
 
 	if err := builder.RunProjectHook(project, common.ScriptPreBuild, buildArgs); err != nil {

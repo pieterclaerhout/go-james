@@ -169,6 +169,9 @@ func (creator Creator) RequiresBuild() bool {
 
 func (creator Creator) createConfig(project common.Project, cfg config.Config) error {
 
+	// avoid staticcheck warning: argument cfg is overwritten before first use (SA4009)
+	_ = cfg
+
 	configPath := project.RelPath(config.FileName)
 
 	if creator.Name == "" {

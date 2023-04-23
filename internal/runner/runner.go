@@ -2,10 +2,10 @@ package runner
 
 import (
 	"runtime"
-	
-	"github.com/pkg/errors"
+
 	"github.com/pieterclaerhout/go-james/internal/common"
 	"github.com/pieterclaerhout/go-james/internal/config"
+	"github.com/pkg/errors"
 )
 
 // Runner implements the "run" command
