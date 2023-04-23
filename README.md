@@ -28,17 +28,33 @@ You should be using `go-james` if:
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+  - [Using `go get`](#using-go-get)
+  - [Homebrew](#homebrew)
+  - [Manually](#manually)
 - [Starting a new project](#starting-a-new-project)
 - [Initializing an existing project](#initializing-an-existing-project)
 - [Building a project](#building-a-project)
 - [Pre-build and post-build hooks](#pre-build-and-post-build-hooks)
+  - [Parsing arguments in pre/post build scripts.](#parsing-arguments-in-prepost-build-scripts)
+  - [Using Bash scripts for pre/post build actions.](#using-bash-scripts-for-prepost-build-actions)
+  - [Using Batch files for pre/post build actions.](#using-batch-files-for-prepost-build-actions)
+  - [How go-james defines which pre/post build script to run](#how-go-james-defines-which-prepost-build-script-to-run)
 - [Packaging a project](#packaging-a-project)
 - [Debugging a project](#debugging-a-project)
 - [Running a project](#running-a-project)
 - [Testing a project](#testing-a-project)
 - [Installing the executable](#installing-the-executable)
 - [Uninstalling the executable](#uninstalling-the-executable)
+- [Running a static analysis](#running-a-static-analysis)
+  - [Building a Docker image](#building-a-docker-image)
 - [The config file `go-james.json`](#the-config-file-go-jamesjson)
+  - [Project Config](#project-config)
+  - [Build Config](#build-config)
+  - [Run Config](#run-config)
+  - [Package Config](#package-config)
+  - [Test Config](#test-config)
+  - [Staticcheck Config](#staticcheck-config)
+  - [Docker Image Config](#docker-image-config)
 - [Bootstrapping `go-james`](#bootstrapping-go-james)
 - [Roadmap](#roadmap)
 - [Resources](#resources)
@@ -59,7 +75,7 @@ You should be using `go-james` if:
 You can run the following command to install `go-james`:
 
 ```
-go get -u github.com/pieterclaerhout/go-james/cmd/go-james
+go install github.com/pieterclaerhout/go-james/cmd/go-james@latest
 ```
 
 This will create the `go-james` command in your `$GOPATH/bin` folder.
@@ -143,29 +159,22 @@ It will automatically create the following folder and file structure:
 
 ```
 go-example
-.
-├── Dockerfile
-├── Downloads
-├── DropBox
-├── Twixl\ Publisher
-└── go-example
-    ├── Dockerfile
-    ├── LICENSE
-    ├── README.md
-    ├── cmd
-    │   └── go-example
-    │       └── main.go
-    ├── go-james.json
-    ├── go.mod
-    ├── library.go
-    ├── library_test.go
-    ├── scripts
-    │   ├── post_build
-    │   │   └── post_build.example.go
-    │   └── pre_build
-    │       └── pre_build.example.go
-    └── versioninfo
-        └── versioninfo.go
+├── LICENSE
+├── README.md
+├── cmd
+│   └── main
+│       └── main.go
+├── go-james.json
+├── go.mod
+├── library.go
+├── library_test.go
+├── scripts
+│   ├── post_build
+│   │   └── post_build.example.go
+│   └── pre_build
+│       └── pre_build.example.go
+└── versioninfo
+    └── versioninfo.go
 ```
 
 An important file which is generated and can be used to further customize the project and it's settings is the [`go-james.json`](#the-config-file-go-jamesjson) file which sits next to the `go.mod` file.
@@ -422,7 +431,7 @@ To install the main executable of your project in `$GOPATH/bin`, simply run the 
 This will build the project and install it in the `$GOPATH/bin` folder. The name of the executable is the basename of build output path (as specified in [the configuration file]((#the-config-file-go-jamesjson)).
 
 ```
-go-james uninstall
+go-james install
 ```
 
 ## Uninstalling the executable
