@@ -1,3 +1,11 @@
+<p align="center"><b>This project is no longer actively maintained.</b></p>
+
+<p align="center"><b>For a better and easier approach, see
+	<a href="https://www.alexedwards.net/blog/a-time-saving-makefile-for-your-go-projects">here</a>
+</b></p>
+
+---
+
 <p align="center"><img align="center" src="https://github.com/pieterclaerhout/go-james/raw/master/resources/gopher-james.png" width="120"/></p>
 
 <h1 align="center">go-james</h1>
